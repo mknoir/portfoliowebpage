@@ -1,3 +1,7 @@
+.content-wrapper {
+  display: none; /* Initially hide the content */
+}
+
 body,
 h1 {
   color: #fff;
@@ -251,4 +255,38 @@ footer i {
     flex-direction: column;
     text-align: center;
   }
+}
+
+/* Innovative Project section */
+.innovative-project-section {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: var(--main-blue);
+}
+
+.innovative-project-section-header {
+  max-width: 640px;
+  margin: 0 auto 4rem auto;
+  color: var(--main-white);
+  border-bottom: 0.2rem solid var(--main-white);
+}
+
+.innovative-project-button {
+  margin-top: 2rem;
+}
+
+.innovative-project-link {
+  font-size: 1.6rem;
+  background: var(--main-gray);
+  color: var(--main-blue);
+  transition: background 0.3s ease-out;
+}
+
+.innovative-project-link:hover > .code {
+  color: #ff7f50;
+}
+
+.innovative-project-link > .code {
+  color: var(--main-blue);
+  transition: color 0.3s ease-out;
 }
