@@ -257,7 +257,14 @@ footer i {
   }
 }
 
+
+/* AI Section */
+#navbar .nav-list li a[href="#innovative-project"]:hover {
+  color: #00ff00; /* Green text color on hover for the AI section */
+}
+
 /* Innovative Project section */
+
 .innovative-project-section {
   text-align: center;
   padding: 6rem 2rem;
@@ -282,8 +289,8 @@ footer i {
   transition: background 0.3s ease-out;
 }
 
-.innovative-project-link:hover > .code {
-  color: #ff7f50;
+.innovative-project-link:hover {
+  color: #00ff99; /* Green text color on hover */
 }
 
 .innovative-project-link > .code {
