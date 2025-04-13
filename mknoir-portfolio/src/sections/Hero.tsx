@@ -21,7 +21,7 @@ export function Hero() {
         transition={{ duration: 0.8 }}
         className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4"
       >
-        Welcome, I'm{' '}
+        Welcome, I&apos;m{' '}
         <span className="text-teal-400 hover:text-teal-300 transition-colors">
           Mickey
         </span>
