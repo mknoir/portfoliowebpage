@@ -1,0 +1,108 @@
+/* dnaloader.css */
+
+
+.dna-loader {
+  --background-color: #161616;
+  --strand-color: #e6e6e6;
+  --strand-color-alt: #00a39b;
+  --strand-width: 2.5rem;
+  --strand-height: .5rem;
+  --strand-line: .125rem;
+  --strand-ball: calc(var(--strand-height) * .75);
+  --animation-duration: .5s;
+  --animation-delay: calc(var(--animation-duration) * -.375);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  color: white; /* White color for the loader text */
+}
+
+.dna-loader * {
+  box-sizing: border-box;
+}
+
+.dna-loader body {
+  margin: 0;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.dna-loader .dna-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.dna-loader .dna {
+  width: var(--strand-width);
+}
+
+.dna-loader .strand {
+  position: relative;
+  width: var(--strand-width);
+  height: var(--strand-height);
+
+  &:nth-child(3n) {
+    --strand-color: var(--strand-color-alt);
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: var(--strand-color);
+    animation-duration: calc(var(--animation-duration));
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    animation-delay: calc(var(--s) * var(--animation-delay));
+  }
+
+  &::before {
+    left: calc(var(--strand-ball) / 2);
+    top: calc((var(--strand-height) - var(--strand-line)) / 2);
+    width: calc(var(--strand-width) - var(--strand-ball));
+    height: var(--strand-line);
+    animation-name: line;
+    will-change: transform;
+  }
+
+  &::after {
+    top: calc((var(--strand-height) - var(--strand-ball)) / 2);
+    width: var(--strand-ball);
+    height: var(--strand-ball);
+    border-radius: 50%;
+    box-shadow: calc(var(--strand-width) - var(--strand-ball)) 0 0 var(--strand-color);
+    animation-name: ball;
+    will-change: transform, box-shadow;
+  }
+}
+
+@keyframes line {
+  to { transform: scaleX(0); }
+}
+
+@keyframes ball {
+  to {
+    transform: translateX(calc((var(--strand-width) - var(--strand-ball)) / 2));
+    box-shadow: 0 0 0 var(--strand-color);
+  }
+}
