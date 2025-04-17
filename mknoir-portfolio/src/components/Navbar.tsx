@@ -1,59 +1,47 @@
-// src/components/Navbar.tsx
-
 'use client'
-
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 const navItems = [
-  { label: 'About', href: '#about' },
+  { label: 'About',    href: '#about' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work',     href: '#experience' },
+  { label: 'Contact',  href: '#contact' },
 ]
 
-export function Navbar() {
-  const [activeSection, setActiveSection] = useState('')
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => {
-        const el = document.querySelector(item.href)
-        if (!el) return { id: item.href, top: Infinity }
-        const rect = el.getBoundingClientRect()
-        return { id: item.href, top: rect.top }
-      })
-
-      const active = sections
-        .filter(section => section.top <= window.innerHeight / 2)
-        .sort((a, b) => b.top - a.top)[0]
-
-      if (active && active.id !== activeSection) {
-        setActiveSection(active.id)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [activeSection])
-
+export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur border-b border-gray-700 transition-all">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <div className="text-lg font-bold text-white">Mickey</div>
-        <div className="flex space-x-6 text-sm text-gray-300">
-          {navItems.map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`hover:text-white transition-colors ${
-                activeSection === item.href ? 'text-teal-400' : ''
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
+    <header className="sticky top-0 z-30 bg-surface backdrop-blur">
+      <div className="flex w-full items-center justify-between px-6 py-3">
+        {/* Brand / logo */}
+        <Link
+          href="/"
+          className="font-semibold text-lg text-foreground tracking-tight"
+        >
+          Mickey
+        </Link>
+
+        {/* Navigation */}
+        <nav>
+          <ul className="flex items-center space-x-6 md:space-x-8 text-sm text-foreground">
+            {navItems.map(({ label, href }) => (
+              <li key={href} className="group relative">
+                <Link
+                  href={href}
+                  className="relative block pb-0.5 transition-transform duration-200
+                             group-hover:scale-105 group-hover:text-accentPrimary"
+                >
+                  {label}
+                  <span
+                    className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0
+                               bg-accentPrimary transition-transform duration-200
+                               group-hover:scale-x-100"
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-    </nav>
+    </header>
   )
 }

@@ -1,21 +1,35 @@
-/** @type {import('tailwindcss').Config} */
 export default {
-    content: ['./src/**/*.{js,ts,jsx,tsx}'],
-    theme: {
-      extend: {
-        colors: {
-          background: '#0F2027', // Midnight Carbon
-          foreground: '#FBFFFE', // Contrast Light
-          surface: '#203A43',    // Molecular Grey-Blue
-          surfaceDeep: '#2C5364', // Deep Hydroxide
-          accent: {
-            primary: '#5DD39E',   // Neon Protein Green
-            secondary: '#2C5364', // Optional: deeper shade for hover
-          },
-          textMuted: '#A0AEC0', // You can adjust this to something like #8FA6B9 for softer text
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './src/styles/**/*.{css}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: 'var(--background)',
+        surface: 'var(--surface)',
+        surfaceDeep: 'var(--surface-deep)',
+
+        foreground: 'var(--foreground)',
+
+        textPrimary: 'var(--text-primary)',
+        textSecondary: 'var(--text-secondary)',
+        textMuted: 'var(--text-muted)',
+
+        accentPrimary: 'var(--accent-primary)',
+        accentSecondary: 'var(--accent-secondary)',
+        accentGlow: 'var(--accent-glow)',
+
+        gray: {
+          900: 'var(--gray-900)',
+          800: 'var(--gray-800)',
         },
       },
     },
-    plugins: [],
-  }
-  
+  },
+  // ✅ Add this here!
+  corePlugins: {
+    preflight: false,
+  },
+  plugins: [],
+}

@@ -1,7 +1,7 @@
 // src/app/layout.tsx
 
 import '@/styles/globals.css'
-import { Navbar } from '@/components/Navbar'
+import Navbar from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import DnaLoader from '@/components/Dnaloader'
 import { Inter } from 'next/font/google'

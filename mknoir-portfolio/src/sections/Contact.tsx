@@ -1,5 +1,3 @@
-// src/sections/Contact.tsx
-
 'use client'
 
 import { motion } from 'framer-motion'
@@ -10,7 +8,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative flex flex-col items-center justify-center py-20 px-4 bg-black text-white"
+      className="relative flex flex-col items-center justify-center py-20 px-4 bg-background text-foreground"
     >
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
@@ -25,7 +23,7 @@ export function Contact() {
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="max-w-xl text-lg sm:text-xl text-gray-300 mb-12 text-center"
+        className="max-w-xl text-lg sm:text-xl text-text-muted mb-12 text-center"
       >
         Interested in collaboration, biotech innovation, or just a good conversation? Reach out to me!
       </motion.p>
@@ -38,14 +36,14 @@ export function Contact() {
       >
         <Link
           href="mailto:himay75@gmail.com"
-          className="flex items-center gap-2 bg-teal-500 text-white px-6 py-3 rounded-lg shadow hover:bg-teal-400 transition"
+          className="flex items-center gap-2 bg-accent-primary text-black px-6 py-3 rounded-lg shadow hover:bg-accent-secondary transition transform hover:scale-105 hover:shadow-xl"
         >
           <Mail className="w-5 h-5" /> Email Me
         </Link>
 
         <Link
           href="tel:323-398-9379"
-          className="flex items-center gap-2 bg-teal-500 text-white px-6 py-3 rounded-lg shadow hover:bg-teal-400 transition"
+          className="flex items-center gap-2 bg-accent-primary text-black px-6 py-3 rounded-lg shadow hover:bg-accent-secondary transition transform hover:scale-105 hover:shadow-xl"
         >
           <Phone className="w-5 h-5" /> Call Me
         </Link>
@@ -53,7 +51,7 @@ export function Contact() {
         <Link
           href="https://github.com/mknoir"
           target="_blank"
-          className="flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow hover:bg-gray-700 transition"
+          className="flex items-center gap-2 bg-surfaceDeep text-foreground px-6 py-3 rounded-lg shadow hover:bg-surface transition transform hover:scale-105 hover:shadow-xl"
         >
           <Github className="w-5 h-5" /> GitHub
         </Link>
@@ -61,7 +59,7 @@ export function Contact() {
         <Link
           href="https://www.linkedin.com/in/himay-makhija-mickey/"
           target="_blank"
-          className="flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow hover:bg-gray-700 transition"
+          className="flex items-center gap-2 bg-surfaceDeep text-foreground px-6 py-3 rounded-lg shadow hover:bg-surface transition transform hover:scale-105 hover:shadow-xl"
         >
           <Linkedin className="w-5 h-5" /> LinkedIn
         </Link>
