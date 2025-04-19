@@ -2,6 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* uniform 40×40 logo frame – fixes off‑centre SVGs */
+
 
 /* ========================================================= */
 /* ===== CSS Variables (Design Tokens) ===== */
@@ -264,6 +266,44 @@ body::before {
 ::-webkit-scrollbar-thumb {
   background-color: var(--accent-primary);
   border-radius: 4px;
+}
+/* Ensures navbar link spacing even if Tailwind misses */
+.nav-item + .nav-item {
+  margin-left: 1.5rem;   /* 1.5 rem = Tailwind's space-x-6 */
+}
+:root {
+  /* existing tokens … */
+  --surface-deep: #0f2a1c;      /* already present */
+}
+
+/* alias for Tailwind border ring */
+.border-surfaceDeep\/40 {
+  border-color: rgb(var(--surface-deep) / 0.4);
+}
+.logo-frame {
+  position: relative;  /* for next/image fill */
+  width: 2.5rem;       /* 40 px */
+  height: 2.5rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ---- subtle card border (40 % of --surface-deep) ---- */
+.border-card {
+  border: 1px solid rgba(15, 42, 28, 0.4);         /* #0f2a1c @ 40 % */
+}
+
+
+/* hide inner scrollbar on desktop (we removed overflow, but if you re‑enable) */
+@media (min-width: 768px) {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;      /* IE 10+ */
+    scrollbar-width: none;         /* Firefox */
+  }
 }
 
 /* Responsive adjustments */

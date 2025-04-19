@@ -2,11 +2,12 @@
 
 import React, { useEffect, useRef } from 'react'
 import { motion, useAnimation } from 'framer-motion'
+import Image from 'next/image'
 
-// ✅ Optional: Tag colors per category
+/* ---------- tag‑colour map ---------- */
 const tagColors: Record<string, string> = {
-  AI: 'bg-accent-primary text-black',
-  Automation: 'bg-accent-primary text-black',
+  AI: 'bg-accentPrimary text-background',
+  Automation: 'bg-accentPrimary text-background',
   Founder: 'bg-gray-700 text-white',
   Biotech: 'bg-gray-600 text-white',
   'Molecular Biology': 'bg-gray-500 text-white',
@@ -17,145 +18,168 @@ const tagColors: Record<string, string> = {
   Diagnostics: 'bg-gray-600 text-white',
   PCR: 'bg-gray-500 text-white',
   Education: 'bg-gray-500 text-white',
-  // fallback
   default: 'bg-gray-700 text-white',
 }
 
-const experiences = [
+/* ---------- data types ---------- */
+interface Experience {
+  company: string
+  logo: string
+  role: string
+  period: string
+  description: string
+  tags: string[]
+}
+
+/* ---------- data ---------- */
+const experiences: Experience[] = [
   {
     company: 'Cornucopia Biosciences Inc.',
     logo: '/logos/cornucopia.svg',
     role: 'Founder & Lead Biotech Automation Researcher',
-    period: '2025 — Present',
+    period: '2025 — Present',
     description:
-      'Designing the future of molecular research with AI-powered automation. Currently in stealth mode — reach out to learn more.',
+      'Designing the future of molecular research with AI‑powered automation. Currently in stealth — reach out to learn more.',
     tags: ['AI', 'Automation', 'Founder', 'Biotech'],
   },
   {
     company: 'Amgen',
     logo: '/logos/amgen.svg',
     role: 'Associate Scientist',
-    period: '2023 — Present',
+    period: '2023 — Present',
     description:
-      'Developing and optimizing high-throughput molecular assays for cardiometabolic disease research. Automated iPSC workflows using Hamilton STAR, integrated data pipelines for gene expression analysis, and contributed to cross-functional R&D projects.',
+      'Optimising high‑throughput molecular assays for cardiometabolic disease. Automated iPSC workflows and built gene‑expression data pipelines.',
     tags: ['Automation', 'Molecular Biology', 'iPSC', 'Gene Expression'],
   },
   {
     company: 'BioMarin Pharmaceutical Inc.',
     logo: '/logos/biomarin.svg',
-    role: 'Research Associate II, Gene Therapy',
-    period: 'January 2023 — June 2023',
+    role: 'Research Associate II, Gene Therapy',
+    period: 'Jan 2023 — Jun 2023',
     description:
-      'Worked on gene therapy process development, gaining hands-on experience with bioreactor systems up to 50L for AAV production and scale-up. Built real-time dashboards to enhance cross-functional data visibility and decision-making.',
+      'Scaled AAV production to 50 L bioreactors and built real‑time dashboards to speed decision‑making.',
     tags: ['Gene Therapy', 'Bioreactors', 'AAV', 'Data Integration'],
   },
   {
-    company: 'Optimized Foods',
+    company: 'Optimized Foods',
     logo: '/logos/optimized.svg',
     role: 'Research Associate',
-    period: 'September 2022 — January 2023',
+    period: 'Sep 2022 — Jan 2023',
     description:
-      'Had a fantastic time creating cell-cultured caviar! Focused on optimizing taste, texture, and production processes through cell culture innovations and process improvements.',
+      'Created cell‑cultured caviar, improving flavour, texture and yield through process optimisation.',
     tags: ['Cell Culture', 'Process Optimization', 'Food Tech'],
   },
   {
-    company: 'Cepheid (Danaher)',
+    company: 'Cepheid (Danaher)',
     logo: '/logos/cepheid.svg',
     role: 'Research & Innovation Core Intern',
-    period: 'June 2022 — September 2022',
+    period: 'Jun 2022 — Sep 2022',
     description:
-      'Assisted in optimizing sample preparation and PCR protocols for a multiplex clinical diagnostic assay targeting emerging diseases.',
+      'Optimised sample‑prep and PCR protocols for a multiplex diagnostic assay targeting emerging diseases.',
     tags: ['Diagnostics', 'PCR', 'Sample Prep'],
   },
   {
-    company: 'UC Davis',
+    company: 'UC Davis',
     logo: '/logos/ucdavis.svg',
     role: 'Lab Associate & Teaching Assistant',
-    period: 'August 2021 — June 2022',
+    period: 'Aug 2021 — Jun 2022',
     description:
-      'Instructed students on laboratory techniques and sequencing data analysis (SEURAT, PCR). Conducted gene transformation, protein purification, and kinetic assays, improving student comprehension and report accuracy by over 20%.',
+      'Taught sequencing analysis and improved student lab‑report accuracy by 20 %.',
     tags: ['Education', 'Lab Techniques', 'Protein Purification'],
   },
 ]
 
-export const ExperienceSection: React.FC = () => {
+/* ---------- component ---------- */
+export default function ExperienceSection() {
   const controls = useAnimation()
-  const timelineRef = useRef<HTMLDivElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const top = timelineRef.current?.getBoundingClientRect().top || 0
-      const height = window.innerHeight
-      if (top < height * 0.8) {
-        controls.start({ height: '100%' })
-      }
+    const onScroll = () => {
+      const top = lineRef.current?.getBoundingClientRect().top ?? 0
+      if (top < window.innerHeight * 0.75) controls.start({ height: '100%' })
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [controls])
 
   return (
-    <section className="py-16 bg-background min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-foreground">
-          Work & Experience
+    <section id="experience" className="py-20 bg-background">
+      <div className="mx-auto max-w-4xl px-4">
+        <h2 className="mb-16 text-center text-4xl font-bold text-foreground">
+          Work & Experience
         </h2>
+
+        {/* timeline container */}
         <div className="relative">
-          {/* Timeline line */}
+          {/* vertical line */}
           <motion.div
-            ref={timelineRef}
+            ref={lineRef}
             initial={{ height: 0 }}
             animate={controls}
-            transition={{ duration: 1, ease: 'easeInOut' }}
-            className="absolute left-2 top-0 w-1 bg-accent-primary origin-top"
-            style={{ height: '0%' }}
+            transition={{ duration: 0.9, ease: 'easeInOut' }}
+            className="absolute left-[1.15rem] top-0 w-1 origin-top bg-accentPrimary"
           />
-          <div className="space-y-16 snap-y snap-mandatory overflow-y-auto max-h-screen">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="relative pl-10 bg-surface rounded-lg transition-shadow duration-300 hover:shadow-2xl hover:scale-[1.02] snap-start"
-              >
-                {/* Timeline dot */}
-                <div className="absolute w-3 h-3 bg-accent-primary rounded-full left-0 top-2.5" />
-                <div className="flex items-center gap-4 mb-2 flex-wrap">
-                  {exp.logo && (
-                    <motion.img
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                      src={exp.logo}
-                      alt={`${exp.company} logo`}
-                      className="w-8 h-8 object-contain"
-                      loading="lazy" // ✅ Lazy load
-                    />
-                  )}
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground">
-                    {exp.role} @ {exp.company}
-                  </h3>
+
+          {/* cards */}
+          <div className="space-y-16 md:snap-y md:snap-mandatory">
+            {experiences.map((exp, idx) => (
+              <motion.article
+              key={exp.company}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.55, delay: idx * 0.1 }}
+              className="
+                relative pl-14
+                rounded-2xl                /* softer corners          */
+                border-card
+                bg-surface/80 backdrop-blur-sm /* translucent surface    */
+                shadow-lg hover:shadow-xl  /* soft elevation          */
+                transition hover:scale-[1.015]
+                md:snap-start
+              "
+            >
+              {/* dot */}
+              <div className="absolute left-[0.4rem] top-3 h-4 w-4 -translate-x-1/2 rounded-full bg-accentPrimary ring-2 ring-background" />
+            
+              {/* header */}
+              <header className="flex flex-wrap items-center gap-4 p-5 pb-2">
+                <div className="logo-frame">
+                  <Image
+                    src={exp.logo}
+                    alt={`${exp.company} logo`}
+                    fill
+                    className="object-contain"
+                    priority={idx === 0}
+                  />
                 </div>
-                <span className="text-textMuted text-sm">{exp.period}</span>
-                <p className="mt-2 text-foreground">{exp.description}</p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {exp.tags.map((tag, idx) => (
-                    <motion.span
-                      key={idx}
-                      whileHover={{
-                        scale: 1.05,
-                      }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                      className={`text-xs px-2 py-1 rounded-full cursor-default transition-colors duration-300 ${
-                        tagColors[tag] || tagColors.default
-                      }`}
+                <h3 className="text-lg font-semibold text-foreground sm:text-xl">
+                  {exp.role} @ {exp.company}
+                </h3>
+              </header>
+            
+              {/* period & description */}
+              <div className="px-5 pb-5">
+                <span className="text-sm text-textMuted">{exp.period}</span>
+                {/* 🔄 allow full‑width wrap */}
+                <p className="mt-2 text-foreground leading-relaxed max-w-none">
+                  {exp.description}
+                </p>
+            
+                {/* tags */}
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {exp.tags.map(tag => (
+                    <span
+                      key={tag}
+                      className={`rounded-full px-2 py-1 text-xs ${tagColors[tag] ?? tagColors.default}`}
                     >
                       {tag}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
-              </motion.div>
+              </div>
+            </motion.article>            
             ))}
           </div>
         </div>
@@ -163,5 +187,3 @@ export const ExperienceSection: React.FC = () => {
     </section>
   )
 }
-
-export default ExperienceSection

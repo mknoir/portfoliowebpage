@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import '@/styles/globals.css'
 
 const navItems = [
   { label: 'About',    href: '#about' },
@@ -22,14 +23,14 @@ export default function Navbar() {
 
         {/* Navigation */}
         <nav>
-          <ul className="flex items-center space-x-6 md:space-x-8 text-sm text-foreground">
+          <ul className="flex items-center gap-6 md:gap-8 text-sm text-foreground">
             {navItems.map(({ label, href }) => (
-              <li key={href} className="group relative">
+              <li key={href} className="nav-item group relative">
                 <Link
-                  href={href}
-                  className="relative block pb-0.5 transition-transform duration-200
-                             group-hover:scale-105 group-hover:text-accentPrimary"
-                >
+                    href={href}
+                    className="relative block pb-0.5 transition-transform duration-200
+                              group-hover:scale-105 group-hover:text-accentPrimary"
+                  >
                   {label}
                   <span
                     className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0

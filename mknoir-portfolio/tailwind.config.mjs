@@ -17,8 +17,11 @@ export default {
         textMuted: 'var(--text-muted)',
 
         accentPrimary: 'var(--accent-primary)',
+        'accent-primary': 'var(--accent-primary)',
         accentSecondary: 'var(--accent-secondary)',
+        'accent-secondary': 'var(--accent-secondary)',
         accentGlow: 'var(--accent-glow)',
+        'accent-glow': 'var(--accent-glow)',
 
         gray: {
           900: 'var(--gray-900)',
