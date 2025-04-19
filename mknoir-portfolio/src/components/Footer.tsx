@@ -4,7 +4,7 @@ export function Footer() {
     return (
       <footer className="w-full border-t border-gray-700 py-6 text-center text-sm text-gray-400 bg-black">
         <p>
-          &copy; {new Date().getFullYear()} Himay &quot;Mickey&quot; Makhija. Built with ❤️ for biotech innovation.
+          &copy; {new Date().getFullYear()} Himay &quot;Mickey&quot; Makhija — Designing systems for modern biology.
         </p>
         <div className="mt-2 flex justify-center space-x-4 text-gray-300">
           <a

@@ -46,8 +46,8 @@ export function About() {
         <div className="bg-gray-800/50 p-6 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold text-teal-400 mb-2">Current Focus</h3>
           <p>
-            Developing AI-powered biotech tools, including CornucopiaBio — the world’s first fully automated lab
-            driven by user prompts. Bridging robotics and molecular research for next-generation discovery.
+            Building automation-first biotech tools that blend AI, 
+            robotics, and molecular biology — with a mission to accelerate discovery and reduce unnecessary experimentation
           </p>
         </div>
       </motion.div>
