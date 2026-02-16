@@ -2,38 +2,31 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 import { ChevronDown } from 'lucide-react'
 
 export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col justify-between min-h-screen bg-background text-center px-6 py-16"
+      className="relative flex min-h-[calc(100vh-3.5rem)] flex-col justify-between px-6 py-20"
     >
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-accentPrimary/40 via-surfaceDeep to-background opacity-60" />
-
-      {/* Main Content */}
-      <div className="flex-grow flex flex-col items-center justify-center w-full max-w-3xl mx-auto">
+      {/* Main content */}
+      <div className="mx-auto flex w-full max-w-3xl flex-grow flex-col items-center justify-center text-center">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight text-foreground"
+          className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl"
         >
-          Hi, I&apos;m{' '}
-          <span className="relative inline-block text-accentPrimary transition-all duration-300 group">
-            <span className="group-hover:border-b-2 border-accentPrimary transition-all duration-300">
-              Mickey
-            </span>
-          </span>
+          Hi, I&apos;m Mickey
         </motion.h1>
 
         <motion.h2
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-xl sm:text-2xl md:text-3xl mb-4 leading-snug text-foreground"
+          className="mt-4 text-xl leading-snug text-muted-foreground sm:text-2xl md:text-3xl"
         >
           Exploring the intersection of science and technology.
         </motion.h2>
@@ -42,47 +35,39 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="max-w-2xl text-base sm:text-lg md:text-xl mb-8 text-textSecondary"
+          className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl"
         >
           On a journey to build smarter tools for scientific discovery.
         </motion.p>
 
-        {/* Call to Action Buttons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-col sm:flex-row gap-6 sm:gap-10 md:gap-16 lg:gap-20"
+          className="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-4"
         >
-          <Link
-            href="#projects"
-            className="inline-flex items-center justify-center rounded-lg bg-accentPrimary text-foreground px-8 sm:px-10 md:px-12 py-3 font-semibold shadow-md hover:bg-accentSecondary transition-transform transform hover:-translate-y-1 duration-300"
-          >
-            View Projects
-          </Link>
-
-          <Link
-            href="/experience"
-            className="inline-flex items-center justify-center rounded-lg bg-surfaceDeep text-foreground px-8 sm:px-10 md:px-12 py-3 font-semibold shadow-md hover:bg-surface transition-transform transform hover:-translate-y-1 duration-300"
-          >
-            Explore My Experience
-          </Link>
+          <Button size="lg" asChild>
+            <Link href="#projects">View Projects</Link>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <Link href="/experience">Explore My Experience</Link>
+          </Button>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.8 }}
-        className="flex flex-col items-center mt-8 text-textSecondary"
+        className="flex flex-col items-center text-muted-foreground"
       >
-        <span className="text-sm mb-1">Scroll Down</span>
+        <span className="mb-1 text-sm">Scroll Down</span>
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
-          <ChevronDown className="w-6 h-6 text-accentPrimary" />
+          <ChevronDown className="h-5 w-5" />
         </motion.div>
       </motion.div>
     </section>
