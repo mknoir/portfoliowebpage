@@ -3,13 +3,37 @@
 import { Separator } from '@/components/ui/separator'
 
 export function Footer() {
-  return (
-    <footer className="mt-12 w-full">
-      <Separator className="opacity-40" />
-      <div className="mx-auto flex max-w-6xl items-center justify-center px-6 py-8">
-        <p className="text-sm text-muted-foreground">
-          This site is a work in progress&nbsp;&mdash; feedback is always
-          welcome!
+    return (
+      <footer className="w-full border-t border-gray-700 py-6 text-center text-sm text-gray-400 bg-black">
+        <p>
+          &copy; {new Date().getFullYear()} Himay &quot;Mickey&quot; Makhija — Designing systems for modern biology.
+        </p>
+        <div className="mt-2 flex justify-center space-x-4 text-gray-300">
+          <a
+            href="https://github.com/mknoir"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-teal-400 transition"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/himay-makhija-mickey/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-teal-400 transition"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:himay75@gmail.com"
+            className="hover:text-teal-400 transition"
+          >
+            Contact
+          </a>
+        </div>
+        <p className="mt-2 text-xs text-gray-500 italic">
+          This portfolio is a work in progress. Feedback is always welcome!
         </p>
       </div>
     </footer>
