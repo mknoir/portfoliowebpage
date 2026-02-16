@@ -1,10 +1,9 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
 
 interface Experience {
   company: string
@@ -73,94 +72,64 @@ const experiences: Experience[] = [
 ]
 
 export default function ExperienceSection() {
-  const controls = useAnimation()
-  const lineRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const onScroll = () => {
-      const top = lineRef.current?.getBoundingClientRect().top ?? 0
-      if (top < window.innerHeight * 0.75) controls.start({ height: '100%' })
-    }
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [controls])
-
   return (
     <section id="experience" className="py-24 px-6">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="mb-20 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+      <div className="mx-auto max-w-3xl">
+        <h2 className="mb-16 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
           Work &amp; Experience
         </h2>
 
-        <div className="relative">
-          {/* Animated timeline line */}
-          <motion.div
-            ref={lineRef}
-            initial={{ height: 0 }}
-            animate={controls}
-            transition={{ duration: 1, ease: 'easeInOut' }}
-            className="absolute left-5 top-0 w-0.5 origin-top bg-border"
-          />
+        <div>
+          {experiences.map((exp, idx) => (
+            <div key={`${exp.company}-${exp.period}`}>
+              {idx > 0 && <Separator className="my-8" />}
 
-          <div className="space-y-12">
-            {experiences.map((exp, idx) => (
               <motion.div
-                key={exp.company}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="relative pl-14"
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                className="flex flex-col gap-4 md:flex-row md:items-start"
               >
-                {/* Timeline dot */}
-                <div className="absolute left-[14px] top-6 h-3 w-3 rounded-full border-2 border-foreground bg-background" />
+                {/* Logo */}
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border bg-muted p-2">
+                  <Image
+                    src={exp.logo}
+                    alt={`${exp.company} logo`}
+                    width={32}
+                    height={32}
+                    className="object-contain"
+                    priority={idx === 0}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
 
-                <Card className="transition-colors hover:bg-accent/50">
-                  <CardContent className="flex flex-col gap-4 p-6 md:flex-row md:items-start md:p-8">
-                    {/* Logo */}
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-muted p-2">
-                      <Image
-                        src={exp.logo}
-                        alt={`${exp.company} logo`}
-                        width={40}
-                        height={40}
-                        className="object-contain"
-                        priority={idx === 0}
-                        loading={idx === 0 ? 'eager' : 'lazy'}
-                      />
-                    </div>
+                {/* Content */}
+                <div className="flex-1">
+                  <h3 className="text-base font-semibold sm:text-lg">
+                    {exp.role}{' '}
+                    <span className="text-muted-foreground">
+                      @ {exp.company}
+                    </span>
+                  </h3>
+                  <span className="mb-2 block text-sm text-muted-foreground">
+                    {exp.period}
+                  </span>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {exp.description}
+                  </p>
 
-                    {/* Content */}
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold sm:text-xl">
-                        {exp.role}{' '}
-                        <span className="text-muted-foreground">
-                          @ {exp.company}
-                        </span>
-                      </h3>
-                      <span className="mb-3 block text-sm text-muted-foreground">
-                        {exp.period}
-                      </span>
-                      <p className="text-base leading-relaxed text-muted-foreground">
-                        {exp.description}
-                      </p>
-
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {exp.tags.map((tag) => (
-                          <Badge
-                            key={tag}
-                            variant="outline"
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {exp.tags.map((tag) => (
+                      <Badge key={tag} variant="outline">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
