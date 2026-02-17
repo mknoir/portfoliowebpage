@@ -15,6 +15,12 @@ import { ExternalLink } from 'lucide-react'
 
 const projects = [
   {
+    title: 'Thread of Life',
+    description:
+      'A genetics-driven storytelling interface. Real-time queries of genetic datasets with AI-driven narrative generation.',
+    link: 'https://tol-two.vercel.app/',
+  },
+  {
     title: '3D Chem Viewer',
     description: 'Interactive 3D molecular structure visualization tool.',
     link: 'https://chemview.streamlit.app/',
