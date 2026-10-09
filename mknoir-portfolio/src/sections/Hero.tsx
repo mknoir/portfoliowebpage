@@ -1,75 +1,34 @@
-'use client'
-
-import { motion } from 'framer-motion'
+import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ChevronDown } from 'lucide-react'
 
 export function Hero() {
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-[calc(100vh-3.5rem)] flex-col justify-between px-6 py-20"
-    >
-      {/* Main content */}
-      <div className="mx-auto flex w-full max-w-3xl flex-grow flex-col items-center justify-center text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl"
-        >
-          Hi, I&apos;m Mickey
-        </motion.h1>
-
-        <motion.h2
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="mt-4 text-xl leading-snug text-muted-foreground sm:text-2xl md:text-3xl"
-        >
-          Exploring the intersection of science and technology.
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl"
-        >
-          On a journey to build smarter tools for scientific discovery.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-4"
-        >
-          <Button size="lg" asChild>
-            <Link href="#projects">View Projects</Link>
-          </Button>
-          <Button variant="outline" size="lg" asChild>
-            <Link href="/experience">Explore My Experience</Link>
-          </Button>
-        </motion.div>
+    <section id="hero" className="hero shell" aria-labelledby="hero-title">
+      <div className="hero-main">
+        <div className="hero-copy">
+          <p className="eyebrow hero-intro">Hi, I&apos;m Mickey Makhija</p>
+          <h1 id="hero-title">Biology.<br />Robotics.<br /><span>Intelligence.</span></h1>
+          <p className="hero-description">I&apos;m fascinated by how these systems work.<br className="desktop-break" /> And what happens when we bring them together.</p>
+          <div className="hero-actions">
+            <Button asChild size="lg"><a href="#projects">Explore my work <ArrowDown size={17} aria-hidden="true" /></a></Button>
+            <Link href="/about" className="text-link">A little about me <ArrowUpRight size={17} aria-hidden="true" /></Link>
+          </div>
+        </div>
+        <div className="hero-aside">
+          <figure className="portrait-frame">
+            <div className="portrait-image"><Image src="/portrait.jpg" alt="Mickey Makhija" fill priority sizes="(max-width: 700px) 76vw, 350px" /></div>
+            <figcaption><span>A scientist. A builder.</span><span>Always curious.</span></figcaption>
+          </figure>
+          <p className="portrait-note">Somewhere between the<br />bench and the terminal.</p>
+        </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="flex flex-col items-center text-muted-foreground"
-      >
-        <span className="mb-1 text-sm">Scroll Down</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          <ChevronDown className="h-5 w-5" />
-        </motion.div>
-      </motion.div>
+      <div className="hero-footnote">
+        <a href="#cornucopia" className="current-work"><span className="eyebrow">Currently building</span><span>Cornucopia <ArrowDown size={15} aria-hidden="true" /></span></a>
+        <p>Science, software, and a few side quests.</p>
+        <a href="#projects" className="scroll-link" aria-label="Scroll to selected projects"><ArrowDown size={20} aria-hidden="true" /></a>
+      </div>
     </section>
   )
 }

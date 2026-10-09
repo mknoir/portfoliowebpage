@@ -1,0 +1,345 @@
+.afterhours-site {
+  --ah-orange: #e95324;
+  --ah-ink: #1b1b1b;
+  --ah-paper: #f4efdf;
+  --ah-rule: #b8b4a8;
+  --background: var(--ah-paper);
+  --foreground: var(--ah-ink);
+  --card: var(--ah-paper);
+  --muted: #e7e1d0;
+  --muted-foreground: #625b50;
+  --secondary: #e7e1d0;
+  --border: var(--ah-rule);
+  --primary: var(--ah-ink);
+  --ring: var(--ah-ink);
+  --ah-display: var(--font-barlow-condensed), var(--font-space-grotesk), sans-serif;
+  color: var(--ah-ink);
+  background: var(--ah-paper);
+  font-family: var(--font-satoshi), sans-serif;
+  line-height: 1.45;
+  overflow: clip;
+}
+.afterhours-site :where(h1, h2, h3, p, figure) { margin: 0; }
+.afterhours-site h1, .afterhours-site h2, .afterhours-project-description h3, .afterhours-interest h3 { font-family: var(--ah-display); font-weight: 700; letter-spacing: -.018em; text-wrap: initial; }
+.afterhours-site :focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 0; }
+.afterhours-site ::selection { color: var(--ah-paper); background: var(--ah-ink); }
+.afterhours-site a { text-underline-offset: 5px; }
+.afterhours-site section[id], .afterhours-site footer[id] { scroll-margin-top: 0; }
+.afterhours-header { position: sticky; top: 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 82px; padding: 12px 3.8%; border-bottom: 1px solid var(--ah-ink); background: var(--ah-paper); }
+.afterhours-brand { display: flex; align-items: center; gap: 14px; }
+.afterhours-brand > strong { display: flex; gap: 1px; font-family: var(--ah-display); font-size: 35px; font-weight: 700; letter-spacing: -.07em; line-height: 1; }
+.afterhours-brand > strong > span { align-self: start; margin: -3px 0 0 4px; color: #b73815; font-family: var(--font-satoshi), sans-serif; font-size: 20px; }
+.afterhours-brand > span { font-size: 11px; font-weight: 650; line-height: 1.4; }
+.afterhours-mode { display: flex; border: 1px solid var(--ah-ink); }
+.afterhours-mode button { display: flex; align-items: center; justify-content: center; gap: 24px; min-width: 111px; min-height: 44px; padding: 8px 15px; border: 0; background: transparent; color: var(--ah-ink); font-size: 14px; font-weight: 700; }
+.afterhours-mode button + button { border-left: 1px solid var(--ah-ink); }
+.afterhours-mode button > span { font-size: 9px; font-weight: 500; }
+.afterhours-mode button:hover { background: #e6ddc5; }
+.afterhours-mode button[aria-pressed="true"] { background: var(--ah-ink); color: var(--ah-paper); }
+.afterhours-mode button:active { transform: translateY(1px); }
+.afterhours-header-right { display: flex; align-items: center; gap: 22px; }
+.afterhours-header-right > a { display: flex; align-items: center; gap: 18px; min-height: 44px; font-size: 12px; font-weight: 700; }
+.afterhours-header-right > a:hover { text-decoration: underline; }
+.afterhours-header .appearance-trigger { border: 1px solid var(--ah-ink); border-radius: 0; width: 44px; height: 44px; }
+.afterhours-hero { background: var(--ah-orange); padding: 25px 3.8% 0; }
+.afterhours-hero-top, .afterhours-hero-bottom, .afterhours-section-line { display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 10px; font-weight: 600; letter-spacing: .015em; }
+.afterhours-hero-top { padding-bottom: 23px; border-bottom: 1px solid var(--ah-ink); }
+.afterhours-hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(200px, .31fr); gap: 7%; padding: 40px 0 43px; }
+.afterhours-hero-type > p { font-size: 14px; margin-bottom: 20px; }
+.afterhours-hero h1 { font-size: clamp(100px, 13.8vw, 225px); line-height: .79; }
+.afterhours-hero h1 > span { color: var(--ah-paper); }
+.afterhours-hero-aside { display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; padding: 0 0 3px; }
+.afterhours-edition { align-self: flex-end; writing-mode: vertical-rl; font-size: 10px; letter-spacing: .16em; }
+.afterhours-hero-note { max-width: 290px; }
+.afterhours-star { display: block; font-family: Georgia, serif; font-size: 89px; line-height: .8; margin-bottom: 25px; }
+.afterhours-hero-note > p { font-size: 15px; line-height: 1.55; max-width: 27ch; }
+.afterhours-hero-note > a { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; padding: 11px 0; gap: 12px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; font-size: 12px; font-weight: 650; }
+.afterhours-hero-note > a:hover > svg { transform: translateY(3px); }
+.afterhours-hero-note > a > svg { transition: transform .2s; }
+.afterhours-hero-bottom { min-height: 65px; border-top: 1px solid currentColor; }
+.afterhours-hero-bottom > nav { display: flex; gap: 30px; }
+.afterhours-hero-bottom > nav > a { display: inline-flex; align-items: center; min-height: 44px; }
+.afterhours-hero-bottom a:hover { text-decoration: underline; }
+.afterhours-site[data-mode="play"] .afterhours-hero { color: var(--ah-paper); background: var(--ah-ink); }
+.afterhours-site[data-mode="play"] .afterhours-hero-top { border-color: var(--ah-paper); }
+.afterhours-site[data-mode="play"] .afterhours-hero h1 > span, .afterhours-site[data-mode="play"] .afterhours-star { color: var(--ah-orange); }
+.afterhours-projects { padding: 48px 3.8% 66px; }
+.afterhours-section-line { padding-bottom: 16px; border-bottom: 1px solid currentColor; }
+.afterhours-project-layout { display: grid; grid-template-columns: .76fr 1fr; gap: 8%; padding-block: 57px; }
+.afterhours-project-index > h2 { font-size: clamp(55px, 7.3vw, 112px); line-height: .88; }
+.afterhours-project-index > h2 > span { color: #b73815; }
+.afterhours-project-index > p { margin-top: 25px; font-size: 13px; }
+.afterhours-project-select { margin-top: 45px; }
+.afterhours-project-select > button { display: flex; width: 100%; min-height: 75px; align-items: center; gap: 15px; border: 0; border-top: 1px solid var(--ah-rule); padding: 13px 0; text-align: left; background: transparent; color: var(--ah-ink); }
+.afterhours-project-select > button:last-child { border-bottom: 1px solid var(--ah-rule); }
+.afterhours-small-number { align-self: flex-start; padding-top: 4px; font-size: 10px; }
+.afterhours-project-select > button > span:nth-child(2) { flex: 1; font-family: var(--ah-display); font-size: 30px; font-weight: 600; }
+.afterhours-project-select > button > svg { transition: transform .2s; }
+.afterhours-project-select > button:hover > svg { transform: translate(2px, -2px); }
+.afterhours-project-select > button[aria-pressed="true"] { color: #b73815; border-top-color: #b73815; }
+.afterhours-project-select > button[aria-pressed="true"] > .afterhours-small-number { color: var(--ah-ink); }
+.afterhours-preview-label { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 12px; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; }
+.afterhours-project-image { display: block; position: relative; border: 1px solid var(--ah-ink); }
+.afterhours-project-image > img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; }
+.afterhours-preview-arrow { position: absolute; display: flex; align-items: center; justify-content: center; width: 53px; height: 53px; bottom: -1px; right: -1px; background: var(--ah-orange); color: var(--ah-ink); border: 1px solid var(--ah-ink); transition: background .2s; }
+.afterhours-project-image:hover .afterhours-preview-arrow { background: var(--ah-paper); }
+.afterhours-project-description { padding-top: 24px; }
+.afterhours-project-description > h3 { font-size: 42px; line-height: 1; }
+.afterhours-project-description > p { margin-top: 16px; max-width: 47ch; font-size: 14px; line-height: 1.7; }
+.afterhours-link-row { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 16px; }
+.afterhours-link-row > a, .afterhours-text-link { display: inline-flex; gap: 19px; align-items: center; min-height: 44px; font-size: 12px; font-weight: 700; text-decoration: underline; }
+.afterhours-link-row > a:hover, .afterhours-text-link:hover { color: #b73815; }
+.afterhours-tool-list { display: grid; grid-template-columns: .65fr 1fr; border-top: 1px solid var(--ah-ink); }
+.afterhours-tool-list > p { grid-row: span 4; padding-top: 22px; font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em; }
+.afterhours-tool-list > a { display: grid; grid-template-columns: 1fr 140px 19px; align-items: center; gap: 20px; min-height: 54px; padding-block: 15px; border-bottom: 1px solid var(--ah-rule); font-size: 14px; }
+.afterhours-tool-list > a > span:nth-child(2) { font-size: 10px; color: #625b50; }
+.afterhours-tool-list > a:hover { color: #b73815; }
+.afterhours-career { display: grid; grid-template-columns: .65fr 1fr; gap: 4%; padding: 70px 3.8% 84px; color: var(--ah-paper); background: var(--ah-ink); }
+.afterhours-label { display: block; font-size: 10px; font-weight: 600; letter-spacing: .03em; }
+.afterhours-career-heading h2 { margin: 32px 0 27px; font-size: clamp(60px, 7.4vw, 118px); line-height: .85; }
+.afterhours-career-heading h2 > span { color: var(--ah-orange); }
+.afterhours-career-heading > p { max-width: 32ch; font-size: 13px; line-height: 1.7; }
+.afterhours-career-heading .afterhours-text-link { margin-top: 17px; }
+.afterhours-career-heading .afterhours-text-link:hover { color: var(--ah-orange); }
+.afterhours-career-list { border-top: 1px solid #68675f; }
+.afterhours-career-list > details { border-bottom: 1px solid #68675f; }
+.afterhours-career-list summary { list-style: none; display: grid; grid-template-columns: 80px 1fr 19px; align-items: center; gap: 20px; min-height: 88px; padding-block: 18px; }
+.afterhours-career-list summary::-webkit-details-marker { display: none; }
+.afterhours-career-list summary:hover .afterhours-job-name > strong { color: var(--ah-orange); }
+.afterhours-job-date { align-self: start; padding-top: 5px; font-size: 10px; }
+.afterhours-job-name { display: flex; flex-direction: column; gap: 5px; }
+.afterhours-job-name > strong { font-size: 25px; font-family: var(--ah-display); font-weight: 600; letter-spacing: 0; line-height: 1.1; }
+.afterhours-job-name > span { color: #c8c4b9; font-size: 10px; }
+.afterhours-job-plus { font-size: 25px; transition: transform .2s; }
+.afterhours-career-list details[open] .afterhours-job-plus { transform: rotate(45deg); }
+.afterhours-career-list details > p { padding: 0 35px 27px 100px; color: #d5d0c3; font-size: 12px; line-height: 1.7; }
+.afterhours-outside { padding: 48px 3.8% 50px; background: var(--ah-paper); }
+.afterhours-site[data-mode="play"] .afterhours-outside { background: var(--ah-orange); }
+.afterhours-outside-top { display: grid; grid-template-columns: 1fr auto 85px; align-items: end; gap: 5%; padding-block: 51px 36px; }
+.afterhours-outside-top h2 { font-size: clamp(80px, 10.2vw, 158px); line-height: .84; }
+.afterhours-outside-top h2 > span { color: #b73815; }
+.afterhours-site[data-mode="play"] .afterhours-outside-top h2 > span { color: var(--ah-paper); }
+.afterhours-outside-top > p { font-size: 13px; line-height: 1.7; padding-bottom: 6px; }
+.afterhours-outside-top > svg { justify-self: end; margin-bottom: 8px; }
+.afterhours-outside-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ah-ink); border-bottom: 1px solid var(--ah-ink); }
+.afterhours-interest { padding: 24px 23px 27px; min-width: 0; }
+.afterhours-interest:first-child { padding-left: 0; }
+.afterhours-interest:last-child { padding-right: 0; }
+.afterhours-interest + .afterhours-interest { border-left: 1px solid var(--ah-ink); }
+.afterhours-interest-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 10px; }
+.afterhours-interest-meta > svg { flex-shrink: 0; }
+.afterhours-interest > h3 { margin-top: 40px; font-size: 36px; line-height: 1; }
+.afterhours-interest > p { min-height: 45px; max-width: 22ch; margin-top: 12px; font-size: 11px; line-height: 1.6; }
+.afterhours-rating { margin-top: 27px; }
+.afterhours-rating > strong { display: flex; align-items: baseline; gap: 5px; font-family: var(--ah-display); font-size: 62px; line-height: .9; font-weight: 600; }
+.afterhours-rating > strong > span { font-family: var(--font-satoshi), sans-serif; font-size: 11px; font-weight: 500; }
+.afterhours-rating-track { margin-top: 16px; height: 4px; background: #b8b4a8; }
+.afterhours-rating-track > i { display: block; width: var(--rating); height: 100%; background: var(--ah-ink); }
+.afterhours-site[data-mode="play"] .afterhours-rating-track { background: #dd5225; }
+.afterhours-outside-foot { display: flex; justify-content: space-between; gap: 20px; margin-top: 21px; font-size: 10px; }
+.afterhours-outside-foot strong { font-weight: 700; }
+.afterhours-about { display: grid; grid-template-columns: .72fr 1fr; gap: 12%; padding: 80px 11% 90px; border-top: 1px solid var(--ah-rule); }
+.afterhours-about-image { align-self: center; transform: rotate(-3deg); background: var(--ah-orange); border: 1px solid var(--ah-ink); padding: 10px 10px 0; }
+.afterhours-about-image > img { width: 100%; height: auto; aspect-ratio: 1892 / 2832; object-fit: contain; object-position: center top; filter: grayscale(1); }
+.afterhours-about-image > span { display: block; padding: 15px 0 14px; font-size: 9px; font-weight: 650; letter-spacing: .08em; text-align: center; }
+.afterhours-about-copy > h2 { margin-block: 27px 29px; font-size: clamp(66px, 8vw, 126px); line-height: .82; }
+.afterhours-about-copy > h2 > span { color: #b73815; }
+.afterhours-about-copy > p { margin-top: 18px; font-size: 14px; line-height: 1.7; max-width: 43ch; }
+.afterhours-about-copy > .afterhours-text-link { margin-top: 19px; }
+.afterhours-thoughts { display: grid; grid-template-columns: .43fr 1fr .52fr; align-items: center; gap: 5%; padding: 55px 3.8%; border-top: 1px solid var(--ah-ink); }
+.afterhours-thoughts > .afterhours-label { align-self: start; padding-top: 6px; }
+.afterhours-thoughts h2 { font-size: clamp(45px, 5.3vw, 80px); line-height: .93; }
+.afterhours-thoughts h2 > span { display: block; color: #625b50; }
+.afterhours-thoughts > div > p { font-size: 12px; line-height: 1.7; }
+.afterhours-soon { display: flex; justify-content: space-between; margin-top: 17px; padding-top: 10px; border-top: 1px solid var(--ah-rule); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.afterhours-footer { padding: 43px 3.8% 0; color: var(--ah-ink); background: var(--ah-orange); }
+.afterhours-footer-top { position: relative; padding-bottom: 37px; }
+.afterhours-footer-top > a { display: block; width: fit-content; margin-top: 30px; padding-right: min(28vw, 350px); font-family: var(--ah-display); font-size: clamp(120px, 20vw, 305px); line-height: .78; font-weight: 700; letter-spacing: -.02em; }
+.afterhours-footer-top > a > span { color: var(--ah-paper); }
+.afterhours-footer-top > a > svg { position: absolute; width: clamp(130px, 21vw, 320px); height: auto; top: 58px; right: 0; transition: transform .25s; }
+.afterhours-footer-top > a:hover > svg { transform: translate(5px, -5px); }
+.afterhours-email { position: absolute; bottom: 41px; right: 0; font-size: 15px; font-weight: 600; }
+.afterhours-footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--ah-ink); min-height: 77px; font-size: 10px; }
+.afterhours-footer-bottom > div { display: flex; gap: 33px; }
+.afterhours-footer-bottom a { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; }
+.afterhours-footer-bottom a:hover { text-decoration: underline; }
+.afterhours-site .appearance-picker { border-radius: 0; }
+.afterhours-site .appearance-picker-heading h2 { font-family: var(--font-satoshi), sans-serif; font-size: 29px; letter-spacing: -.04em; font-weight: 600; }
+.afterhours-site .appearance-option, .afterhours-site .appearance-swatch { border-radius: 0; }
+
+@media (min-width: 1600px) {
+  .afterhours-site { max-width: 2200px; margin-inline: auto; }
+  .afterhours-hero-layout { padding-block: 60px; }
+  .afterhours-hero h1 { font-size: clamp(225px, 13.8vw, 305px); }
+  .afterhours-hero-note { max-width: 360px; }
+  .afterhours-hero-note > p { font-size: 18px; }
+}
+@media (max-width: 1050px) {
+  .afterhours-header { gap: 12px; }
+  .afterhours-hero-layout { gap: 4%; grid-template-columns: minmax(0, 1fr) 220px; }
+  .afterhours-hero h1 { font-size: clamp(95px, 14vw, 170px); }
+  .afterhours-project-layout { gap: 5%; }
+  .afterhours-project-select > button > span:nth-child(2) { font-size: 26px; }
+  .afterhours-outside-top { grid-template-columns: 1fr auto; }
+  .afterhours-outside-top > svg { display: none; }
+  .afterhours-interest { padding-inline: 17px; }
+  .afterhours-interest > h3 { font-size: 30px; }
+  .afterhours-about { padding-inline: 8%; gap: 10%; }
+  .afterhours-thoughts { grid-template-columns: .3fr 1fr .65fr; gap: 4%; }
+}
+@media (max-width: 800px) {
+  .afterhours-header { min-height: 72px; padding-block: 10px; }
+  .afterhours-brand > span { display: none; }
+  .afterhours-header-right { gap: 12px; }
+  .afterhours-header-right > a { display: none; }
+  .afterhours-mode button { min-width: 95px; }
+  .afterhours-hero { padding-top: 20px; }
+  .afterhours-hero-top { padding-bottom: 19px; font-size: 9px; }
+  .afterhours-hero-layout { grid-template-columns: minmax(0, 1fr) 190px; padding-block: 35px; }
+  .afterhours-hero h1 { font-size: 15vw; }
+  .afterhours-hero-note > p { font-size: 12px; }
+  .afterhours-hero-type > p { font-size: 12px; }
+  .afterhours-edition { font-size: 8px; }
+  .afterhours-star { font-size: 63px; margin-bottom: 16px; }
+  .afterhours-hero-note > a { margin-top: 18px; font-size: 10px; }
+  .afterhours-hero-bottom > nav { gap: 18px; }
+  .afterhours-project-layout { grid-template-columns: 1fr; gap: 33px; padding-top: 36px; }
+  .afterhours-project-index { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .afterhours-project-index > h2 { grid-row: span 2; font-size: 10.2vw; }
+  .afterhours-project-index > p { margin-top: 0; font-size: 12px; }
+  .afterhours-project-select { margin-top: 0; align-self: end; }
+  .afterhours-project-select > button { min-height: 64px; }
+  .afterhours-project-select > button > span:nth-child(2) { font-size: 28px; }
+  .afterhours-project-preview { width: 100%; }
+  .afterhours-project-description { display: grid; grid-template-columns: .7fr 1fr; column-gap: 30px; }
+  .afterhours-project-description h3 { grid-row: span 2; }
+  .afterhours-project-description > p { margin: 0; font-size: 12px; }
+  .afterhours-link-row { gap: 7px 20px; }
+  .afterhours-tool-list { grid-template-columns: .5fr 1fr; }
+  .afterhours-tool-list > a { grid-template-columns: 1fr 105px 19px; gap: 15px; font-size: 13px; }
+  .afterhours-career { grid-template-columns: .65fr 1fr; padding-block: 50px; gap: 7%; }
+  .afterhours-career-heading h2 { font-size: 9vw; }
+  .afterhours-career-list summary { grid-template-columns: 1fr 18px; gap: 8px 15px; }
+  .afterhours-job-date { grid-column: 1; padding-top: 0; }
+  .afterhours-job-name { grid-column: 1; }
+  .afterhours-job-plus { grid-column: 2; grid-row: 1 / 3; }
+  .afterhours-career-list details > p { padding-left: 0; }
+  .afterhours-outside-top { padding-top: 36px; }
+  .afterhours-outside-top h2 { font-size: 12vw; }
+  .afterhours-outside-top > p { font-size: 11px; }
+  .afterhours-outside-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .afterhours-interest { padding: 24px 25px; }
+  .afterhours-interest:nth-child(2) { padding-right: 0; }
+  .afterhours-interest:nth-child(3) { padding-left: 0; border-left: 0; }
+  .afterhours-interest:nth-child(n+3) { border-top: 1px solid var(--ah-ink); }
+  .afterhours-interest h3 { margin-top: 26px; font-size: 40px; }
+  .afterhours-interest > p { max-width: none; min-height: 36px; }
+  .afterhours-rating > strong { font-size: 70px; }
+  .afterhours-about { padding-inline: 6%; padding-block: 65px; gap: 8%; grid-template-columns: .8fr 1fr; }
+  .afterhours-about-copy > h2 { font-size: 10vw; }
+  .afterhours-about-copy > p { font-size: 12px; }
+  .afterhours-thoughts { grid-template-columns: 1fr 1fr; padding-block: 36px; gap: 20px; }
+  .afterhours-thoughts > .afterhours-label { grid-column: 1 / -1; }
+  .afterhours-thoughts h2 { font-size: 8vw; }
+  .afterhours-footer-bottom { align-items: flex-start; padding-block: 18px 8px; }
+  .afterhours-footer-bottom > span { padding-top: 13px; }
+  .afterhours-footer-bottom > div { gap: 17px; }
+  .afterhours-email { font-size: 12px; }
+}
+@media (max-width: 580px) {
+  .afterhours-header { padding-inline: 5%; }
+  .afterhours-brand > strong { font-size: 29px; }
+  .afterhours-brand > strong > span { font-size: 16px; }
+  .afterhours-mode button { min-width: 78px; padding-inline: 11px; gap: 15px; font-size: 12px; }
+  .afterhours-header .appearance-trigger { width: 44px; height: 44px; border: 0; }
+  .afterhours-hero { padding-inline: 5%; }
+  .afterhours-hero-top { font-size: 8px; gap: 15px; }
+  .afterhours-hero-top > span:last-child { max-width: 91px; text-align: right; }
+  .afterhours-hero-layout { display: block; padding-block: 30px; }
+  .afterhours-hero-type > p { margin-bottom: 20px; font-size: 12px; }
+  .afterhours-hero h1 { font-size: 23.7vw; line-height: .82; }
+  .afterhours-hero-aside { display: grid; grid-template-columns: 1fr auto; align-items: start; margin-top: 28px; gap: 20px; }
+  .afterhours-edition { grid-column: 2; grid-row: 1; font-size: 8px; }
+  .afterhours-hero-note { grid-column: 1; grid-row: 1; max-width: none; display: grid; grid-template-columns: 45px 1fr; gap: 0 18px; }
+  .afterhours-star { grid-column: 1; font-size: 51px; margin: 4px 0 0; }
+  .afterhours-hero-note > p { grid-column: 2; max-width: 28ch; font-size: 12px; }
+  .afterhours-hero-note > a { grid-column: 2; margin-top: 17px; min-height: 44px; font-size: 11px; }
+  .afterhours-hero-bottom { display: block; padding-block: 16px 5px; font-size: 9px; }
+  .afterhours-hero-bottom > span { display: block; }
+  .afterhours-hero-bottom > nav { justify-content: space-between; margin-top: 4px; font-size: 10px; }
+  .afterhours-projects, .afterhours-outside { padding: 31px 5% 37px; }
+  .afterhours-section-line { font-size: 9px; gap: 12px; }
+  .afterhours-section-line > span:last-child { text-align: right; max-width: 110px; }
+  .afterhours-project-index { display: block; }
+  .afterhours-project-index > h2 { font-size: 18vw; }
+  .afterhours-project-index > p { margin-top: 22px; font-size: 12px; }
+  .afterhours-project-select { margin-top: 24px; }
+  .afterhours-project-select > button { min-height: 64px; }
+  .afterhours-project-select > button > span:nth-child(2) { font-size: 31px; }
+  .afterhours-project-layout { padding-block: 31px; }
+  .afterhours-preview-label { font-size: 8px; }
+  .afterhours-preview-arrow { width: 43px; height: 43px; }
+  .afterhours-project-description { display: block; padding-top: 22px; }
+  .afterhours-project-description > h3 { font-size: 42px; }
+  .afterhours-project-description > p { margin-top: 13px; font-size: 13px; }
+  .afterhours-link-row { margin-top: 14px; gap: 0 27px; }
+  .afterhours-tool-list { display: block; }
+  .afterhours-tool-list > p { padding-block: 22px 10px; font-size: 10px; }
+  .afterhours-tool-list > a { grid-template-columns: 1fr auto 16px; gap: 10px; font-size: 13px; }
+  .afterhours-tool-list > a > span:nth-child(2) { font-size: 9px; }
+  .afterhours-career { display: block; padding: 37px 5% 40px; }
+  .afterhours-career-heading h2 { font-size: 20vw; margin-block: 28px 23px; }
+  .afterhours-career-heading > p { max-width: 38ch; }
+  .afterhours-career-list { margin-top: 26px; }
+  .afterhours-career-list summary { grid-template-columns: 76px 1fr 15px; gap: 12px; }
+  .afterhours-job-date { grid-column: 1; padding-top: 5px; font-size: 9px; }
+  .afterhours-job-name { grid-column: 2; }
+  .afterhours-job-name > strong { font-size: 27px; }
+  .afterhours-job-name > span { font-size: 10px; }
+  .afterhours-job-plus { grid-column: 3; grid-row: 1; }
+  .afterhours-career-list details > p { padding-left: 88px; padding-right: 0; }
+  .afterhours-outside-top { display: block; padding-block: 33px 24px; }
+  .afterhours-outside-top h2 { font-size: 21.5vw; }
+  .afterhours-outside-top > p { margin-top: 23px; font-size: 13px; }
+  .afterhours-interest { padding: 20px 16px; }
+  .afterhours-interest-meta { font-size: 9px; gap: 6px; }
+  .afterhours-interest-meta > svg { width: 24px; height: 24px; }
+  .afterhours-interest h3 { font-size: 32px; margin-top: 28px; }
+  .afterhours-interest > p { min-height: 51px; font-size: 11px; }
+  .afterhours-rating { margin-top: 20px; }
+  .afterhours-rating > strong { font-size: 64px; }
+  .afterhours-outside-foot { display: block; font-size: 10px; }
+  .afterhours-outside-foot > p + p { margin-top: 9px; }
+  .afterhours-about { display: flex; flex-direction: column; padding: 43px 7% 41px; gap: 47px; }
+  .afterhours-about-image { width: min(76%, 290px); }
+  .afterhours-about-copy > h2 { font-size: 23vw; margin-block: 25px; }
+  .afterhours-about-copy > p { font-size: 13px; max-width: 42ch; }
+  .afterhours-about-copy > .afterhours-text-link { margin-top: 13px; }
+  .afterhours-thoughts { display: block; padding: 32px 5%; }
+  .afterhours-thoughts h2 { font-size: 15vw; margin-block: 24px; }
+  .afterhours-thoughts > div { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 20px; }
+  .afterhours-thoughts > div > p { font-size: 11px; }
+  .afterhours-soon { border: 0; margin: 0; padding: 0; gap: 10px; font-size: 9px; }
+  .afterhours-footer { padding: 32px 5% 0; }
+  .afterhours-footer-top { padding-bottom: 27px; }
+  .afterhours-footer-top > a { font-size: 27vw; padding-right: 28vw; }
+  .afterhours-footer-top > a > svg { width: 27vw; top: 55px; }
+  .afterhours-email { position: static; display: block; margin-top: 26px; font-size: 12px; }
+  .afterhours-footer-bottom { display: block; padding-top: 18px; font-size: 9px; }
+  .afterhours-footer-bottom > div { justify-content: space-between; margin-top: 8px; gap: 12px; }
+}
+@media (max-width: 350px) {
+  .afterhours-header { gap: 8px; }
+  .afterhours-mode button { min-width: 68px; gap: 10px; padding-inline: 9px; }
+  .afterhours-brand > strong { font-size: 26px; }
+  .afterhours-tool-list > a > span:nth-child(2) { max-width: 80px; text-align: right; }
+  .afterhours-career-list summary { grid-template-columns: 64px 1fr 15px; gap: 8px; }
+  .afterhours-career-list details > p { padding-left: 72px; }
+  .afterhours-interest h3 { font-size: 28px; }
+  .afterhours-interest-meta > svg { width: 20px; height: 20px; }
+  .afterhours-thoughts > div { display: block; }
+  .afterhours-soon { justify-content: flex-start; margin-top: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .afterhours-site *, .afterhours-site *::before, .afterhours-site *::after { scroll-behavior: auto; transition: none; }
+}
