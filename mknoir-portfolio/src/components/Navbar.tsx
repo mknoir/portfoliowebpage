@@ -1,160 +1,163 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { useCallback, useEffect, useRef, useState, type ComponentProps } from 'react'
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react'
+import '@/styles/navigation.css'
+import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
 
 const navItems = [
-  { label: 'About', href: '/about' },
   { label: 'Projects', href: '/#projects' },
+  { label: 'About', href: '/about' },
   { label: 'Work', href: '/experience' },
-  { label: 'Talk to Me', href: '/#talk' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Thoughts', href: '/#thoughts' },
 ]
 
+function NavigationLink({ href, ...props }: ComponentProps<'a'> & { href: string }) {
+  return href.includes('#') ? <a href={href} {...props} /> : <Link href={href} {...props} />
+}
+
 export default function Navbar() {
+  const pathname = usePathname()
   const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeHash, setActiveHash] = useState('')
+  const menuRef = useRef<HTMLDialogElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const isDark = resolvedTheme === 'dark'
 
-  useEffect(() => setMounted(true), [])
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+  const closeMenu = useCallback(() => {
+    if (menuRef.current?.open) {
+      menuRef.current.close()
+      menuButtonRef.current?.focus({ preventScroll: true })
     }
+    setMobileMenuOpen(false)
+  }, [])
+
+  useEffect(() => {
+    setMounted(true)
+    const updateHash = () => setActiveHash(window.location.hash)
+    updateHash()
+    window.addEventListener('hashchange', updateHash)
+    window.addEventListener('popstate', updateHash)
     return () => {
-      document.body.style.overflow = ''
+      window.removeEventListener('hashchange', updateHash)
+      window.removeEventListener('popstate', updateHash)
+    }
+  }, [])
+
+  useEffect(() => {
+    closeMenu()
+    setActiveHash(window.location.hash)
+  }, [pathname, closeMenu])
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 800px)')
+    const handleResize = () => {
+      if (desktop.matches) closeMenu()
+    }
+    desktop.addEventListener('change', handleResize)
+    return () => desktop.removeEventListener('change', handleResize)
+  }, [closeMenu])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
     }
   }, [mobileMenuOpen])
 
-  // resolvedTheme is the actual theme (light/dark) - handles "system" when OS preference applies
-  const isDark = resolvedTheme === 'dark'
-
-  const handleThemeToggle = (checked: boolean) => {
-    setTheme(checked ? 'dark' : 'light')
+  const openMenu = () => {
+    menuRef.current?.showModal()
+    setMobileMenuOpen(true)
   }
 
-  const closeMobileMenu = () => setMobileMenuOpen(false)
+  const selectLink = (href: string) => {
+    setActiveHash(href.includes('#') ? `#${href.split('#')[1]}` : '')
+    closeMenu()
+  }
+
+  const currentLink = (href: string): 'page' | 'location' | undefined => {
+    const [route, fragment] = href.split('#')
+    if (pathname !== route) return undefined
+    if (fragment) return activeHash === `#${fragment}` ? 'location' : undefined
+    return 'page'
+  }
+
+  const themeLabel = mounted
+    ? `Switch to ${isDark ? 'light' : 'dark'} theme`
+    : 'Toggle color theme'
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link
-          href="/"
-          className="flex items-center gap-2 transition-opacity hover:opacity-80"
-          onClick={closeMobileMenu}
-        >
-          <div className="relative">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="/avatar.jpg" alt="Mickey Makhija" />
-              <AvatarFallback>MM</AvatarFallback>
-            </Avatar>
-            <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-background bg-green-500" />
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">
-            Mickey Makhija
-          </span>
-        </Link>
+    <header className="site-header">
+      <div className="site-header-inner">
+        <NavigationLink href="/#hero" className="site-wordmark" aria-label="Mickey Makhija, home" onClick={() => selectLink('/#hero')}>
+          mickey<span>.</span>
+        </NavigationLink>
 
-        {/* Desktop nav - hidden on mobile */}
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="desktop-navigation" aria-label="Main navigation">
           {navItems.map(({ label, href }) => (
-            <Button
-              key={href}
-              variant="ghost"
-              size="sm"
-              asChild
-              className="text-muted-foreground hover:text-foreground"
-            >
-              <Link href={href}>{label}</Link>
-            </Button>
+            <NavigationLink key={href} href={href} className="navigation-link" aria-current={currentLink(href)} onClick={() => selectLink(href)}>
+              {label}
+            </NavigationLink>
           ))}
-          {mounted && (
-            <div className="ml-2">
-              <Switch
-                checked={isDark}
-                onCheckedChange={handleThemeToggle}
-              />
-            </div>
-          )}
         </nav>
 
-        {/* Mobile hamburger button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-        >
-          {mobileMenuOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
-        </Button>
+        <div className="header-actions">
+          <AppearanceSwitcher />
+          <NavigationLink href="/#contact" className="header-contact" onClick={() => selectLink('/#contact')}>
+            Say hello <ArrowUpRight size={15} aria-hidden="true" />
+          </NavigationLink>
+          <button className="navigation-icon-button theme-toggle" type="button" aria-label={themeLabel} title={themeLabel} disabled={!mounted} onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+            {mounted && isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+          </button>
+          <button ref={menuButtonRef} className="navigation-icon-button mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" aria-haspopup="dialog" onClick={openMenu}>
+            <Menu size={21} aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
-      {/* Mobile menu overlay - tap outside to close */}
-      <div
-        role="presentation"
-        className={cn(
-          'fixed inset-0 top-14 z-40 bg-background/80 backdrop-blur-sm transition-opacity md:hidden',
-          mobileMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-        )}
-        onClick={closeMobileMenu}
-        aria-hidden={!mobileMenuOpen}
-      />
-
-      {/* Mobile menu panel */}
-      <div
-        className={cn(
-          'fixed right-0 top-14 z-50 w-full max-w-sm border-b border-l border-border/40 bg-background shadow-lg transition-transform duration-200 ease-out md:hidden',
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        )}
+      <dialog
+        ref={menuRef}
+        id="mobile-navigation"
+        className="mobile-menu-dialog"
+        aria-label="Navigation menu"
+        onClose={() => setMobileMenuOpen(false)}
+        onCancel={(event) => { event.preventDefault(); closeMenu() }}
+        onClick={(event) => { if (event.target === event.currentTarget) closeMenu() }}
       >
-        <nav className="flex flex-col gap-1 p-4">
-          {navItems.map(({ label, href }) => (
-            <Button
-              key={href}
-              variant="ghost"
-              size="lg"
-              asChild
-              className="justify-start text-muted-foreground hover:text-foreground"
-            >
-              <Link href={href} onClick={closeMobileMenu}>
+        <div className="mobile-menu-sheet">
+          <div className="mobile-menu-top">
+            <span className="mobile-menu-caption">A little exploration.</span>
+            <button type="button" className="navigation-icon-button" aria-label="Close menu" onClick={closeMenu} autoFocus>
+              <X size={21} aria-hidden="true" />
+            </button>
+          </div>
+          <nav className="mobile-navigation" aria-label="Mobile navigation">
+            {navItems.map(({ label, href }, index) => (
+              <NavigationLink key={href} href={href} aria-current={currentLink(href)} onClick={() => selectLink(href)}>
+                <span className="mobile-navigation-index" aria-hidden="true">0{index + 1}</span>
                 {label}
-              </Link>
-            </Button>
-          ))}
-          {mounted && (
-            <div className="mt-4 space-y-3 border-t border-border/40 pt-4">
-              <div className="flex items-center justify-end">
-                <Switch
-                  checked={isDark}
-                  onCheckedChange={handleThemeToggle}
-                />
-              </div>
-              <button
-                type="button"
-                onClick={() => setTheme('system')}
-                className="text-xs text-muted-foreground underline-offset-4 hover:underline"
-              >
-                Sync to system
-              </button>
-            </div>
-          )}
-        </nav>
-      </div>
+                <ArrowUpRight size={21} aria-hidden="true" />
+              </NavigationLink>
+            ))}
+            <NavigationLink href="/#contact" className="mobile-contact-link" onClick={() => selectLink('/#contact')}>
+              Say hello <ArrowUpRight size={20} aria-hidden="true" />
+            </NavigationLink>
+          </nav>
+          <div className="mobile-menu-bottom">
+            <span>Biology. Robotics. Intelligence.</span>
+            <button type="button" className="navigation-icon-button" aria-label={themeLabel} disabled={!mounted} onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+              {mounted && isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+            </button>
+          </div>
+        </div>
+      </dialog>
     </header>
   )
 }

@@ -1,259 +1,135 @@
-'use client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
+import '@/styles/interior.css'
 
-import { motion } from 'framer-motion'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import SkillsRadarChart from '@/components/SkillsRadarChart'
+const capabilities = [
+  {
+    number: '01',
+    title: 'At the bench.',
+    description:
+      'Molecular biology, cell culture, and high-throughput assays. I’ve worked across cardiometabolic disease and gene therapy, with experimental design and statistics connecting the questions to the evidence.',
+    detail: 'Biology & experimentation',
+  },
+  {
+    number: '02',
+    title: 'At the terminal.',
+    description:
+      'Python, R, and machine learning. From single-cell RNA-seq pipelines to exploring EGNNs and Transformers for target triage, I build tools that make complex data easier to work with.',
+    detail: 'Software & intelligence',
+  },
+  {
+    number: '03',
+    title: 'Between the two.',
+    description:
+      'Automation workflows that connect liquid handlers, analysis scripts, and the people using them. I’m interested in what happens when a good idea in software becomes a useful action in the physical world.',
+    detail: 'Robotics & automation',
+  },
+]
 
 export function About() {
   return (
-    <section className="py-24 px-6">
-      <div className="mx-auto max-w-3xl">
-        {/* Header */}
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
-        >
-          About Me
-        </motion.h1>
-
-        {/* ============================================= */}
-        {/* PHILOSOPHY                                    */}
-        {/* ============================================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mb-16 space-y-6 text-base leading-relaxed text-muted-foreground"
-        >
-          <h2 className="text-xl font-semibold text-foreground">Philosophy</h2>
-
-          <p>I&apos;ve always been drawn to systems.</p>
-
-          <p>
-            Biology is often described as messy, stochastic, and unpredictable.
-            Software is described as deterministic, structured, and exact. Most
-            people see these as opposites but I believe they are complementary.
+    <div className="interior-page shell">
+      <section className="about-intro" aria-labelledby="about-title">
+        <div className="about-intro-copy">
+          <p className="eyebrow">About / The person behind the projects</p>
+          <h1 id="about-title" className="interior-title">
+            A scientist who<br className="about-title-break" /> thinks in systems.
+          </h1>
+          <p className="interior-lead">
+            I’m Mickey. I’m fascinated by biology, robotics, and intelligence—and
+            the possibilities that open up when they meet.
           </p>
-
-          <p>
-            I believe biology can be structured without stripping away its
-            complexity. We have not uncovered all of its logic, and we likely
-            never will in full. But there is coherence beneath the apparent
-            chaos, and better interfaces allow us to reveal it.
+          <p className="about-intro-detail">
+            My work moves between the bench and the terminal: designing
+            experiments, making sense of data, and building software and
+            automation to connect it all.
           </p>
-
-          <p className="font-medium text-foreground">
-            My work explores these complementary interfaces.
-          </p>
-
-          <p>
-            I design systems that bridge molecular biology, automation, and
-            software. Biology cannot be reduced to code (yet), but
-            experimentation must become reproducible, scalable, and loggable. I
-            believe we are moving toward a world where biological processes can
-            be described, orchestrated, and iterated on with the same fluency we
-            apply to software.
-          </p>
-
-          <p>
-            At the same time, I don&apos;t believe biology becomes meaningful in
-            abstraction alone. Biology exists in the physical world, and we must
-            understand it in that context. Life cannot be abstracted away from
-            the physical world. It grows in incubators, responds to force and
-            temperature, unfolds through time. It is bound to physics. Within
-            that physicality, there is logic. Hardware is not secondary to
-            software. It is where intent becomes reality. Software is a lens
-            through which life&apos;s structure becomes visible.
-          </p>
-
-          <p className="font-medium text-foreground">
-            For me, the future isn&apos;t software replacing biology. It&apos;s
-            software and biology moving in sync.
-          </p>
-
-          <p>
-            The transformation happens at the boundary. When digital logic
-            reaches into the physical world and moves matter. When code alters
-            motion. When data reshapes experimentation. That boundary between
-            computation and embodiment is not theoretical. It is executable.
-          </p>
-
-          <p className="font-medium text-foreground">
-            Biology lives at that boundary.
-          </p>
-
-          <p>
-            And that interplay, between matter and abstraction, physics and
-            logic, is where I find the most beauty. That is where the future
-            unfolds.
-          </p>
-
-          <p>
-            Life is better understood when we stop separating software, hardware,
-            and biology, and instead treat them as a single, flowing system
-            where abstraction and embodiment are in constant dialogue.
-          </p>
-
-          <p>
-            When those systems are aligned, experimentation begins to feel less
-            chaotic and more like flow. It becomes iterative, responsive, almost
-            fluid.
-          </p>
-
-          <p>
-            Curiosity drives everything I do. I&apos;m interested in how systems
-            interact, where friction exists, and how constraints can be turned
-            into design principles.
-          </p>
-
-          <p className="font-medium text-foreground">
-            This leads me to the work I do.
-          </p>
-        </motion.div>
-
-        <Separator className="mb-16" />
-
-        {/* ============================================= */}
-        {/* THE STACK                                     */}
-        {/* ============================================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 space-y-8"
-        >
-          <h2 className="text-xl font-semibold text-foreground">The Stack</h2>
-
-          <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
-            <p>
-              My work sits at the intersection of the bench and the terminal. On
-              any given day I might be designing a molecular assay, writing a
-              pipeline to process gene expression data, or building automation
-              workflows that connect liquid handlers to analysis scripts.
-            </p>
-
-            <p>
-              On the biology side, I have deep experience in molecular biology,
-              cell culture, PCR, gene expression analysis, and high-throughput
-              assay development. I&apos;ve worked across therapeutic areas from
-              cardiometabolic disease to gene therapy.
-            </p>
-
-            <p>
-              On the computational side, I work in Python, R, and increasingly
-              with ML frameworks. I&apos;ve explored EGNNs and Transformers for
-              target triage, built single-cell and single-nucleus RNA-seq
-              pipelines, and developed dashboards and data tools to accelerate
-              decision-making.
-            </p>
-
-            <p>
-              Statistics ties it all together. Experimental design, hypothesis
-              testing, and data interpretation are the connective tissue between
-              wet lab and dry lab.
-            </p>
-
-            <p>
-              Robotics and automation are where it all converges. I believe the
-              future of biology is programmable, and the instruments we build
-              should reflect that.
-            </p>
+          <Link className="text-link" href="/experience">
+            The path so far <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+        <figure className="about-portrait">
+          <div className="about-portrait-image">
+            <Image
+              src="/portrait.jpg"
+              alt="Mickey Makhija"
+              fill
+              sizes="(max-width: 700px) 78vw, 360px"
+              priority
+            />
           </div>
+          <figcaption>Always curious. Usually building something.</figcaption>
+        </figure>
+      </section>
 
-          <div className="flex flex-wrap gap-2">
-            {[
-              'Molecular Biology',
-              'Cell Culture',
-              'PCR / qPCR',
-              'Gene Expression',
-              'Python',
-              'R',
-              'Machine Learning',
-              'scRNA-seq',
-              'Statistics',
-              'Automation',
-              'Robotics',
-              'Bioinformatics',
-            ].map((tag) => (
-              <Badge key={tag} variant="outline">
-                {tag}
-              </Badge>
-            ))}
-          </div>
+      <section className="about-practice" aria-labelledby="practice-title">
+        <div className="interior-section-heading">
+          <p className="eyebrow">What I bring</p>
+          <h2 id="practice-title">A few different ways of thinking.</h2>
+        </div>
+        <div className="capability-grid">
+          {capabilities.map((capability) => (
+            <article className="capability" key={capability.number}>
+              <span className="capability-number" aria-hidden="true">
+                {capability.number}
+              </span>
+              <h3>{capability.title}</h3>
+              <p>{capability.description}</p>
+              <span className="capability-detail">{capability.detail}</span>
+            </article>
+          ))}
+        </div>
+      </section>
 
-          {/* Radar chart */}
-          <div className="mx-auto max-w-xl pt-4">
-            <Card>
-              <CardHeader className="text-center">
-                <CardTitle className="text-base">
-                  Skills &amp; Interests
-                </CardTitle>
-                <p className="text-sm text-muted-foreground">
-                  A blend of the serious and the not-so-serious.
-                </p>
-              </CardHeader>
-              <CardContent>
-                <SkillsRadarChart />
-              </CardContent>
-            </Card>
-          </div>
-        </motion.div>
+      <section className="interior-editorial-row" aria-labelledby="philosophy-title">
+        <div>
+          <p className="eyebrow">How I see it</p>
+          <h2 id="philosophy-title">The interesting part is the connection.</h2>
+        </div>
+        <div className="interior-prose">
+          <p>
+            Biology is complex, and software gives us ways to understand and work
+            with that complexity. I’m drawn to the interfaces between them: how
+            we describe an experiment, translate intent into action, and learn
+            from what actually happens.
+          </p>
+          <p>
+            But biology lives in the physical world. It grows in incubators,
+            responds to temperature, and unfolds through time. The systems I want
+            to build respect that reality—bringing software, hardware, and
+            biology into a more useful conversation.
+          </p>
+        </div>
+      </section>
 
-        <Separator className="mb-16" />
+      <section className="interior-editorial-row about-outside" aria-labelledby="outside-title">
+        <div>
+          <p className="eyebrow">Away from the screen</p>
+          <h2 id="outside-title">A little room to wander.</h2>
+        </div>
+        <div className="interior-prose">
+          <p>
+            Running clears my head. Cycling gives me time to think. Snowboarding
+            brings me back to the present. I like exploring new places and finding
+            a different pace along the way.
+          </p>
+          <p>
+            And yes, I take craft beer seriously. Fermentation is biology too.
+          </p>
+          <p className="outside-interests">Snowboarding / Running / Cycling / Travel</p>
+        </div>
+      </section>
 
-        {/* ============================================= */}
-        {/* LIFE                                          */}
-        {/* ============================================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6"
-        >
-          <h2 className="text-xl font-semibold text-foreground">Life</h2>
-
-          <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
-            <p>
-              Outside of work, I look for the same flow in motion.
-              Snowboarding down a mountain, cycling long distances, running, or
-              exploring new places. Movement sharpens thinking. Physical systems
-              teach you about balance, momentum, and feedback loops just as much
-              as engineering does.
-            </p>
-
-            <p>
-              I run to clear my head. I bike to cover ground and think at a
-              different pace. Snowboarding is pure commitment to the present
-              moment. Each one is a different kind of practice.
-            </p>
-
-            <p>
-              And yes, I take craft beer seriously. Fermentation is biology too.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {[
-              'Snowboarding',
-              'Running',
-              'Cycling',
-              'Swimming',
-              'Craft Beer',
-              'Travel',
-            ].map((tag) => (
-              <Badge key={tag} variant="outline">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+      <section className="interior-contact" aria-labelledby="about-contact-title">
+        <div>
+          <p className="eyebrow">Keep the conversation going</p>
+          <h2 id="about-contact-title">What are you curious about?</h2>
+        </div>
+        <a className="button-primary" href="mailto:himay75@gmail.com">
+          Say hello <ArrowUpRight size={18} aria-hidden="true" />
+        </a>
+      </section>
+    </div>
   )
 }

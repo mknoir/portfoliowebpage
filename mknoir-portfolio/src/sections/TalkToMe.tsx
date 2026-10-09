@@ -1,189 +1,236 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { useConversation } from '@elevenlabs/react'
-import { Card, CardContent } from '@/components/ui/card'
+import { ArrowUpRight, Mic, PhoneOff, X } from 'lucide-react'
+import DnaLoader from '@/components/Dnaloader'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Mic, PhoneOff } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import '@/styles/voice.css'
 
 const AGENT_ID = 'agent_2801kjbnafwqe0jaajfhk6hv87h4'
-const BAR_COUNT = 50
-const TARGET_FPS = 30
-const FRAME_INTERVAL = 1000 / TARGET_FPS
+type ConnectionPhase = 'idle' | 'permission' | 'connecting' | 'closing'
+
+function getConnectionError(error: unknown): string {
+  if (error instanceof Error) {
+    if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
+      return 'Microphone access is blocked. Allow it in your browser’s site settings, then try again.'
+    }
+    if (error.name === 'NotFoundError') {
+      return 'No microphone was found. Connect a microphone, then try again.'
+    }
+    if (error.name === 'NotReadableError') {
+      return 'Your microphone is unavailable. Check whether another app is using it, then try again.'
+    }
+    if (error.message === 'microphone-unavailable') {
+      return 'Voice chat needs a browser with microphone support and a secure connection. You can still reach me below.'
+    }
+  }
+  return 'AI Mickey couldn’t connect. Check your connection and try again, or send me a note below.'
+}
 
 export function TalkToMe() {
-  const [barHeights, setBarHeights] = useState<number[]>(() =>
-    Array(BAR_COUNT).fill(4)
-  )
-  const animFrameRef = useRef<number>(undefined)
-  const lastFrameRef = useRef(0)
-  const startTimeRef = useRef(Date.now())
+  const [phase, setPhase] = useState<ConnectionPhase>('idle')
+  const [error, setError] = useState<string | null>(null)
+  const [needsReload, setNeedsReload] = useState(false)
+  const [notice, setNotice] = useState('Ready when you are.')
+  const mountedRef = useRef(false)
+  const attemptRef = useRef(0)
+  const startingRef = useRef(false)
+  const closingRef = useRef(false)
+  const conversation = useConversation()
+  const conversationRef = useRef(conversation)
+  conversationRef.current = conversation
 
-  const conversation = useConversation({
-    onConnect: () => console.log('Connected to Mickey AI'),
-    onDisconnect: () => console.log('Disconnected'),
-    onError: (err) => console.error('Conversation error:', err),
-  })
-
-  const { status, isSpeaking, getInputVolume, getOutputVolume } = conversation
-  const isConnected = status === 'connected'
-  const isConnecting = status === 'connecting'
+  const { status, isSpeaking } = conversation
+  const connected = status === 'connected'
+  const pending = phase === 'permission' || phase === 'connecting' || status === 'connecting'
+  const closing = phase === 'closing' || status === 'disconnecting'
 
   useEffect(() => {
-    const animate = (timestamp: number) => {
-      animFrameRef.current = requestAnimationFrame(animate)
-      if (timestamp - lastFrameRef.current < FRAME_INTERVAL) return
-      lastFrameRef.current = timestamp
-
-      const t = (Date.now() - startTimeRef.current) / 1000
-
-      setBarHeights(
-        Array.from({ length: BAR_COUNT }, (_, i) => {
-          const center = BAR_COUNT / 2
-          const normDist = Math.abs(i - center) / center
-          const envelope = Math.max(0.2, 1 - normDist * 0.55)
-
-          if (isConnected) {
-            const vol = isSpeaking
-              ? (getOutputVolume?.() ?? 0)
-              : (getInputVolume?.() ?? 0)
-            const base = vol * 60 * envelope
-            const wave = Math.sin(t * 10 + i * 0.5) * base * 0.35
-            const noise = (Math.random() - 0.5) * base * 0.25
-            return Math.max(3, base + wave + noise)
-          }
-
-          if (isConnecting) {
-            return 4 + Math.abs(Math.sin(t * 4 + i * 0.28)) * 30 * envelope
-          }
-
-          return 3 + Math.abs(Math.sin(t * 0.7 + i * 0.18)) * 6 * envelope
-        })
-      )
-    }
-
-    animFrameRef.current = requestAnimationFrame(animate)
+    mountedRef.current = true
     return () => {
-      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current)
+      mountedRef.current = false
+      attemptRef.current += 1
+      // The SDK also cancels sessions that are still connecting.
+      void conversationRef.current.endSession().catch(() => {})
     }
-  }, [isConnected, isConnecting, isSpeaking, getInputVolume, getOutputVolume])
+  }, [])
 
-  const startConversation = useCallback(async () => {
+  async function startConversation() {
+    if (startingRef.current || closingRef.current || connected || pending || closing || needsReload) return
+
+    const attempt = ++attemptRef.current
+    const isCurrent = () => mountedRef.current && attempt === attemptRef.current
+    startingRef.current = true
+    setError(null)
+    setNotice('')
+    setPhase('permission')
+
     try {
-      await navigator.mediaDevices.getUserMedia({ audio: true })
-      await conversation.startSession({
+      if (!navigator.mediaDevices?.getUserMedia) {
+        throw new Error('microphone-unavailable')
+      }
+
+      // Release the permission-check stream before the SDK opens its own.
+      // Even a cancelled request must stop any microphone stream it returns.
+      const permissionStream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      permissionStream.getTracks().forEach((track) => track.stop())
+      if (!isCurrent()) return
+
+      setPhase('connecting')
+      await conversationRef.current.startSession({
         agentId: AGENT_ID,
         connectionType: 'webrtc',
+        onDisconnect: () => {
+          if (isCurrent()) setNotice('Conversation ended. Thanks for stopping by.')
+        },
+        onError: () => {
+          if (!isCurrent()) return
+          setError('The voice connection was interrupted. Please try again, or send me a note below.')
+          void conversationRef.current.endSession().catch(() => {})
+        },
       })
-    } catch (err) {
-      console.error('Failed to start conversation:', err)
+
+    } catch (connectionError) {
+      if (isCurrent()) {
+        setError(getConnectionError(connectionError))
+        await conversationRef.current.endSession().catch(() => {})
+      }
+    } finally {
+      if (isCurrent()) {
+        startingRef.current = false
+        setPhase('idle')
+      }
     }
-  }, [conversation])
+  }
 
-  const stopConversation = useCallback(async () => {
-    await conversation.endSession()
-  }, [conversation])
+  async function stopConversation() {
+    if (closingRef.current) return
 
-  const barColorClass =
-    isConnected && isSpeaking
-      ? 'bg-primary'
-      : isConnected
-        ? 'bg-primary/70'
-        : isConnecting
-          ? 'bg-primary/45'
-          : 'bg-muted-foreground/20'
+    // A late permission response must never start a cancelled conversation.
+    attemptRef.current += 1
+    startingRef.current = false
+    closingRef.current = true
+    const wasPending = pending
+    setPhase('closing')
+
+    try {
+      await conversationRef.current.endSession()
+      if (mountedRef.current) {
+        setNotice(wasPending ? 'Connection cancelled. Ready when you are.' : 'Conversation ended. Thanks for stopping by.')
+      }
+    } catch {
+      if (mountedRef.current) {
+        setError('The connection could not close cleanly. Refresh this page before starting again.')
+        setNeedsReload(true)
+      }
+    } finally {
+      closingRef.current = false
+      if (mountedRef.current) setPhase('idle')
+    }
+  }
+
+  const statusText = closing
+    ? 'Ending the conversation…'
+    : phase === 'permission'
+      ? 'Allow microphone access in your browser to continue.'
+      : pending
+        ? 'Connecting to AI Mickey…'
+        : connected
+          ? isSpeaking
+            ? 'AI Mickey is speaking.'
+            : 'Listening. Go ahead.'
+          : error
+            ? 'Let’s try that again.'
+            : notice
 
   return (
-    <section id="talk" className="py-24 px-6">
-      <div className="mx-auto max-w-2xl text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl"
-        >
-          Talk to Me
-        </motion.h2>
+    <section id="talk" className="voice-section" aria-labelledby="voice-heading">
+      <div className="shell">
+        <div className="voice-grid">
+          <div className="voice-copy">
+            <p className="eyebrow">04 / A LITTLE EXPERIMENT</p>
+            <h2 id="voice-heading">A different kind<br />of hello.</h2>
+            <p className="voice-intro">
+              Meet AI Mickey. An AI version of me, with a synthetic version of my
+              voice. Ask about my work, the things I build, or the ideas behind them.
+            </p>
+            <div className="voice-prompts">
+              <p>A few places to start</p>
+              <ul>
+                <li>“What are you building?”</li>
+                <li>“How do biology and software connect in your work?”</li>
+              </ul>
+            </div>
+            <a className="voice-human-link" href="#contact">
+              Prefer the human? Send me a note <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mx-auto mb-10 max-w-xl text-muted-foreground"
-        >
-          Ask me anything about my work, research, or what I&apos;m building
-          next. Powered by AI in my own voice.
-        </motion.p>
+          <Card className="voice-interface" data-connected={connected && !closing}>
+            <div className="voice-interface-topline">
+              <span>VOICE EXPERIMENT</span>
+              <Badge variant="outline" className="voice-connection-label rounded-md">
+                <span className="voice-status-dot" aria-hidden="true" />
+                {closing ? 'Closing' : connected ? 'Connected' : pending ? 'Connecting' : 'On demand'}
+              </Badge>
+            </div>
+            <CardContent className="p-0">
+            <div className="voice-symbol" aria-hidden="true">
+              <DnaLoader active={pending || closing} className="voice-dna" />
+            </div>
+            <h3>AI Mickey</h3>
+            <p className="voice-status" role="status" aria-live="polite" aria-atomic="true">
+              {statusText}
+            </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <Card>
-            <CardContent className="flex flex-col items-center gap-6 px-8 py-8">
-              {/* Waveform */}
-              <div className="relative flex h-24 w-full items-center justify-center gap-[2px] overflow-hidden">
-                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-card to-transparent" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-card to-transparent" />
-                {barHeights.map((h, i) => (
-                  <div
-                    key={i}
-                    style={{ height: `${h}px` }}
-                    className={`w-[3px] shrink-0 rounded-full ${barColorClass}`}
-                  />
-                ))}
-              </div>
+            {error && <p className="voice-error" role="alert">{error}</p>}
 
-              {/* Status label */}
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                {isConnected && (
-                  <span
-                    className={`h-2 w-2 rounded-full ${
-                      isSpeaking ? 'animate-pulse bg-primary' : 'bg-green-500'
-                    }`}
-                  />
-                )}
-                <span>
-                  {isConnecting
-                    ? 'Connecting...'
-                    : isConnected
-                      ? isSpeaking
-                        ? 'Mickey is speaking...'
-                        : 'Listening — go ahead'
-                      : 'Start a voice conversation with Mickey'}
-                </span>
-              </div>
-
-              {/* Button */}
-              {!isConnected ? (
+            <div className="voice-actions">
+              {needsReload ? (
                 <Button
+                  variant="outline"
                   size="lg"
-                  onClick={startConversation}
-                  disabled={isConnecting}
-                  className="min-w-48 gap-2"
+                  className="voice-button"
+                  type="button"
+                  onClick={() => window.location.reload()}
                 >
-                  <Mic className="h-4 w-4" />
-                  {isConnecting ? 'Connecting...' : 'Start Conversation'}
+                  Refresh to reconnect
+                </Button>
+              ) : connected || pending || closing ? (
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="voice-button"
+                  type="button"
+                  onClick={stopConversation}
+                  disabled={closing}
+                >
+                  {pending ? <X size={16} aria-hidden="true" /> : <PhoneOff size={16} aria-hidden="true" />}
+                  {closing ? 'Ending…' : pending ? 'Cancel connection' : 'End conversation'}
                 </Button>
               ) : (
                 <Button
                   size="lg"
-                  variant="outline"
-                  onClick={stopConversation}
-                  className="min-w-48 gap-2"
+                  className="voice-button"
+                  type="button"
+                  onClick={startConversation}
+                  aria-describedby="voice-disclosure"
                 >
-                  <PhoneOff className="h-4 w-4" />
-                  End Conversation
+                  <Mic size={16} aria-hidden="true" />
+                  {error ? 'Try again' : 'Start a conversation'}
                 </Button>
               )}
+            </div>
+            <p id="voice-disclosure" className="voice-disclosure">
+              Microphone required · Powered by ElevenLabs<br />
+              You’re talking to AI. Its answers can be imperfect.
+            </p>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

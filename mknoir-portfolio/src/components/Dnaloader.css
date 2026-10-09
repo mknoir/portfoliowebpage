@@ -1,197 +1,122 @@
-/* src/components/dnaLoader.css */
+.dna-indicator {
+  --dna-width: 96px;
+  --dna-height: 40px;
+  --dna-duration: 1.44s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--dna-width);
+  height: var(--dna-height);
+  color: var(--primary);
+}
 
-.loader {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 120px;
-    height: 20px;
-  }
-  
-  .dot {
-    position: relative;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin: 0 5px;
-    height: 20px;
-    width: 2px;
-  }
-  
-  .dot:first-of-type {
-    margin-left: 0;
-  }
-  
-  .dot:last-of-type {
-    margin-right: 0;
-  }
-  
-  .dot::before,
-  .dot::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    display: block;
-    width: 4px;
-    height: 4px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
-    animation: helix 1.25s ease-in-out infinite;
-  }
-  
-  .dot::after {
-    bottom: 100%;
-    animation: helix-reversed 1.25s ease-in-out infinite;
-  }
-  
-  .dot i {
-    position: absolute;
-    z-index: 25;
-    align-self: center;
-    width: 2px;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.15);
-    animation: helix-bar 1.25s ease-in-out infinite;
-  }
-  
-  .dot2::before,
-  .dot2::after,
-  .dot2 i {
-    animation-delay: 0.05s;
-  }
-  
-  .dot3::before,
-  .dot3::after,
-  .dot3 i {
-    animation-delay: 0.10s;
-  }
-  
-  .dot4::before,
-  .dot4::after,
-  .dot4 i {
-    animation-delay: 0.15s;
-  }
-  
-  .dot5::before,
-  .dot5::after,
-  .dot5 i {
-    animation-delay: 0.20s;
-  }
-  
-  .dot6::before,
-  .dot6::after,
-  .dot6 i {
-    animation-delay: 0.25s;
-  }
-  
-  .dot7::before,
-  .dot7::after,
-  .dot7 i {
-    animation-delay: 0.30s;
-  }
-  
-  .dot8::before,
-  .dot8::after,
-  .dot8 i {
-    animation-delay: 0.35s;
-  }
-  
-  .dot9::before,
-  .dot9::after,
-  .dot9 i {
-    animation-delay: 0.40s;
-  }
-  .loader-container {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease;
-  }
-  
-  .fade-out {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  @keyframes helix {
-    0% {
-      width: 5px;
-      height: 5px;
-      bottom: -5px;
-      z-index: 10;
-    }
-    25% {
-      width: 2px;
-      height: 2px;
-    }
-    50% {
-      width: 5px;
-      height: 5px;
-      bottom: 100%;
-      z-index: 20;
-    }
-    75% {
-      width: 8px;
-      height: 8px;
-    }
-    100% {
-      width: 5px;
-      height: 5px;
-      bottom: -5px;
-    }
-  }
-  
-  @keyframes helix-reversed {
-    0% {
-      width: 5px;
-      height: 5px;
-      bottom: 100%;
-      z-index: 20;
-    }
-    25% {
-      width: 8px;
-      height: 8px;
-    }
-    50% {
-      width: 5px;
-      height: 5px;
-      bottom: -5px;
-      z-index: 10;
-    }
-    75% {
-      width: 2px;
-      height: 2px;
-    }
-    100% {
-      width: 5px;
-      height: 5px;
-      bottom: 100%;
-    }
-  }
-  
-  @keyframes helix-bar {
-    0% {
-      height: 15px;
-    }
-    25% {
-      height: 8px;
-    }
-    50% {
-      height: 15px;
-    }
-    75% {
-      height: 8px;
-    }
-    100% {
-      height: 15px;
-    }
-  }
+.dna-helix {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 
-  
+.dna-rung {
+  position: relative;
+  flex: 1;
+  height: 100%;
+}
+
+.dna-rung::before,
+.dna-rung::after {
+  position: absolute;
+  top: calc(50% - 2.5px);
+  left: calc(50% - 2.5px);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+.dna-rung::before {
+  transform: translateY(calc(var(--dna-height) * var(--dna-offset)));
+}
+
+.dna-rung::after {
+  opacity: .58;
+  transform: translateY(calc(var(--dna-height) * var(--dna-offset) * -1));
+}
+
+.dna-rung i {
+  position: absolute;
+  top: 16%;
+  left: calc(50% - .5px);
+  width: 1px;
+  height: 68%;
+  background: currentColor;
+  opacity: .25;
+  transform: scaleY(var(--dna-bar-scale));
+}
+
+.dna-indicator[data-active='true'] .dna-rung::before,
+.dna-indicator[data-active='true'] .dna-rung::after,
+.dna-indicator[data-active='true'] .dna-rung i {
+  animation-duration: var(--dna-duration);
+  animation-timing-function: ease-in-out;
+  animation-delay: var(--dna-delay);
+  animation-iteration-count: infinite;
+}
+
+.dna-indicator[data-active='true'] .dna-rung::before { animation-name: dna-forward; }
+.dna-indicator[data-active='true'] .dna-rung::after { animation-name: dna-backward; }
+.dna-indicator[data-active='true'] .dna-rung i { animation-name: dna-bridge; }
+
+@keyframes dna-forward {
+  0%, 100% { transform: translateY(calc(var(--dna-height) * -.34)) scale(.85); opacity: .85; }
+  25% { transform: translateY(0) scale(.6); opacity: .45; }
+  50% { transform: translateY(calc(var(--dna-height) * .34)) scale(.85); opacity: .85; }
+  75% { transform: translateY(0) scale(1.15); opacity: 1; }
+}
+
+@keyframes dna-backward {
+  0%, 100% { transform: translateY(calc(var(--dna-height) * .34)) scale(.85); opacity: .85; }
+  25% { transform: translateY(0) scale(1.15); opacity: 1; }
+  50% { transform: translateY(calc(var(--dna-height) * -.34)) scale(.85); opacity: .85; }
+  75% { transform: translateY(0) scale(.6); opacity: .45; }
+}
+
+@keyframes dna-bridge {
+  0%, 50%, 100% { transform: scaleY(1); }
+  25%, 75% { transform: scaleY(.12); }
+}
+
+.dna-accessible-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.route-loading {
+  display: flex;
+  min-height: 45vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding-block: 72px;
+}
+
+.route-loading p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dna-indicator .dna-rung::before,
+  .dna-indicator .dna-rung::after,
+  .dna-indicator .dna-rung i {
+    animation: none !important;
+  }
+}

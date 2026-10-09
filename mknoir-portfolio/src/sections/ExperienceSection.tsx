@@ -1,13 +1,11 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
+import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
+import '@/styles/interior.css'
 
 interface Experience {
   company: string
-  logo: string
+  logo?: string
   role: string
   period: string
   description: string
@@ -44,7 +42,6 @@ const experiences: Experience[] = [
   },
   {
     company: 'Optimized Foods',
-    logo: '/logos/optimized.svg',
     role: 'Research Associate',
     period: 'Sep 2022 — Jan 2023',
     description:
@@ -73,65 +70,60 @@ const experiences: Experience[] = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="py-24 px-6">
-      <div className="mx-auto max-w-3xl">
-        <h2 className="mb-16 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Work &amp; Experience
-        </h2>
+    <div id="experience" className="interior-page shell">
+      <header className="experience-intro">
+        <p className="eyebrow">Experience / The path so far</p>
+        <h1 className="interior-title">From experiments<br />to systems.</h1>
+        <div className="experience-intro-bottom">
+          <p className="interior-lead">
+            A path through molecular biology, therapeutics, automation, and
+            machine learning. Each role adds another way to think about the next
+            problem.
+          </p>
+          <Link className="text-link" href="/#projects">
+            See what I’m building <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+      </header>
 
-        <div>
-          {experiences.map((exp, idx) => (
-            <div key={`${exp.company}-${exp.period}`}>
-              {idx > 0 && <Separator className="my-8" />}
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="flex flex-col gap-4 md:flex-row md:items-start"
-              >
-                {/* Logo */}
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border bg-muted p-2">
+      <ol className="experience-list" aria-label="Work experience, most recent first">
+        {experiences.map((experience) => (
+          <li className="experience-row" key={`${experience.company}-${experience.period}`}>
+            <div className="experience-meta">
+              <p className="experience-period">{experience.period}</p>
+              {experience.logo && (
+                <div className="experience-logo">
                   <Image
-                    src={exp.logo}
-                    alt={`${exp.company} logo`}
-                    width={32}
-                    height={32}
-                    className="object-contain"
-                    priority={idx === 0}
-                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    src={experience.logo}
+                    alt=""
+                    width={108}
+                    height={46}
+                    className="experience-logo-image"
                   />
                 </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <h3 className="text-base font-semibold sm:text-lg">
-                    {exp.role}{' '}
-                    <span className="text-muted-foreground">
-                      @ {exp.company}
-                    </span>
-                  </h3>
-                  <span className="mb-2 block text-sm text-muted-foreground">
-                    {exp.period}
-                  </span>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {exp.description}
-                  </p>
-
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {exp.tags.map((tag) => (
-                      <Badge key={tag} variant="outline">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+              )}
             </div>
-          ))}
+            <article className="experience-content">
+              <p className="experience-company">{experience.company}</p>
+              <h2>{experience.role}</h2>
+              <p className="experience-description">{experience.description}</p>
+              <ul className="experience-tags" aria-label="Areas of work">
+                {experience.tags.map((tag) => <li key={tag}>{tag}</li>)}
+              </ul>
+            </article>
+          </li>
+        ))}
+      </ol>
+
+      <section className="interior-contact" aria-labelledby="experience-contact-title">
+        <div>
+          <p className="eyebrow">The next interesting problem</p>
+          <h2 id="experience-contact-title">Let’s build something useful.</h2>
         </div>
-      </div>
-    </section>
+        <a className="button-primary" href="mailto:himay75@gmail.com">
+          Get in touch <ArrowUpRight size={18} aria-hidden="true" />
+        </a>
+      </section>
+    </div>
   )
 }

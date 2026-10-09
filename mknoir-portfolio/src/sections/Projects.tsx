@@ -1,135 +1,64 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import Image from 'next/image'
+import { ArrowUpRight, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ExternalLink } from 'lucide-react'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
-const projects = [
-  {
-    title: 'Thread of Life',
-    description:
-      'A genetics-driven storytelling interface. Real-time queries of genetic datasets with AI-driven narrative generation.',
-    link: 'https://tol-two.vercel.app/',
-  },
-  {
-    title: '3D Chem Viewer',
-    description: 'Interactive 3D molecular structure visualization tool.',
-    link: 'https://chemview.streamlit.app/',
-  },
-  {
-    title: 'ADME Checker',
-    description: 'Drug-likeness and ADME property predictor.',
-    link: 'https://chemro5.streamlit.app/',
-  },
-  {
-    title: 'Target Bioactivity',
-    description: 'Bioactivity data explorer via ChEMBL database.',
-    link: 'https://chembl.streamlit.app/',
-  },
-  {
-    title: 'KEGG Query',
-    description: 'Pathway and gene data queried from the KEGG database.',
-    link: 'https://keggapp-mknoir.streamlit.app/',
-  },
-  {
-    title: 'PDB ID Retrieval',
-    description: 'Protein structure lookup from the PDB.',
-    link: 'https://keggapp-ro3drlgjs4lcoji3ycn33e.streamlit.app/',
-  },
-  {
-    title: 'Wave Web3 App',
-    description: 'Decentralised wave portal built on Ethereum.',
-    link: 'https://waveportal-starter-project.mknoir.repl.co/',
-  },
-  {
-    title: 'NFT Wordslot',
-    description: 'On-chain NFT word-slot game project.',
-    link: 'https://nft-starter-project.mknoir.repl.co/',
-  },
-  {
-    title: 'Molecular Dynamics Visualizer',
-    description: 'Simulation visualizer for molecular dynamics trajectories.',
-    link: '#',
-    comingSoon: true,
-  },
-  {
-    title: 'AI Compound Generator',
-    description: 'Generative AI for novel molecular compound design.',
-    link: '#',
-    comingSoon: true,
-  },
+const experiments = [
+  { title: '3D Chem Viewer', description: 'Molecular structures, made explorable.', category: 'Visualization', href: 'https://chemview.streamlit.app/' },
+  { title: 'ADME Checker', description: 'A small tool for exploring drug-likeness.', category: 'Cheminformatics', href: 'https://chemro5.streamlit.app/' },
+  { title: 'Target Bioactivity', description: 'Making ChEMBL bioactivity data easier to work with.', category: 'Scientific data', href: 'https://chembl.streamlit.app/' },
+  { title: 'KEGG Query', description: 'A window into pathway and gene data.', category: 'Bioinformatics', href: 'https://keggapp-mknoir.streamlit.app/' },
+  { title: 'PDB ID Retrieval', description: 'Finding a protein’s structure in the PDB.', category: 'Bioinformatics', href: 'https://keggapp-ro3drlgjs4lcoji3ycn33e.streamlit.app/' },
+  { title: 'Wave Web3 App', description: 'An early experiment with Ethereum.', category: 'Early experiments', href: 'https://waveportal-starter-project.mknoir.repl.co/' },
+  { title: 'NFT Wordslot', description: 'An on-chain word-slot experiment.', category: 'Early experiments', href: 'https://nft-starter-project.mknoir.repl.co/' },
 ]
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 px-6">
-      <div className="mx-auto max-w-6xl">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center text-3xl font-bold tracking-tight sm:text-4xl"
-        >
-          Projects
-        </motion.h2>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05, duration: 0.4 }}
-            >
-              <Card
-                className={`group h-full transition-colors hover:bg-accent/50 ${
-                  project.comingSoon ? 'pointer-events-none opacity-50' : ''
-                }`}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between text-base">
-                    {project.title}
-                    {project.comingSoon && (
-                      <Badge variant="outline" className="text-xs font-normal">
-                        Coming Soon
-                      </Badge>
-                    )}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    {project.description}
-                  </p>
-                </CardContent>
-                {!project.comingSoon && (
-                  <CardFooter>
-                    <Button variant="ghost" size="sm" className="gap-2" asChild>
-                      <Link
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Explore
-                        <ExternalLink className="h-3.5 w-3.5" />
-                      </Link>
-                    </Button>
-                  </CardFooter>
-                )}
-              </Card>
-            </motion.div>
-          ))}
+    <section id="projects" className="projects-section section-pad" aria-labelledby="projects-title">
+      <div className="shell">
+        <div className="section-heading">
+          <div><p className="eyebrow">01 / Selected work</p><h2 id="projects-title">Curiosity, put to work.</h2></div>
+          <p>Things I&apos;m building to make<br className="desktop-break" /> science a little more accessible.</p>
         </div>
+        <div className="featured-projects">
+          <article id="cornucopia" aria-labelledby="cornucopia-title">
+          <Card className="featured-project">
+            <a href="https://discovery.cornucopiabio.com" target="_blank" rel="noopener noreferrer" className="project-image-link cornucopia-preview" aria-label="Explore Cornucopia Discovery (opens in a new tab)">
+              <Image src="/projects/cornucopia.png" alt="Cornucopia website: intelligence built for biology" width={1280} height={720} sizes="(max-width: 700px) 90vw, 580px" /><span className="project-open"><ArrowUpRight size={21} aria-hidden="true" /></span>
+            </a>
+            <div className="project-body">
+            <div className="project-caption"><Badge variant="secondary">Scientific AI &amp; lab automation</Badge><span className="project-index">01</span></div>
+            <h3 id="cornucopia-title"><a href="https://discovery.cornucopiabio.com" target="_blank" rel="noopener noreferrer">Cornucopia</a></h3>
+            <p>Connecting the science, the software, and the instruments. Building tools that turn experimental workflows into working systems.</p>
+            <div className="project-actions" role="group" aria-label="Cornucopia apps">
+              <Button asChild><a href="https://discovery.cornucopiabio.com" target="_blank" rel="noopener noreferrer" aria-label="Open Cornucopia Discovery (opens in a new tab)">Discovery <ArrowUpRight aria-hidden="true" /></a></Button>
+              <Button asChild variant="outline"><a href="https://app.cornucopiabio.com" target="_blank" rel="noopener noreferrer" aria-label="Open Cornucopia app (opens in a new tab)">Open app <ArrowUpRight aria-hidden="true" /></a></Button>
+            </div>
+            </div>
+          </Card>
+          </article>
+          <article>
+          <Card className="featured-project">
+            <a href="https://tol-two.vercel.app/" target="_blank" rel="noopener noreferrer" className="project-image-link thread-preview" aria-label="Explore Thread of Life (opens in a new tab)">
+              <Image src="/projects/thread-of-life.png" alt="Thread of Life, with evidence-based journeys through genes and genetic variation" width={1280} height={720} sizes="(max-width: 700px) 90vw, 580px" /><span className="project-open"><ArrowUpRight size={21} aria-hidden="true" /></span>
+            </a>
+            <div className="project-body">
+            <div className="project-caption"><Badge variant="secondary">Genetics &amp; scientific storytelling</Badge><span className="project-index">02</span></div>
+            <h3><a href="https://tol-two.vercel.app/" target="_blank" rel="noopener noreferrer">Thread of Life</a></h3>
+            <p>Pull the thread on a gene or variant. An interface for exploring what the evidence says, what it doesn&apos;t, and the stories in between.</p>
+            <div className="project-actions"><Button asChild variant="outline"><a href="https://tol-two.vercel.app/" target="_blank" rel="noopener noreferrer">Explore project <ArrowUpRight aria-hidden="true" /></a></Button></div>
+            </div>
+          </Card>
+          </article>
+        </div>
+        <details className="experiment-drawer">
+          <summary><span>More experiments <Badge variant="outline" className="experiment-count">07</Badge></span><Plus size={20} aria-hidden="true" /></summary>
+          <div className="experiment-list">{experiments.map((project) => (
+            <a key={project.title} href={project.href} target="_blank" rel="noopener noreferrer" className="experiment-row"><div><h3>{project.title}</h3><p>{project.description}</p></div><span className="experiment-category">{project.category}</span><ArrowUpRight size={19} aria-hidden="true" /></a>
+          ))}</div>
+        </details>
       </div>
     </section>
   )

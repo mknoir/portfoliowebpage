@@ -1,44 +1,46 @@
-// src/components/DnaLoader.tsx
-
-'use client'
-
-import React, { useEffect, useState } from 'react'
+import type { CSSProperties } from 'react'
+import { cn } from '@/lib/utils'
 import './Dnaloader.css'
 
-const DnaLoader: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true)
-  const [isFadingOut, setIsFadingOut] = useState(false)
+type DnaLoaderProps = {
+  active?: boolean
+  className?: string
+  /** Omit when nearby status text already describes the operation. */
+  label?: string
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsFadingOut(true)
-
-      // Delay hide until fade-out finishes
-      setTimeout(() => {
-        setIsVisible(false)
-      }, 500) // Match CSS transition duration
-    }, 3000) // How long to show loader
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (!isVisible) return null
-
+export default function DnaLoader({
+  active = true,
+  className,
+  label,
+}: DnaLoaderProps) {
   return (
-    <div className={`loader-container ${isFadingOut ? 'fade-out' : ''}`}>
-      <div className="loader">
-        <div className="dot dot1"><i></i></div>
-        <div className="dot dot2"><i></i></div>
-        <div className="dot dot3"><i></i></div>
-        <div className="dot dot4"><i></i></div>
-        <div className="dot dot5"><i></i></div>
-        <div className="dot dot6"><i></i></div>
-        <div className="dot dot7"><i></i></div>
-        <div className="dot dot8"><i></i></div>
-        <div className="dot dot9"><i></i></div>
-      </div>
+    <div
+      className={cn('dna-indicator', className)}
+      data-active={active}
+      role={label ? 'status' : undefined}
+      aria-live={label ? 'polite' : undefined}
+      aria-hidden={label ? undefined : true}
+    >
+      <span className="dna-helix" aria-hidden="true">
+        {Array.from({ length: 9 }, (_, index) => {
+          const phase = Math.sin(index * Math.PI / 4)
+          return (
+            <span
+              key={index}
+              className="dna-rung"
+              style={{
+                '--dna-offset': (phase * 0.34).toFixed(4),
+                '--dna-bar-scale': Math.max(0.12, Math.abs(phase)).toFixed(4),
+                '--dna-delay': `${-index * 0.18}s`,
+              } as CSSProperties}
+            >
+              <i />
+            </span>
+          )
+        })}
+      </span>
+      {label && <span className="dna-accessible-label">{label}</span>}
     </div>
   )
 }
-
-export default DnaLoader

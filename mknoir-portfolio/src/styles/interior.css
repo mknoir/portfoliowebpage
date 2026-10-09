@@ -1,0 +1,372 @@
+.interior-page {
+  padding-top: clamp(64px, 8vw, 112px);
+  padding-bottom: 32px;
+}
+
+.interior-title {
+  margin: 24px 0;
+  font-size: clamp(42px, 5.4vw, 72px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.interior-lead {
+  max-width: 630px;
+  font-size: clamp(19px, 2vw, 22px);
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(40px, 7vw, 104px);
+  padding-bottom: 96px;
+}
+
+.about-intro-detail {
+  max-width: 530px;
+  margin-top: 20px;
+  margin-bottom: 28px;
+  color: var(--muted-foreground);
+  font-size: 17px;
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+
+.about-portrait {
+  width: 100%;
+  max-width: 350px;
+  justify-self: end;
+  margin: 0;
+}
+
+.about-portrait-image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--card);
+}
+
+.about-portrait-image img {
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.about-portrait figcaption {
+  margin-top: 14px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.about-practice {
+  padding: 64px 0 80px;
+  border-top: 1px solid var(--border);
+}
+
+.interior-section-heading h2,
+.interior-editorial-row h2,
+.interior-contact h2 {
+  margin-top: 18px;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.capability-number {
+  color: var(--primary);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.capability h3 {
+  margin: 20px 0 14px;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.capability p {
+  color: var(--muted-foreground);
+  font-size: 16px;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+.capability-detail {
+  display: block;
+  margin-top: 24px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.interior-editorial-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: clamp(40px, 8vw, 112px);
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+}
+
+.interior-editorial-row h2 {
+  max-width: 350px;
+}
+
+.interior-prose {
+  color: var(--muted-foreground);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.interior-prose p {
+  text-wrap: pretty;
+}
+
+.interior-prose p + p {
+  margin-top: 20px;
+}
+
+.interior-prose .outside-interests {
+  margin-top: 28px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.8;
+  word-spacing: 0.08em;
+}
+
+.interior-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 28px;
+  padding: 56px 0 40px;
+  border-top: 1px solid var(--border);
+}
+
+.interior-contact h2 {
+  max-width: 600px;
+}
+
+.interior-contact .button-primary {
+  flex-shrink: 0;
+}
+
+.experience-intro {
+  padding-bottom: 64px;
+}
+
+.experience-intro-bottom {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 48px;
+  margin-top: 32px;
+}
+
+.experience-intro-bottom .text-link {
+  flex-shrink: 0;
+  margin-bottom: 5px;
+}
+
+.experience-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.experience-row {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 72px;
+  padding: 44px 0 48px;
+  border-top: 1px solid var(--border);
+}
+
+.experience-period {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.8;
+}
+
+.experience-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 64px;
+  margin-top: 22px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.experience-logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.experience-company {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.experience-content h2 {
+  margin-top: 9px;
+  font-size: clamp(23px, 2.6vw, 30px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.experience-description {
+  max-width: 700px;
+  margin-top: 18px;
+  color: var(--muted-foreground);
+  font-size: 16px;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+.experience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 20px;
+  padding: 0;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  list-style: none;
+}
+
+@media (max-width: 900px) {
+  .about-intro {
+    gap: 40px;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.8fr);
+  }
+
+  .about-title-break {
+    display: none;
+  }
+
+  .capability-grid {
+    gap: 28px;
+  }
+
+  .experience-intro-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .experience-row {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 700px) {
+  .interior-page {
+    padding-top: 48px;
+  }
+
+  .about-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-bottom: 56px;
+  }
+
+  .about-portrait {
+    max-width: 330px;
+    width: 82%;
+    justify-self: start;
+  }
+
+  .about-portrait-image {
+    aspect-ratio: 1;
+  }
+
+  .about-practice {
+    padding: 44px 0 52px;
+  }
+
+  .capability-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+    margin-top: 36px;
+  }
+
+  .capability h3 {
+    margin-top: 10px;
+  }
+
+  .capability-detail {
+    margin-top: 14px;
+  }
+
+  .interior-editorial-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    padding: 44px 0;
+  }
+
+  .interior-editorial-row h2 {
+    max-width: 380px;
+  }
+
+  .interior-contact {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 8px;
+    padding-top: 44px;
+  }
+
+  .experience-intro {
+    padding-bottom: 44px;
+  }
+
+  .experience-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 32px 0 36px;
+  }
+
+  .experience-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .experience-logo {
+    width: 92px;
+    height: 46px;
+    padding: 7px;
+    margin-top: 0;
+  }
+}

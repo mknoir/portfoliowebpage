@@ -1,0 +1,104 @@
+.lab-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 52% 37%, #f5f4e9 0, #e9ede6 57%, #dfe6dd 100%);
+}
+
+.lab-scene__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: pan-y;
+  cursor: grab;
+  transition: opacity 350ms ease;
+}
+
+.lab-scene[data-state='loading'] .lab-scene__canvas,
+.lab-scene[data-state='unavailable'] .lab-scene__canvas { opacity: 0; }
+.lab-scene__canvas[data-hovering='true'] { cursor: pointer; }
+.lab-scene__canvas[data-dragging='true'] { cursor: grabbing; }
+.lab-scene__canvas:focus-visible { outline: 2px solid #416c59; outline-offset: -4px; }
+
+.lab-scene__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 44px 24px;
+  color: #52645a;
+  font-size: 12px;
+  letter-spacing: 0.015em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.lab-scene__fallback svg { width: min(72%, 480px); height: auto; }
+
+.lab-scene__tools {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.lab-scene__hint {
+  display: block;
+  max-width: 250px;
+  color: #627166;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+  text-wrap: balance;
+}
+
+.lab-scene__reset {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #bdc9bca6;
+  border-radius: 99px;
+  background: #f5f5ebdb;
+  color: #476251;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.lab-scene__reset:hover { background: #fcfcf4; border-color: #829a86; }
+.lab-scene__reset:focus-visible { outline: 2px solid #416c59; outline-offset: 3px; }
+.lab-scene__reset:disabled { opacity: 0.35; cursor: default; }
+.lab-scene__sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 700px) {
+  .lab-scene { min-height: 290px; }
+  .lab-scene__tools { bottom: 9px; left: 12px; right: 12px; gap: 6px; }
+  .lab-scene__hint { max-width: 180px; font-size: 9px; }
+  .lab-scene__reset { padding: 0 10px; min-width: 44px; font-size: 9px; }
+  .lab-scene__fallback { padding: 24px 16px 54px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-scene__canvas, .lab-scene__reset { transition: none; }
+}
