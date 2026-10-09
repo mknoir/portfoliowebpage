@@ -21,8 +21,10 @@ const projects = [
   {
     name: 'Cornucopia',
     type: 'Scientific AI / Lab automation',
-    image: '/projects/cornucopia.png',
-    alt: 'Cornucopia scientific discovery website',
+    image: '/projects/cornucopia-discovery-team.png',
+    alt: 'Cornucopia Discovery Full Lab Team: ask a research question and Aster directs the specialists',
+    width: 1810,
+    height: 1024,
     description: 'I’m building software for scientific discovery. Connecting the research, the experiments, and the tools it takes to do the work.',
     links: [
       { label: 'Explore Discovery', href: 'https://discovery.cornucopiabio.com' },
@@ -34,6 +36,8 @@ const projects = [
     type: 'Genetics / Scientific storytelling',
     image: '/projects/thread-of-life.png',
     alt: 'Thread of Life gene and genetic variant explorer',
+    width: 1280,
+    height: 720,
     description: 'An explorer for genes and genetic variants. Follow a question, look at the evidence, and see where the thread takes you.',
     links: [{ label: 'Pull a thread', href: 'https://tol-two.vercel.app/' }],
   },
@@ -81,7 +85,7 @@ function Projects({ index }: { index: number }) {
       <div className="afterhours-project-preview" id="afterhours-project-preview" aria-live="polite" aria-atomic="true">
         <div className="afterhours-preview-label"><span>{project.type}</span><span>0{selected + 1} / 02</span></div>
         <a className="afterhours-project-image" href={project.links[0].href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} (opens in a new tab)`}>
-          <Image src={project.image} alt={project.alt} width={1280} height={720} sizes="(max-width: 800px) 92vw, 54vw" />
+          <Image src={project.image} alt={project.alt} width={project.width} height={project.height} sizes="(max-width: 800px) 92vw, 54vw" />
           <span className="afterhours-preview-arrow"><ArrowUpRight size={30} aria-hidden="true" /></span>
         </a>
         <div className="afterhours-project-description"><h3>{project.name}</h3><p>{project.description}</p><div className="afterhours-link-row">{project.links.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={17} aria-hidden="true" /></a>)}</div></div>

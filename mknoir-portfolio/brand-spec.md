@@ -108,7 +108,7 @@ Cornucopia has two explicit destinations supplied by Mickey: `https://discovery.
 
 - `public/portrait.jpg`: existing user photo, copied unmodified from `../20260114-93.jpg`. Next Image handles delivery optimization.
 - `public/avatar.jpg`: existing avatar used by The Original and the social preview.
-- `public/projects/cornucopia.png`: actual Cornucopia homepage capture from the portfolio work.
+- `public/projects/cornucopia-discovery-team.png`: screenshot supplied by Mickey of the Discovery Full Lab Team page (`https://discovery.cornucopiabio.com/teams/full-roster`), used unchanged at its native 1810×1024 proportions. Project cards must retain the full screenshot.
 - `public/projects/thread-of-life.png`: actual Thread of Life homepage capture from the portfolio work.
 - `public/logos/`: original company logos. The suspect mislabeled Optimized Foods asset is not used as evidence of that company’s identity.
 - `src/app/fonts/`: self-hosted Space Grotesk and Barlow Condensed Bold from Google Fonts, and Satoshi from Fontshare, with license references in that directory. Barlow’s local TTF and SIL Open Font License come from the official Google Fonts repository.

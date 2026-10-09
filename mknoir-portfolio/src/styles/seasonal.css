@@ -95,7 +95,7 @@
 .seasonal-projects-heading p { padding-bottom: 7px; font-size: 13px; line-height: 1.9; color: var(--seasonal-muted); }
 .seasonal-project-feature { display: grid; grid-template-columns: 1.45fr 1fr; gap: 60px; align-items: center; }
 .seasonal-project-print { display: block; padding: 12px 12px 0; background: #e5dfcb; color: #45503b; transform: rotate(-1.5deg); box-shadow: 1px 5px 15px rgb(40 50 25 / 6%); }
-.seasonal-project-print img { aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.seasonal-project-print img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; }
 .seasonal-project-print > span { display: flex; align-items: center; justify-content: space-between; min-height: 47px; gap: 20px; padding: 5px 5px; font-size: 10px; }
 .seasonal-project-copy h3, .seasonal-project-thread-intro h3 { margin: 18px 0 21px; font-size: clamp(35px, 3.6vw, 49px); }
 .seasonal-project-copy p, .seasonal-project-thread-intro p { font-size: 13px; line-height: 1.9; color: var(--seasonal-muted); }

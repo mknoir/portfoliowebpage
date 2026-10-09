@@ -26,7 +26,7 @@ export function Projects() {
           <article id="cornucopia" aria-labelledby="cornucopia-title">
           <Card className="featured-project">
             <a href="https://discovery.cornucopiabio.com" target="_blank" rel="noopener noreferrer" className="project-image-link cornucopia-preview" aria-label="Explore Cornucopia Discovery (opens in a new tab)">
-              <Image src="/projects/cornucopia.png" alt="Cornucopia website: intelligence built for biology" width={1280} height={720} sizes="(max-width: 700px) 90vw, 580px" /><span className="project-open"><ArrowUpRight size={21} aria-hidden="true" /></span>
+              <Image src="/projects/cornucopia-discovery-team.png" alt="Cornucopia Discovery Full Lab Team: ask a research question and Aster directs the specialists" width={1810} height={1024} sizes="(max-width: 700px) 90vw, 580px" /><span className="project-open"><ArrowUpRight size={21} aria-hidden="true" /></span>
             </a>
             <div className="project-body">
             <div className="project-caption"><Badge variant="secondary">Scientific AI &amp; lab automation</Badge><span className="project-index">01</span></div>

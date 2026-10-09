@@ -99,8 +99,8 @@ export const LAB_STORIES: LabStory[] = [
 ]
 
 export const LAB_PROJECTS = [
-  { name: 'Cornucopia', detail: 'Tools for scientific discovery.', href: 'https://discovery.cornucopiabio.com', extra: 'https://app.cornucopiabio.com', image: '/projects/cornucopia.png' },
-  { name: 'Thread of Life', detail: 'An interactive journey through biology.', href: 'https://tol-two.vercel.app/', image: '/projects/thread-of-life.png' },
+  { name: 'Cornucopia', detail: 'Tools for scientific discovery.', href: 'https://discovery.cornucopiabio.com', extra: 'https://app.cornucopiabio.com', image: '/projects/cornucopia-discovery-team.png', imageWidth: 1810, imageHeight: 1024, imageAlt: 'Cornucopia Discovery Full Lab Team: ask a research question and Aster directs the specialists' },
+  { name: 'Thread of Life', detail: 'An interactive journey through biology.', href: 'https://tol-two.vercel.app/', image: '/projects/thread-of-life.png', imageWidth: 1280, imageHeight: 720, imageAlt: 'Thread of Life gene and genetic variant explorer' },
   { name: '3D Chem Viewer', detail: 'Explore molecular structures in 3D.', href: 'https://chemview.streamlit.app/' },
   { name: 'ADME Checker', detail: 'A quick look at molecular properties.', href: 'https://chemro5.streamlit.app/' },
   { name: 'Target Bioactivity', detail: 'Explore ChEMBL bioactivity data.', href: 'https://chembl.streamlit.app/' },

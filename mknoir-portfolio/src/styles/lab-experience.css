@@ -67,7 +67,7 @@
 .lab-back-to-room { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 12px 0; margin-top: 40px; min-height: 44px; border: 0; background: none; font-size: 11px; color: #5b6c63 !important; }
 .lab-project-list { display: grid; gap: 35px; margin-top: 36px; }
 .lab-project-list article { border-bottom: 1px solid #cbd5c5; padding-bottom: 25px; }
-.lab-project-list img { width: 100%; aspect-ratio: 1.9; object-fit: cover; object-position: top; border: 1px solid #d5ded0; border-radius: 3px; margin-bottom: 18px; }
+.lab-project-list img { width: 100%; height: auto; aspect-ratio: auto; object-fit: contain; border: 1px solid #d5ded0; border-radius: 3px; margin-bottom: 18px; }
 .lab-project-list article > a { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .lab-project-list h3 { margin: 0; font-size: 24px; }
 .lab-project-list p { margin: 9px 0 0; color: #5b6c63; font-size: 13px; }

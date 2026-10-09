@@ -93,7 +93,7 @@ function AtlasReading({ chapter, select }: { chapter: ChapterId; select: (id: Ch
     <p className="atlas-lede">Scientific software, small experiments, and tools I wanted to exist.</p>
     {LAB_PROJECTS.map((project, index) => <article className="atlas-project" key={project.name}>
       <div className="atlas-project-caption"><span className="atlas-mono">Project / {String(index + 1).padStart(2, '0')}</span><ArrowUpRight size={16} aria-hidden="true" /></div>
-      {project.image && <a href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} (new tab)`}><Image src={project.image} alt={`${project.name} website preview`} width={1280} height={720} sizes="(max-width: 760px) 90vw, 400px" /></a>}
+      {project.image && <a href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.name} (new tab)`}><Image src={project.image} alt={project.imageAlt} width={project.imageWidth} height={project.imageHeight} sizes="(max-width: 760px) 90vw, 400px" /></a>}
       <h3>{project.name}</h3><p>{project.detail}</p><div className="atlas-project-links"><ExternalLink href={project.href}>{project.extra ? 'Discovery' : 'Open project'}</ExternalLink>{project.extra && <ExternalLink href={project.extra}>Open the app</ExternalLink>}</div>
     </article>)}
     <ExternalLink href="https://github.com/mknoir">More on GitHub</ExternalLink>

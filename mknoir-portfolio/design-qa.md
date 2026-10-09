@@ -107,3 +107,9 @@ Local production preview: http://localhost:3001.
 - Browser validation used the local in-app browser with viewport emulation. Physical devices, Safari, and Firefox remain untested. New reduced-motion styles were reviewed in source; no OS motion-preference change was made.
 - Evidence: `46-lab-portrait-before.png`, `47-lab-portrait-fixed.png`, `48-atlas-desktop.png`, `49-atlas-reading-desktop.png`, `50-atlas-reading-phone.png`, `51-five-design-picker-phone.png`, `52-afterhours-work-phone.png`, `53-afterhours-ratings-phone.png`, `54-afterhours-portrait-phone.png`, `55-afterhours-work-desktop.png`, `56-afterhours-play-desktop.png`, `57-original-updated-skills-phone.png`, `58-seasonal-portrait-fixed.png`, `59-atlas-phone-final.png`, and `60-afterhours-final-desktop.png`. Captures 48–56 precede the final caption-size, contrast, and section-number polish.
 - Production preview remains at `http://localhost:3001`. Stable new review links are `/?look=atlas` and `/?look=afterhours`.
+
+## Follow-up: Cornucopia Discovery screenshot
+
+- Replaced the old marketing homepage preview with Mickey's supplied 1810×1024 screenshot of the Discovery Full Lab Team page. The new descriptive asset path avoids cached copies of the old image; all active and archived screenshot references now use it. The Original retains its existing text-only project cards.
+- Updated image dimensions and alt text. Seasons and The Lab now retain the complete screenshot instead of applying a cover crop; Atlas already uses natural dimensions, and After Hours uses contain. Discovery and App destinations are unchanged.
+- Lint, TypeScript, production build, and diff checks pass. SHA-256 confirms the asset is identical to the supplied image. The local server returns the exact asset and the Next Image optimized response with HTTP 200. Crop rules were reviewed in source; fresh browser screenshot comparison was not performed in this pass.
