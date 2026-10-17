@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { ArrowDown, ArrowUpRight, ArrowRight, Bike, Mountain, Moon, Sun, Waves, Wind } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
+import { ThoughtPreview } from '@/components/ThoughtPreview'
 import '@/styles/seasonal.css'
 
 type Season = 'spring' | 'summer' | 'autumn' | 'winter'
@@ -30,7 +31,7 @@ const guide = [
   { id: 'life', number: '02', label: 'Time outside', detail: 'Away from the desk' },
   { id: 'projects', number: '03', label: 'Things I’m building', detail: 'Current projects' },
   { id: 'experience', number: '04', label: 'The path so far', detail: 'Work & experience' },
-  { id: 'thoughts', number: '05', label: 'Notes for later', detail: 'Coming soon' },
+  { id: 'thoughts', number: '05', label: 'Notes for later', detail: 'The scientific method for AI' },
 ]
 
 function Contours() {
@@ -114,7 +115,7 @@ export default function SeasonalPortfolio({ page = 'home' }: { page?: 'home' | '
 
         <section className="seasonal-work" id="experience" aria-labelledby="seasonal-work-title"><div className="seasonal-work-heading"><span className="seasonal-label">04 / Work &amp; experience</span><h2 id="seasonal-work-title">The path<br /><em>so far.</em></h2><p>From molecular assays and gene therapy to computational biology and automation.</p><a className="seasonal-underlined-link" href="/Mickey_Makhija_Resume.pdf" target="_blank" rel="noopener noreferrer">Read my résumé <ArrowUpRight size={17} aria-hidden="true" /></a></div><div className="seasonal-work-list">{jobs.map((job, index) => <details key={`${job.company}-${job.dates}`} open={index === 0}><summary><span className="seasonal-job-date">{job.dates}</span><span className="seasonal-job-heading"><strong>{job.company}</strong><span>{job.role}</span></span><span className="seasonal-job-toggle" aria-hidden="true">+</span></summary><p>{job.text}</p></details>)}</div></section>
 
-        <section className="seasonal-thoughts" id="thoughts" aria-labelledby="seasonal-thoughts-title"><div className="seasonal-thoughts-title"><span className="seasonal-label">05 / Notes for later</span><h2 id="seasonal-thoughts-title">A page<br /><em>left open.</em></h2></div><div className="seasonal-unwritten"><span>Thoughts</span><p>A few things I want to write about.<br />Still finding the words.</p><span className="seasonal-coming-soon">Coming soon</span></div></section>
+        <section className="seasonal-thoughts" id="thoughts" aria-labelledby="seasonal-thoughts-title"><div className="seasonal-thoughts-title"><span className="seasonal-label">05 / Notes for later</span><h2 id="seasonal-thoughts-title">A page<br /><em>left open.</em></h2></div><ThoughtPreview appearance="field" /></section>
       </div>
 
       <footer className="seasonal-footer" id="contact"><div className="seasonal-footer-top"><div><span className="seasonal-label">Before you head off</span><h2>Say <em>hello.</em></h2></div><a className="seasonal-email" href="mailto:himay75@gmail.com">himay75@gmail.com <ArrowUpRight size={29} strokeWidth={1.2} aria-hidden="true" /></a></div><div className="seasonal-footer-bottom"><span>© {new Date().getFullYear()} Mickey Makhija</span><div><a href="https://github.com/mknoir" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={13} aria-hidden="true" /></a><a href="https://www.linkedin.com/in/himay-makhija-mickey/" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={13} aria-hidden="true" /></a><a href="#hero">Back to the trailhead ↑</a></div></div></footer>

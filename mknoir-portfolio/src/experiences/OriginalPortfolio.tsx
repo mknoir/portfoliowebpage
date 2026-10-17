@@ -9,6 +9,7 @@ import { Menu, X } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Switch } from '@/components/ui/switch'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
+import { ThoughtPreview } from '@/components/ThoughtPreview'
 import { Button } from './original/button'
 import { Hero } from './original/Hero'
 import { AboutPreview } from './original/AboutPreview'
@@ -180,7 +181,7 @@ export function OriginalPortfolio({ page = 'home' }: { page?: 'home' | 'about' |
           <Projects />
           <section id="thoughts" className="original-thoughts py-24 px-6">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Thoughts</h2>
-            <p className="text-muted-foreground">Coming soon.</p>
+            <ThoughtPreview appearance="mono" />
           </section>
           <OriginalVoice />
           <Contact />

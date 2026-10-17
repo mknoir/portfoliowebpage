@@ -5,6 +5,7 @@ import Image from 'next/image'
 import localFont from 'next/font/local'
 import { ArrowDown, ArrowRight, ArrowUpRight, Bike, Mountain, Waves, Wind } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
+import { ThoughtPreview } from '@/components/ThoughtPreview'
 import { skillsData } from '@/lib/skills'
 import '@/styles/afterhours.css'
 
@@ -181,7 +182,7 @@ export default function AfterHoursPortfolio({ page = 'home' }: { page?: 'home' |
       <div className="afterhours-about-copy"><span className="afterhours-label">04 / A little context</span><h2 id="afterhours-about-title">CURIOUS<br />BY<br /><span>DEFAULT.</span></h2><p>I’m Mickey. Molecular biology was my way in. Software and robotics gave me more ways to work on the questions I kept running into.</p><p>I’ve worked on molecular assays, gene therapy, cell culture, and computational biology. These days, I’m particularly interested in how AI and automation can help scientists do their work.</p><p>Outside of that: see the Play tab. The beer-tasting score is probably my most defensible one.</p><a className="afterhours-text-link" href="/about?look=mono">The longer version <ArrowRight size={19} aria-hidden="true" /></a></div>
     </section>
 
-    <section className="afterhours-thoughts" id="thoughts" aria-labelledby="afterhours-thoughts-title"><span className="afterhours-label">05 / Notes to self</span><h2 id="afterhours-thoughts-title">THOUGHTS<span>IN PROGRESS.</span></h2><div><p>Things I want to write about.<br />Science, building, and whatever sticks.</p><span className="afterhours-soon">Coming soon <span aria-hidden="true">↗</span></span></div></section>
+    <section className="afterhours-thoughts" id="thoughts" aria-labelledby="afterhours-thoughts-title"><span className="afterhours-label">05 / Notes to self</span><h2 id="afterhours-thoughts-title">THOUGHTS<span>IN PROGRESS.</span></h2><ThoughtPreview appearance="afterhours" /></section>
 
     <footer className="afterhours-footer" id="contact"><div className="afterhours-footer-top"><span className="afterhours-label">Got a good question?</span><a href="mailto:himay75@gmail.com">LET’S<br /><span>TALK.</span><ArrowUpRight strokeWidth={1} aria-hidden="true" /></a><span className="afterhours-email">himay75@gmail.com</span></div><div className="afterhours-footer-bottom"><span>© {new Date().getFullYear()} Mickey Makhija</span><div><a href="https://github.com/mknoir" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={14} aria-hidden="true" /></a><a href="https://www.linkedin.com/in/himay-makhija-mickey/" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a><a href="#hero">Back to top ↑</a></div></div></footer>
   </div>
