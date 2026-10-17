@@ -41,6 +41,10 @@ Atlas defaults to **dark** mode; Seasons, The Original, The Lab, and After Hours
 
 `/about` and `/experience` are preserved. They render separate pages in The Original, land on sections in Seasons and After Hours, and open the relevant story or chapter in The Lab and Atlas.
 
+## Thoughts
+
+The first note, **The scientific method for AI**, lives at `/thoughts/the-scientific-method-for-ai`. All five experiences link to it from Thoughts. The reading page shares appearance colors, keeps the article server-rendered, and returns to the selected design’s Thoughts section. Teaser metadata lives in `src/lib/notes.ts`; the essay and its source links live in its route’s `page.tsx`.
+
 ## Active source map
 
 | Area | Files |

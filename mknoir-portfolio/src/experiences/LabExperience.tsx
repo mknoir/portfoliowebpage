@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, FlaskConical, X } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
+import { ThoughtPreview } from '@/components/ThoughtPreview'
 import DnaLoader from '@/components/Dnaloader'
 import { LAB_PROJECTS, LAB_STORIES, type LabStoryId } from '@/lib/lab-stories'
 import '@/styles/lab-experience.css'
@@ -123,7 +124,7 @@ export default function LabExperience({ page = 'home' }: { page?: 'home' | 'abou
           <p className="lab-story-category">The path so far</p><h2 id="lab-panel-title">Time at the bench.<br />Time at the keyboard.</h2>
           <ol className="lab-career">{career.map(([year, company, role, detail]) => <li key={year + role}><span>{year}</span><h3>{company}</h3><h4>{role}</h4><p>{detail}</p></li>)}</ol><a className="lab-inline-link" href="/Mickey_Makhija_Resume.pdf" target="_blank" rel="noopener noreferrer">Open my résumé <ArrowUpRight size={16} /></a>
         </> : panel === 'thoughts' ? <>
-          <p className="lab-story-category">An open notebook</p><h2 id="lab-panel-title">Thoughts.</h2><div className="lab-notebook"><span>01 / FIRST ENTRY</span><p>Coming soon.</p><div /><div /><div /></div>
+          <p className="lab-story-category">An open notebook</p><h2 id="lab-panel-title">Thoughts.</h2><ThoughtPreview appearance="orbit" />
         </> : panel === 'contact' ? <>
           <p className="lab-story-category">Say hello</p><h2 id="lab-panel-title">Something on<br />your mind?</h2><p className="lab-panel-intro">Science, software, an interesting project, or a good trail. I’m happy to chat.</p><div className="lab-story-links"><a href="mailto:himay75@gmail.com">himay75@gmail.com <ArrowUpRight size={17} /></a><a href="https://www.linkedin.com/in/himay-makhija-mickey/" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={17} /></a><a href="https://github.com/mknoir" target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={17} /></a></div>
         </> : <h2 id="lab-panel-title">Around the lab</h2>}

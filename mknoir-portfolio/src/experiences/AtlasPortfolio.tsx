@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, X } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
+import { ThoughtPreview } from '@/components/ThoughtPreview'
 import { skillsData } from '@/lib/skills'
 import { LAB_PROJECTS } from '@/lib/lab-stories'
 import '@/styles/atlas.css'
@@ -19,7 +20,7 @@ const chapters: { id: ChapterId; number: string; label: string; subtitle: string
   { id: 'outdoors', number: '05', label: 'Outside', subtitle: 'A change of pace', x: 20.5, y: 75.66 },
   { id: 'projects', number: '06', label: 'Projects', subtitle: 'Things you can open', x: 50.5, y: 12.5 },
   { id: 'experience', number: '07', label: 'The path', subtitle: 'Work & experience', x: 50, y: 85.53 },
-  { id: 'thoughts', number: '08', label: 'Thoughts', subtitle: 'Coming soon' },
+  { id: 'thoughts', number: '08', label: 'Thoughts', subtitle: 'The scientific method for AI' },
   { id: 'contact', number: '09', label: 'Say hello', subtitle: 'Start a conversation' },
 ]
 
@@ -105,7 +106,7 @@ function AtlasReading({ chapter, select }: { chapter: ChapterId; select: (id: Ch
   </>
   if (chapter === 'thoughts') return <>
     <p className="atlas-lede">A place for the things I want to think through in writing.</p>
-    <div className="atlas-coming-soon"><span className="atlas-mono">First entry</span><span>Coming<br />soon.</span><span className="atlas-mono">No entries published yet.</span></div>
+    <ThoughtPreview appearance="atlas" />
     <p>Science, things I’m building, and whatever else sticks around long enough to become a post.</p>
     <a className="atlas-text-link" href="mailto:himay75@gmail.com">Have something to talk about? <ArrowUpRight size={16} aria-hidden="true" /></a>
   </>
@@ -209,6 +210,6 @@ export default function AtlasPortfolio({ page = 'home' }: { page?: AtlasPage }) 
       </aside>}
     </div>
 
-    <footer className="atlas-footer atlas-mono"><span>Science. Software. Fresh air.</span><button type="button" onClick={() => select('thoughts')}>Thoughts <span>Coming soon</span><ArrowUpRight size={13} aria-hidden="true" /></button><span>Mickey Makhija / Personal atlas</span></footer>
+    <footer className="atlas-footer atlas-mono"><span>Science. Software. Fresh air.</span><button type="button" onClick={() => select('thoughts')}>Thoughts <span>First note</span><ArrowUpRight size={13} aria-hidden="true" /></button><span>Mickey Makhija / Personal atlas</span></footer>
   </div>
 }
