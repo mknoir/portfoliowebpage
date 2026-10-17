@@ -46,31 +46,33 @@ export default function ScientificMethodNote() {
         </header>
 
         <div className="note-prose">
-          <p>We’re throwing the kitchen sink at AI. Every workflow is becoming an application, every application is getting an agent. I share the excitement, but I worry that our ability to build these systems is outpacing our ability to evaluate them.</p>
+          <p>We’re throwing the kitchen sink at AI: retrieval, tools, skills, specialist agents. I’d like to know which parts are earning their keep.</p>
 
-          <p>Biotech teams are adopting these tools with very different levels of expertise. Before we expand what people can do with AI, we need evidence that it works reliably in the settings where they’ll use it.</p>
+          <p>For a system that informs scientific decisions, every added component carries a hypothesis about what it improves. We should be able to test it.</p>
 
-          <p>The consequences are already becoming visible. In an <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/purolea-cosmetics-lab-722591-04022026">April 2026 warning letter</a>, the FDA cited a manufacturer that relied on AI for compliance documents without adequate review. When asked about missing process validation, the company explained that its AI had never told it this was required. The company had ceased production.</p>
+          <p>Biotech’s uneven adoption makes this important. A fluent answer can travel further than the expertise needed to check it. In its <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/purolea-cosmetics-lab-722591-04022026">April 2026 warning to Purolea Cosmetics Lab</a>, the FDA reported that, when asked about missing process validation, the company said its AI agent had never told it this was required. The letter also recorded that drug production had ceased.</p>
 
-          <p>Overreliance deserves its own essay. Here, I want to focus on how we know these systems actually work.</p>
+          <p><a href="https://openai.com/index/introducing-life-sci-bench/">LifeSciBench</a>, developed by <a href="https://www.linkedin.com/posts/tacit-labs_introducing-tacit-labs-an-applied-research-activity-7473122166142730240-5b3i">Tacit Labs and OpenAI</a>, tests realistic research tasks against expert-written criteria. In the June 2026 evaluation, GPT-5.5 passed 25.7% of tasks and GPT-Rosalind passed 36.1%; a pass required 70% of a task’s rubric points.</p>
 
-          <p>General-purpose AI can sound knowledgeable across almost anything. A specialist can often see where that fluency breaks down. Work like <a href="https://www.linkedin.com/posts/tacit-labs_introducing-tacit-labs-an-applied-research-activity-7473122166142730240-5b3i">Tacit Labs and OpenAI’s LifeSciBench</a> helps make those gaps measurable: in the June 2026 evaluation, GPT-5.5 passed 25.7% of tasks and GPT-Rosalind passed 36.1%, using a threshold of 70% of each task’s rubric points. These are benchmark results, not measures of readiness for every lab. <a href="https://openai.com/index/introducing-life-sci-bench/">Methodology and results</a>.</p>
-
-          <p>I see three places to work on this:</p>
+          <p>I think about specialization at three levels:</p>
 
           <ul>
-            <li><strong>Training:</strong> build a model with a stronger foundation in life sciences.</li>
-            <li><strong>Fine-tuning and other post-training:</strong> adapt an existing model to specific scientific tasks.</li>
-            <li><strong>The application:</strong> give the model relevant context, tools, and skills.</li>
+            <li><strong>Pretraining:</strong> choose data and training objectives for the scientific domain.</li>
+            <li><strong>Post-training:</strong> adapt an existing model through fine-tuning and other forms of feedback.</li>
+            <li><strong>The application:</strong> supply evidence, tools, skills, and a workflow for the task.</li>
           </ul>
 
-          <p>Maybe we need all three. I haven’t run enough experiments to know. But if I add retrieval to a target-prioritization workflow, I should be able to show that it helps.</p>
+          <p>Maybe we need all three. I’d expect the combination to depend on the job. I haven’t run enough comparisons to know.</p>
 
-          <p>I’d start with a hypothesis: access to curated evidence improves the model’s rankings. Choose appropriate positive and negative controls, run the same cases with and without retrieval, and have domain experts assess the results.</p>
+          <p>Take target triage. My hypothesis might be that curated retrieval puts more experimentally supported targets in the top ten recommendations. I’d compare the same model with and without retrieval on cases kept out of development, using a scoring rubric fixed in advance.</p>
 
-          <p>This is why ablation studies matter. Take a component away and see what changes. As we pile on tools and specialist agents, their interactions make those experiments harder to run and interpret. I worry we’re adding components faster than we can establish what each one contributes.</p>
+          <p>I’d include positive and negative reference cases grounded in experiments on the same disease model and endpoint, with unresolved cases kept separate. Measure ranking quality and unsupported claims; have experts review the assessments without knowing which system produced them. This tests evidence assessment. A claim about discovering new targets would need prospective validation.</p>
 
-          <p>For a genomics system, I want a genomics expert telling me where it gets things wrong—whether it missed conflicting evidence, overlooked another explanation, or sounded certain when it shouldn’t. Then I want to test whether fixing those problems helps on cases it hasn’t seen.</p>
+          <p>Removing retrieval is an ablation. It measures retrieval’s contribution <em>within that particular system.</em> Add another tool or agent and that contribution may change. I’d repeat the runs, track compute costs, and test combinations of components. An apparent improvement might come from giving the system more attempts.</p>
+
+          <p>Each new component adds possible interactions to test. That is an experimental cost, and one I think we underestimate.</p>
+
+          <p>Once we use an expert’s correction to improve the system, that case is part of development. The fix needs a fresh test. I want a system that revises its conclusions when new evidence warrants it, and leaves a question open when the evidence cannot settle it.</p>
         </div>
 
         <footer className="note-footer">
