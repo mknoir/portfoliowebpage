@@ -31,7 +31,7 @@ const guide = [
   { id: 'life', number: '02', label: 'Time outside', detail: 'Away from the desk' },
   { id: 'projects', number: '03', label: 'Things I’m building', detail: 'Current projects' },
   { id: 'experience', number: '04', label: 'The path so far', detail: 'Work & experience' },
-  { id: 'thoughts', number: '05', label: 'Notes for later', detail: 'The scientific method for AI' },
+  { id: 'thoughts', number: '05', label: 'Notes for later', detail: 'Notes on science and AI' },
 ]
 
 function Contours() {
