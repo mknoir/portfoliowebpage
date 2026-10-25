@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import { CURRENT_ROLE } from '@/lib/current-role'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, FlaskConical, X } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
@@ -17,6 +18,7 @@ const LabScene = dynamic(() => import('@/components/LabScene'), {
 
 type Panel = LabStoryId | 'projects' | 'work' | 'thoughts' | 'contact' | null
 const career = [
+  [CURRENT_ROLE.period, CURRENT_ROLE.company, CURRENT_ROLE.role, ''],
   ['2025—2026', 'Amgen', 'Associate Scientist / MLE', 'EGNNs, Transformers, target triage, and single-cell / single-nucleus RNA-seq analysis.'],
   ['2023—2025', 'Amgen', 'Associate Scientist', 'High-throughput molecular assays, iPSC automation, and gene-expression pipelines.'],
   ['2023', 'BioMarin', 'Research Associate II · Gene Therapy', 'AAV production, 50 L bioreactors, and real-time dashboards.'],
@@ -122,7 +124,7 @@ export default function LabExperience({ page = 'home' }: { page?: 'home' | 'abou
           <div className="lab-project-list">{LAB_PROJECTS.map(project => <article key={project.name}>{project.image && <Image src={project.image} alt={project.imageAlt} width={project.imageWidth} height={project.imageHeight} sizes="(max-width: 600px) 90vw, 440px" />}<a href={project.href} target="_blank" rel="noopener noreferrer"><h3>{project.name}</h3><ArrowUpRight size={18} /></a><p>{project.detail}</p>{project.extra && <a className="lab-project-extra" href={project.extra} target="_blank" rel="noopener noreferrer">Open the app <ArrowUpRight size={14} /></a>}</article>)}</div>
         </> : panel === 'work' ? <>
           <p className="lab-story-category">The path so far</p><h2 id="lab-panel-title">Time at the bench.<br />Time at the keyboard.</h2>
-          <ol className="lab-career">{career.map(([year, company, role, detail]) => <li key={year + role}><span>{year}</span><h3>{company}</h3><h4>{role}</h4><p>{detail}</p></li>)}</ol><a className="lab-inline-link" href="/Mickey_Makhija_Resume.pdf" target="_blank" rel="noopener noreferrer">Open my résumé <ArrowUpRight size={16} /></a>
+          <ol className="lab-career">{career.map(([year, company, role, detail]) => <li key={year + role}><span>{year}</span><h3>{company}</h3><h4>{role}</h4>{detail ? <p>{detail}</p> : null}</li>)}</ol><a className="lab-inline-link" href="/Mickey_Makhija_Resume.pdf" target="_blank" rel="noopener noreferrer">Open my résumé <ArrowUpRight size={16} /></a>
         </> : panel === 'thoughts' ? <>
           <p className="lab-story-category">An open notebook</p><h2 id="lab-panel-title">Thoughts.</h2><ThoughtPreview appearance="orbit" />
         </> : panel === 'contact' ? <>

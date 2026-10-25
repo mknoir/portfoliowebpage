@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { CURRENT_ROLE } from '@/lib/current-role'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 
@@ -15,6 +16,7 @@ interface Experience {
 }
 
 const experiences: Experience[] = [
+  { ...CURRENT_ROLE, description: '', tags: [] },
   {
     company: 'Amgen',
     logo: '/logos/amgen.svg',
@@ -115,17 +117,17 @@ export default function ExperienceSection() {
                   <span className="mb-2 block text-sm text-muted-foreground">
                     {exp.period}
                   </span>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  {exp.description ? <p className="text-sm leading-relaxed text-muted-foreground">
                     {exp.description}
-                  </p>
+                  </p> : null}
 
-                  <div className="mt-3 flex flex-wrap gap-1.5">
+                  {exp.tags.length > 0 ? <div className="mt-3 flex flex-wrap gap-1.5">
                     {exp.tags.map((tag) => (
                       <Badge key={tag} variant="outline">
                         {tag}
                       </Badge>
                     ))}
-                  </div>
+                  </div> : null}
                 </div>
               </motion.div>
             </div>

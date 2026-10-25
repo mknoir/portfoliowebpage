@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Image from 'next/image'
+import { CURRENT_ROLE } from '@/lib/current-role'
 import localFont from 'next/font/local'
 import { ArrowDown, ArrowRight, ArrowUpRight, Bike, Mountain, Waves, Wind } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
@@ -116,7 +117,7 @@ function Outside({ index }: { index: number }) {
 function Career({ index }: { index: number }) {
   return <section className="afterhours-career" id="experience" aria-labelledby="afterhours-career-title">
     <div className="afterhours-career-heading"><span className="afterhours-label">0{index} / Work history</span><h2 id="afterhours-career-title">THE<br /><span>DAY JOBS.</span></h2><p>Molecular biology, gene therapy, computational biology, and a lot of learning by doing.</p><a className="afterhours-text-link" href="/Mickey_Makhija_Resume.pdf" target="_blank" rel="noopener noreferrer">My résumé <ArrowUpRight size={18} aria-hidden="true" /></a></div>
-    <div className="afterhours-career-list">{jobs.map((job, index) => <details key={`${job.company}-${job.dates}`} open={index === 0}><summary><span className="afterhours-job-date">{job.dates}</span><span className="afterhours-job-name"><strong>{job.company}</strong><span>{job.role}</span></span><span className="afterhours-job-plus" aria-hidden="true">+</span></summary><p>{job.detail}</p></details>)}</div>
+    <div className="afterhours-career-list"><article><div className="afterhours-job-summary"><span className="afterhours-job-date">{CURRENT_ROLE.period}</span><span className="afterhours-job-name"><strong>{CURRENT_ROLE.company}</strong><span>{CURRENT_ROLE.role}</span></span></div></article>{jobs.map((job, index) => <details key={`${job.company}-${job.dates}`} open={index === 0}><summary><span className="afterhours-job-date">{job.dates}</span><span className="afterhours-job-name"><strong>{job.company}</strong><span>{job.role}</span></span><span className="afterhours-job-plus" aria-hidden="true">+</span></summary><p>{job.detail}</p></details>)}</div>
   </section>
 }
 
