@@ -58,42 +58,6 @@ html[data-appearance='field'] .note-heading h1 { font-family: Georgia, 'Times Ne
 .note-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
 .note-footer > span { color: var(--muted-foreground); font-size: 12px; }
 
-.note-article--evidence { width: min(100%, 1080px); }
-.note-article--evidence > .note-heading,
-.note-article--evidence > .note-footer,
-.note-article--evidence > .note-prose > p { max-width: 700px; margin-inline: auto; }
-.note-evidence-table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 36px 0; font-size: 15px; line-height: 1.7; text-align: left; }
-.note-evidence-table caption { text-align: left; color: var(--muted-foreground); font-size: 12px; padding-bottom: 14px; }
-.note-evidence-table th,
-.note-evidence-table td { padding: 22px 20px; vertical-align: top; border-bottom: 1px solid var(--border); }
-.note-evidence-table thead th { padding-top: 14px; padding-bottom: 14px; border-top: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--muted-foreground); }
-.note-evidence-table thead th:first-child { width: 20%; }
-.note-evidence-table tbody th { font-weight: 600; }
-.note-evidence-table th:first-child { padding-left: 0; }
-.note-evidence-table th:last-child,
-.note-evidence-table td:last-child { padding-right: 0; }
-.note-evidence-table p { margin-bottom: 12px; }
-.note-evidence-table p:last-child { margin-bottom: 0; }
-.note-evidence-label { display: none; }
-
-@media (max-width: 800px) {
-  .note-evidence-table,
-  .note-evidence-table tbody,
-  .note-evidence-table tr,
-  .note-evidence-table th,
-  .note-evidence-table td { display: block; width: 100%; }
-  .note-evidence-table { font-size: 16px; }
-  .note-evidence-table caption { display: block; }
-  .note-evidence-table thead { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .note-evidence-table tbody tr { padding: 24px 0; border-top: 1px solid var(--border); }
-  .note-evidence-table tbody tr:last-child { border-bottom: 1px solid var(--border); }
-  .note-evidence-table tbody th,
-  .note-evidence-table td { padding: 0; border: 0; }
-  .note-evidence-table tbody th { margin-bottom: 18px; font-size: 19px; line-height: 1.4; }
-  .note-evidence-table td + td { margin-top: 20px; }
-  .note-evidence-label { display: block; margin-bottom: 6px; color: var(--muted-foreground); font-size: 12px; font-weight: 600; }
-}
-
 @media (max-width: 600px) {
   .note-page { padding-inline: 24px; }
   .note-navigation { min-height: 80px; gap: 12px; }
