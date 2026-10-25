@@ -20,7 +20,7 @@ const chapters: { id: ChapterId; number: string; label: string; subtitle: string
   { id: 'outdoors', number: '05', label: 'Outside', subtitle: 'A change of pace', x: 20.5, y: 75.66 },
   { id: 'projects', number: '06', label: 'Projects', subtitle: 'Things you can open', x: 50.5, y: 12.5 },
   { id: 'experience', number: '07', label: 'The path', subtitle: 'Work & experience', x: 50, y: 85.53 },
-  { id: 'thoughts', number: '08', label: 'Thoughts', subtitle: 'The scientific method for AI' },
+  { id: 'thoughts', number: '08', label: 'Thoughts', subtitle: 'Notes on science and AI' },
   { id: 'contact', number: '09', label: 'Say hello', subtitle: 'Start a conversation' },
 ]
 
@@ -210,6 +210,6 @@ export default function AtlasPortfolio({ page = 'home' }: { page?: AtlasPage }) 
       </aside>}
     </div>
 
-    <footer className="atlas-footer atlas-mono"><span>Science. Software. Fresh air.</span><button type="button" onClick={() => select('thoughts')}>Thoughts <span>First note</span><ArrowUpRight size={13} aria-hidden="true" /></button><span>Mickey Makhija / Personal atlas</span></footer>
+    <footer className="atlas-footer atlas-mono"><span>Science. Software. Fresh air.</span><button type="button" onClick={() => select('thoughts')}>Thoughts <span>Latest notes</span><ArrowUpRight size={13} aria-hidden="true" /></button><span>Mickey Makhija / Personal atlas</span></footer>
   </div>
 }
