@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { CURRENT_ROLE } from '@/lib/current-role'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import '@/styles/interior.css'
@@ -13,6 +14,7 @@ interface Experience {
 }
 
 const experiences: Experience[] = [
+  { ...CURRENT_ROLE, description: '', tags: [] },
   {
     company: 'Amgen',
     logo: '/logos/amgen.svg',
@@ -106,10 +108,10 @@ export default function ExperienceSection() {
             <article className="experience-content">
               <p className="experience-company">{experience.company}</p>
               <h2>{experience.role}</h2>
-              <p className="experience-description">{experience.description}</p>
-              <ul className="experience-tags" aria-label="Areas of work">
+              {experience.description ? <p className="experience-description">{experience.description}</p> : null}
+              {experience.tags.length > 0 ? <ul className="experience-tags" aria-label="Areas of work">
                 {experience.tags.map((tag) => <li key={tag}>{tag}</li>)}
-              </ul>
+              </ul> : null}
             </article>
           </li>
         ))}

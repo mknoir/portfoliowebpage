@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { CURRENT_ROLE } from '@/lib/current-role'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, X } from 'lucide-react'
 import { AppearanceSwitcher } from '@/components/AppearanceSwitcher'
@@ -25,6 +26,7 @@ const chapters: { id: ChapterId; number: string; label: string; subtitle: string
 ]
 
 const work = [
+  { company: CURRENT_ROLE.company, role: CURRENT_ROLE.role, dates: CURRENT_ROLE.period, copy: '' },
   { company: 'Amgen', role: 'Associate Scientist / MLE', dates: 'Jan 2025 — Jan 2026', copy: 'Explored EGNNs and Transformers for target triage. Worked with single-cell and single-nucleus RNA-seq data.' },
   { company: 'Amgen', role: 'Associate Scientist', dates: 'Jun 2023 — Jan 2025', copy: 'High-throughput molecular assays for cardiometabolic disease, automated iPSC workflows, and gene-expression pipelines.' },
   { company: 'BioMarin', role: 'Research Associate II, Gene Therapy', dates: 'Jan 2023 — Jun 2023', copy: 'AAV production in 50 L bioreactors and real-time process dashboards.' },
@@ -101,7 +103,7 @@ function AtlasReading({ chapter, select }: { chapter: ChapterId; select: (id: Ch
   </>
   if (chapter === 'experience') return <>
     <p className="atlas-lede">From the wet lab to the software around it. Sometimes both at once.</p>
-    <ol className="atlas-timeline">{work.map((job) => <li key={`${job.company}-${job.dates}`}><span className="atlas-mono">{job.dates}</span><h3>{job.company}</h3><h4>{job.role}</h4><p>{job.copy}</p></li>)}</ol>
+    <ol className="atlas-timeline">{work.map((job) => <li key={`${job.company}-${job.dates}`}><span className="atlas-mono">{job.dates}</span><h3>{job.company}</h3><h4>{job.role}</h4>{job.copy ? <p>{job.copy}</p> : null}</li>)}</ol>
     <ExternalLink href="/Mickey_Makhija_Resume.pdf">Read my résumé</ExternalLink>
   </>
   if (chapter === 'thoughts') return <>

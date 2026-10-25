@@ -109,9 +109,9 @@
 .seasonal-work { display: grid; grid-template-columns: .8fr 1.2fr; gap: 85px; margin-top: 120px; padding-top: 55px; border-top: 1px solid var(--seasonal-line); }
 .seasonal-work-heading h2 { margin: 22px 0 28px; font-size: clamp(46px, 4.9vw, 68px); line-height: 1; }
 .seasonal-work-heading > p { max-width: 240px; margin-bottom: 25px; font-size: 13px; line-height: 1.9; color: var(--seasonal-muted); }
-.seasonal-work-list details { border-bottom: 1px solid var(--seasonal-line); }
-.seasonal-work-list details:first-child { border-top: 1px solid var(--seasonal-line); }
-.seasonal-work-list summary { position: relative; display: grid; grid-template-columns: 1fr 18px; padding: 22px 0; gap: 7px 20px; list-style: none; }
+.seasonal-work-list > :is(details, article) { border-bottom: 1px solid var(--seasonal-line); }
+.seasonal-work-list > :is(details, article):first-child { border-top: 1px solid var(--seasonal-line); }
+.seasonal-work-list :is(summary, .seasonal-job-summary) { position: relative; display: grid; grid-template-columns: 1fr 18px; padding: 22px 0; gap: 7px 20px; list-style: none; }
 .seasonal-work-list summary::-webkit-details-marker { display: none; }
 .seasonal-work-list summary:hover strong { color: var(--seasonal-accent); }
 .seasonal-job-date { font-size: 10px; color: var(--seasonal-muted); grid-column: 1; }
