@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import { Analytics } from '@vercel/analytics/next'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { AppearanceProvider } from '@/components/appearance-provider'
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main id="main-content" tabIndex={-1}><ExperienceRouter>{children}</ExperienceRouter></main>
           </AppearanceProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
