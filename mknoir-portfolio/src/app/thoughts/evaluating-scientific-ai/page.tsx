@@ -50,7 +50,7 @@ export default function SearchEvidenceArticle() {
         <header className="note-heading research-heading">
           <p className="eyebrow">Thoughts / 03 · Experimental results</p>
           <h1 id="note-title">{note.title}</h1>
-          <p className="research-dek">Five model families, 26 model/route/effort profiles and ten tasks. An exploratory comparison with and without web access, followed by a separate retrieval-backend study.</p>
+          <p className="research-dek">Using the ten public tasks released by OpenAI’s GeneBench-Pro team, I compare five model families across 26 configurations, with and without web access.</p>
           <div className="note-meta"><span>By Mickey Makhija</span><time dateTime={note.publishedAt}>{note.displayDate}</time><span>{note.readingTime}</span></div>
         </header>
 
@@ -58,8 +58,9 @@ export default function SearchEvidenceArticle() {
         <nav className="research-toc" aria-label="In this article">{chapters.map(([id, label], i) => <a key={id} href={`#${id}`}><span>{String(i + 1).padStart(2, '0')}</span>{label}</a>)}</nav>
 
         <div className="note-prose research-prose">
-          <p>In my <Link href={SCIENTIFIC_AI_NOTE.href}>last note</Link>, I wondered how much better context could do for scientific AI before we fine-tuned anything. I’ve now run a set of models on ten computational biology tasks, first with Python and then with access to methods search and documentation.</p>
-          <p>I wanted to know where the models could complete the analysis, where they got stuck, and whether web access changed that. The results vary quite a bit by task. The answer also changes depending on whether I count whole-task passes, valid final answers or individual fields.</p>
+          <p>In my <Link href={SCIENTIFIC_AI_NOTE.href}>last note</Link>, I wondered how much better context could do for scientific AI before we fine-tuned anything. I’ve now run a set of models on ten public <a href="https://openai.com/index/introducing-genebench-pro/">GeneBench-Pro</a> tasks, first with Python and then with access to methods search and documentation.</p>
+          <p><strong>This work builds on GeneBench-Pro, created by Jeremiah H Li, Suyash Shringarpure, Edmund Wong and Andrew J Ho at OpenAI.</strong> Their <a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">paper</a> and <a href="https://huggingface.co/datasets/openai/genebench-pro-public-package">public release</a> provide the scientific cases, synthetic datasets and reference graders. My contribution is the independent evaluation, configuration comparisons and analysis of the saved runs.</p>
+          <p>The bigger question is which ablations help a model do the science: changes to context, reasoning budget, retrieval or specialized tools. I also want to understand the choices behind each result—what the model checks, which estimator it implements, and whether evidence changes its code. This first set of comparisons helps me choose the next controlled tests. It does not isolate a winning component.</p>
 
           <section id="the-experiment" aria-labelledby="experiment-title">
             <p className="research-section-number">01 / Study design</p>
@@ -77,6 +78,12 @@ export default function SearchEvidenceArticle() {
               <p>The 90 Exa owners came from three preserved versions: 34 v1 settings, two v2 settings and 54 v3 settings. The later 56 used a repaired guard with a common 42-query generic-methods menu. The final 54 also used up to five Muse workers and five shared compute slots. All 30 Nemo settings belong to the earlier stratum. These differences prevent a clean estimate of the backend alone.</p>
               <p>Limits included 20 web calls within 120 total tool calls, a separate 120 model-response limit, 40,000 output tokens per request, 256,000 per run and 60 awake minutes. Python actions retained their 180-second ceiling and four-CPU/16-GiB per-case ceilings. Ceilings were not physical reservations.</p>
               <p>The original no-web runs had narrower serving-context allowances. In the matched 90, 13 original runs ended at a context limit and five at an output limit. I retain those outcomes rather than quietly dropping them. A separate 16-case schema study is outside these comparisons. The proposed 90 directed-search follow-ups were cancelled before invocation; they are not missing results or failures.</p>
+            </RabbitHole>
+            <RabbitHole id="related-benchmarks" title="How GeneBench-Pro, LABBench2 and LifeSciBench fit together">
+              <p><a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">GeneBench-Pro</a> supplies this study’s tasks. Its simulated data and known targets make it possible to inspect concrete analytical decisions and check numerical endpoints. I’m using ten released cases from the larger benchmark, rather than introducing a new task set.</p>
+              <p><a href="https://arxiv.org/abs/2604.09554v2">LABBench2, by Laurent and colleagues</a>, evaluates useful biology research capabilities across information, data and literature tasks. It is relevant to the distinction I care about here: having information available, finding it and using it are separate capabilities.</p>
+              <p><a href="https://doi.org/10.64898/2026.08.13.744657">LifeSciBench, by Liu and colleagues</a>, uses expert-authored research tasks and detailed rubrics to evaluate scientific correctness and usefulness. That broader grading perspective matters when an endpoint alone cannot explain the quality of an analysis.</p>
+              <p>These are related foundations for the work, with different tasks and grading systems. I have not evaluated these models on LABBench2 or LifeSciBench here, and their scores are not pooled with this study. The goal is to build on those efforts and test what changes improve a model’s observable analysis behavior.</p>
             </RabbitHole>
           </section>
 
@@ -193,7 +200,7 @@ export default function SearchEvidenceArticle() {
           <section id="what-next" aria-labelledby="next-title">
             <p className="research-section-number">06 / What I’d test next</p>
             <h2 id="next-title">Start with the failures on each task.</h2>
-            <p>What’s clear to me is that a single score misses a lot here. I want the next experiments to address specific failures on each task. I’d compare a model finding evidence for itself with the same model receiving a small, curated evidence pack. I’d also test an explicit search-and-evidence instruction against optional search, under one fixed guard and execution setup.</p>
+            <p>What’s clear to me is that a single score misses a lot here. The ablation program should connect each failure to something we can change and test. I’d compare a model finding evidence for itself with the same model receiving a small, curated evidence pack. I’d also test an explicit search-and-evidence instruction against optional search, under one fixed guard and execution setup.</p>
             <p>That instruction might only produce more calls. I’d want to see whether the model identifies a relevant method, applies it correctly, and improves on fresh cases. The directed-search follow-up discussed during this study was cancelled; it has not answered that question.</p>
             <p>Structured sources such as GWAS Catalog, ClinVar, Open Targets, PDB and Ensembl are another set of experiments, not an interchangeable pile of “more tools.” A variant annotation, a protein structure and a statistical-methods explanation help with different bottlenecks. I’d choose the source for the question, then test what changes when it is removed.</p>
             <p>I’m still curious about fine-tuning, too. These results don’t tell me which tasks a model saw in training, or whether familiarity explains a score. They don’t compare fine-tuning with retrieval. Those remain hypotheses.</p>
@@ -211,7 +218,9 @@ export default function SearchEvidenceArticle() {
             <p>For the Exa follow-up, separate automated local reviews checked 3,595 metric assertions, 230 trace assertions, 120 accounting assertions and 32 final-report assertions. Those checks reconcile this record. They are not additional benchmark trials, peer review, or evidence that the findings generalize. All 90 optional settings ended, the collection lanes were sealed, cleanup was verified and the monitor was retired.</p>
             <p>The full GeneBench-Pro benchmark has 129 questions; this personal study uses its ten public representative cases. It is not the official benchmark evaluation. The study’s saved model/profile labels are retained in the public data. Cross-provider effort labels are not equivalent compute budgets.</p>
             <ul>
-              <li><a href="https://openai.com/index/introducing-genebench-pro/">GeneBench-Pro: benchmark design and public cases</a> — OpenAI.</li>
+              <li>Li, Shringarpure, Wong and Ho. <a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">GeneBench-Pro: Evaluating Multistage Statistical Reasoning in Genomics, Quantitative Biology, and Translational Biomedicine</a>. <a href="https://huggingface.co/datasets/openai/genebench-pro-public-package">Public task package</a>.</li>
+              <li>Laurent and colleagues. <a href="https://arxiv.org/abs/2604.09554v2">LABBench2: An Improved Benchmark for AI Systems Performing Biology Research</a>.</li>
+              <li>Liu and colleagues. <a href="https://doi.org/10.64898/2026.08.13.744657">LifeSciBench</a> — expert-authored tasks and rubric-based evaluation of life science research work.</li>
               <li><a href="/research/search-evidence-study.json">This study’s public data and metric definitions</a> — the source for the figures here.</li>
               <li><Link href={SCIENTIFIC_AI_NOTE.href}>Fine-tuning scientific AI</Link> — the earlier question that led to these runs.</li>
             </ul>
