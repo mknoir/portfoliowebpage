@@ -19,10 +19,11 @@ export const SCIENTIFIC_AI_NOTE = {
 export const SEARCH_EVIDENCE_NOTE = {
   title: 'Evaluating Scientific AI on Ten Public GeneBench-Pro Tasks',
   href: '/thoughts/evaluating-scientific-ai',
-  description: 'Testing reasoning effort on ten public GeneBench-Pro tasks, then adding web search. An independent exploration of model behavior and scientific AI ablations.',
+  description: 'Testing reasoning effort, web search and scientific tools on ten public GeneBench-Pro tasks, with paired outcomes, token use and estimated costs.',
   publishedAt: '2026-10-29',
   displayDate: 'October 29, 2026',
-  readingTime: '8 min read + rabbit holes',
+  updatedAt: '2026-10-30',
+  readingTime: '10 min read + rabbit holes',
 } as const
 
 export const NOTES = [SEARCH_EVIDENCE_NOTE, SCIENTIFIC_AI_NOTE, SCIENTIFIC_METHOD_NOTE] as const
