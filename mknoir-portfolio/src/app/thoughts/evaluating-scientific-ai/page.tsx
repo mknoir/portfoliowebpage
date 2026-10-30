@@ -111,12 +111,11 @@ export default function SearchEvidenceArticle() {
           <ExaExplorer />
         </RabbitHole>
         <section id="what-next" aria-labelledby="next-title">
-          <p className="research-section-number">05 / What I’d test next</p>
-          <h2 id="next-title">Connect each failure to a change we can test.</h2>
-          <p>What’s clear to me is that “more reasoning” and “more tools” are both too broad. I want ablations that address a specific bottleneck: finding a method, understanding the data, choosing an estimator, or carrying a diagnostic finding into the final computation.</p>
-          <p>I’d compare models finding evidence for themselves with the same models receiving a small, curated evidence pack. I’d also compare optional search with explicit search-and-evidence instructions under one fixed setup. The directed-search follow-up discussed during this study was cancelled before it ran.</p>
-          <p>Structured sources such as GWAS Catalog, ClinVar, Open Targets, PDB and Ensembl belong in that program too. A variant annotation and a statistical-methods explanation serve different purposes. I’d choose the tool for the question, then see what changes when it is removed.</p>
-          <p><strong>I want to understand which interventions help models do better science, and why.</strong> That means following the path from information to analytical choice to computation to answer. The pass rate is part of the evidence, not the whole investigation.</p>
+          <p className="research-section-number">05 / What’s next</p>
+          <h2 id="next-title">New tools as context.</h2>
+          <p>Next, I want to test specialized tools as context—GWAS Catalog, ClinVar, Open Targets, PDB and Ensembl—and see whether the evidence they return changes how models approach these tasks.</p>
+          <p>I’ll test those tools individually, then in combination, to understand which ones help and where.</p>
+          <p><strong>Stay tuned…</strong></p>
         </section>
         <RabbitHole id="related-benchmarks" title="GeneBench-Pro, LABBench2 and LifeSciBench">
           <p><a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">GeneBench-Pro</a> supplies this study’s tasks. Its simulated data and known targets let us inspect concrete analytical decisions and check numerical endpoints. The full benchmark has 129 questions; this study uses ten released cases.</p>
