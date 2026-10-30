@@ -16,4 +16,13 @@ export const SCIENTIFIC_AI_NOTE = {
   readingTime: '2 min read',
 } as const
 
-export const NOTES = [SCIENTIFIC_AI_NOTE, SCIENTIFIC_METHOD_NOTE] as const
+export const SEARCH_EVIDENCE_NOTE = {
+  title: 'Evaluating Scientific AI on Ten Computational Biology Tasks',
+  href: '/thoughts/evaluating-scientific-ai',
+  description: 'An exploratory evaluation of five model families across ten tasks, comparing performance with and without web access, followed by a separate retrieval-backend study.',
+  publishedAt: '2026-10-29',
+  displayDate: 'October 29, 2026',
+  readingTime: '8 min read + rabbit holes',
+} as const
+
+export const NOTES = [SEARCH_EVIDENCE_NOTE, SCIENTIFIC_AI_NOTE, SCIENTIFIC_METHOD_NOTE] as const

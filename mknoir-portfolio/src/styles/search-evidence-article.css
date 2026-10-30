@@ -1,0 +1,52 @@
+.research-note .research-article { width: min(100%, 1100px); padding-top: 84px; }
+.research-heading { max-width: 900px; margin: 0 auto 32px; }
+.research-heading h1 { font-size: clamp(42px, 5.5vw, 76px); max-width: 940px; letter-spacing: -.05em; }
+.research-heading h1 em { color: var(--primary); font-weight: inherit; }
+.research-dek { max-width: 650px; font-size: clamp(18px, 2vw, 22px); line-height: 1.6; margin: 0 0 28px; color: var(--muted-foreground); text-wrap: pretty; }
+.research-reader-note { max-width: 700px; margin: 0 auto 32px; display: flex; gap: 18px; color: var(--muted-foreground); font-size: 14px; line-height: 1.65; }
+.research-reader-note p { margin: 0; }
+.research-reader-mark { color: var(--primary); font-size: 26px; line-height: 1; }
+.research-toc { width: min(100%, 900px); margin: 0 auto 52px; padding: 18px 0; border-block: 1px solid var(--border); display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px 24px; }
+.research-toc a { display: flex; align-items: center; min-height: 36px; gap: 14px; font-size: 13px; }
+.research-toc a:hover { color: var(--primary); }
+.research-toc a span { font-size: 10px; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.research-prose { width: min(100%, 700px); margin-inline: auto; }
+.research-prose section { scroll-margin-top: 32px; }
+.research-prose .research-section-number { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-foreground); margin: 60px 0 16px; }
+.research-prose h2 { font-size: clamp(27px, 3vw, 36px); line-height: 1.23; letter-spacing: -.035em; margin: 0 0 28px; text-wrap: balance; }
+html[data-appearance='field'] .research-prose h2 { font-family: Georgia,'Times New Roman',serif; font-weight: 400; }
+.research-prose .research-detour { margin: 32px 0 36px; border-block: 1px solid var(--border); scroll-margin-top: 32px; }
+.research-detour summary { padding: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; cursor: pointer; font-size: 16px; font-weight: 600; line-height: 1.5; list-style: none; }
+.research-detour summary::-webkit-details-marker { display: none; }
+.research-detour summary small { display: block; font-size: 10px; line-height: 1.5; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 5px; }
+.research-detour summary:hover { color: var(--primary); }
+.research-detour summary:focus-visible, .research-toc a:focus-visible, .research-footer a:focus-visible { outline: 2px solid var(--primary); outline-offset: 6px; }
+.research-detour-mark { font-size: 26px; flex-shrink: 0; font-weight: 400; transition: transform .2s ease; color: var(--primary); }
+.research-detour[open] > summary .research-detour-mark { transform: rotate(45deg); }
+.research-detour-body { padding: 4px 0 4px 20px; border-left: 1px solid var(--border); margin: 0 0 24px; font-size: 16px; line-height: 1.8; }
+.research-detour-body > :last-child { margin-bottom: 0; }
+.research-detour-body p { margin-bottom: 20px; }
+.research-timeline { padding-left: 22px; margin: 0 0 24px; list-style: decimal; }
+.research-timeline li { padding-left: 6px; margin-bottom: 16px; }
+.research-hash { font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+.research-footer { max-width: 900px; margin-inline: auto; font-size: 12px; }
+.research-footer > a:last-child { min-height: 44px; display: inline-flex; align-items: center; }
+@media (max-width: 600px) {
+  .research-note .research-article { padding-top: 48px; }
+  .research-heading h1 { font-size: clamp(39px, 10vw, 56px); }
+  .research-title-break { display: none; }
+  .research-heading { margin-bottom: 28px; }
+  .research-toc { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 16px; margin-bottom: 38px; }
+  .research-toc a { min-height: 44px; font-size: 12px; gap: 10px; }
+  .research-detour summary { min-height: 64px; font-size: 15px; gap: 16px; }
+  .research-detour-body { padding-left: 14px; font-size: 15px; }
+  .research-prose .research-section-number { margin-top: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { .research-detour-mark { transition: none; } }
+@media print {
+  .research-toc, .research-reader-note, .research-footer { display: none; }
+  .research-note .research-article { width: 100%; padding: 0; }
+  .research-prose { width: 100%; }
+  .research-heading h1 { font-size: 30pt; }
+  .research-detour-body { font-size: 10pt; }
+}
