@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { NoteBackLink } from '@/components/NoteBackLink'
-import { SCIENTIFIC_AI_NOTE as note, SCIENTIFIC_METHOD_NOTE } from '@/lib/notes'
+import { SCIENTIFIC_AI_NOTE as note, SCIENTIFIC_METHOD_NOTE, SEARCH_EVIDENCE_NOTE } from '@/lib/notes'
 import '@/styles/notes.css'
 
 export const metadata: Metadata = {
@@ -46,6 +46,9 @@ export default function ScientificAINote() {
         </header>
 
         <div className="note-prose">
+          <aside className="note-followup" aria-label="Experimental follow-up">
+            <p><strong>October 29 update:</strong> I ran the experiments. <Link href={SEARCH_EVIDENCE_NOTE.href}>Read the model and task results</Link>, including the comparisons with and without web access.</p>
+          </aside>
           <p>I’ve been diving into <a href="https://openai.com/index/introducing-genebench-pro/">GeneBench-Pro</a>, and it’s sent me back to the three ways to specialize AI in my <Link href={SCIENTIFIC_METHOD_NOTE.href}>last note</Link>. Fine-tuning still looks promising to me, but I’m curious how much can be done by giving a model better context.</p>
 
           <p>In <a href="https://aclanthology.org/2024.emnlp-main.880.pdf#page=7">SciAgent</a>, giving the untuned models tools actually hurt performance. After tool-use training, those tools helped. <a href="https://arxiv.org/html/2412.21154v1#S5.SS1">Aviary</a> gives me another reason to try fine-tuning: training a Llama-3.1-8B-Instruct agent on successful tool-use trajectories, followed by expert iteration, took LitQA2 test accuracy from 30% to 72% in the PaperQA environment. The agent already had the tools. Learning to use them made a substantial difference.</p>
