@@ -17,9 +17,9 @@ export const SCIENTIFIC_AI_NOTE = {
 } as const
 
 export const SEARCH_EVIDENCE_NOTE = {
-  title: 'Evaluating Scientific AI on Ten Computational Biology Tasks',
+  title: 'Evaluating Scientific AI on Ten Public GeneBench-Pro Tasks',
   href: '/thoughts/evaluating-scientific-ai',
-  description: 'An exploratory evaluation of five model families across ten tasks, comparing performance with and without web access, followed by a separate retrieval-backend study.',
+  description: 'Testing reasoning effort on ten public GeneBench-Pro tasks, then adding web search. An independent exploration of model behavior and scientific AI ablations.',
   publishedAt: '2026-10-29',
   displayDate: 'October 29, 2026',
   readingTime: '8 min read + rabbit holes',
