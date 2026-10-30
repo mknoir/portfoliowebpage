@@ -3,11 +3,13 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { NoteBackLink } from '@/components/NoteBackLink'
 import { ReasoningEffortFigure, BaselineTaskFigure, ExaOutcomeFigure, ExaToolUseFigure, BaselineExplorer, ExaExplorer, ExaFieldFigure } from '@/components/notes/ReasoningExaFigures'
+import { ScientificToolsFigure, ContextTokenFigure, CostReasoningFigure, ContextExplorer } from '@/components/notes/ScientificContextFigures'
 import { SEARCH_EVIDENCE_NOTE as note, SCIENTIFIC_AI_NOTE } from '@/lib/notes'
 import '@/styles/notes.css'
 import '@/styles/search-evidence-article.css'
 import '@/styles/search-evidence-figures.css'
 import '@/styles/reasoning-exa-figures.css'
+import '@/styles/scientific-context-figures.css'
 
 const socialImage = `${note.href}/opengraph-image`
 export const metadata: Metadata = {
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: note.href },
   openGraph: {
     type: 'article', title: note.title, description: note.description,
-    url: note.href, publishedTime: note.publishedAt, authors: ['Mickey Makhija'],
+    url: note.href, publishedTime: note.publishedAt, modifiedTime: note.updatedAt, authors: ['Mickey Makhija'],
     images: [{ url: socialImage, width: 1200, height: 630 }],
   },
   twitter: { card: 'summary_large_image', title: note.title, description: note.description, images: [socialImage] },
@@ -31,7 +33,8 @@ function RabbitHole({ id, title, children }: { id: string; title: string; childr
 
 const chapters = [
   ['reasoning-effort', 'Reasoning effort'], ['task-performance', 'The ten tasks'],
-  ['web-search', 'Adding search'], ['analysis-behavior', 'Inside the analysis'], ['what-next', 'What next?'],
+  ['web-search', 'Adding search'], ['analysis-behavior', 'Inside the analysis'],
+  ['scientific-tools', 'Adding scientific tools'], ['tokens-and-costs', 'Tokens and costs'], ['what-next', 'What next?'],
 ] as const
 
 export default function SearchEvidenceArticle() {
@@ -44,12 +47,12 @@ export default function SearchEvidenceArticle() {
       <header className="note-heading research-heading">
         <p className="eyebrow">Thoughts / 03 · Experimental results</p>
         <h1 id="note-title">{note.title}</h1>
-        <div className="note-meta"><span>By Mickey Makhija</span><time dateTime={note.publishedAt}>{note.displayDate}</time><span>{note.readingTime}</span></div>
+        <div className="note-meta"><span>By Mickey Makhija</span><time dateTime={note.publishedAt}>{note.displayDate}</time><span>Updated <time dateTime={note.updatedAt}>October 30, 2026</time></span><span>{note.readingTime}</span></div>
       </header>
       <nav className="research-toc" aria-label="In this article">{chapters.map(([id, label], i) => <a key={id} href={`#${id}`}><span>{String(i + 1).padStart(2, '0')}</span>{label}</a>)}</nav>
       <div className="note-prose research-prose">
         <p>How much does more reasoning effort help a model solve a scientific problem? And what changes when it can look up a method instead of relying on what it already knows?</p>
-        <p>I started with the ten public <a href="https://openai.com/index/introducing-genebench-pro/">GeneBench-Pro</a> tasks, testing models at different reasoning settings with Python. Then I added methods search and documentation. The aim is to work out which changes help, and understand the analytical choices behind the results.</p>
+        <p>I started with the ten public <a href="https://openai.com/index/introducing-genebench-pro/">GeneBench-Pro</a> tasks, testing models at different reasoning settings with Python. Then I added web search, followed by a bundle of scientific tools on top of search. The aim is to work out which changes help, and understand the analytical choices behind the results.</p>
         <p><strong>GeneBench-Pro was created by Jeremiah H Li, Suyash Shringarpure, Edmund Wong and Andrew J Ho at OpenAI.</strong> Their <a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">paper</a> and <a href="https://huggingface.co/datasets/openai/genebench-pro-public-package">public release</a> provide the tasks, synthetic datasets and reference graders. This is an independent evaluation built on their work.</p>
 
         <section id="reasoning-effort" aria-labelledby="reasoning-title">
@@ -110,12 +113,42 @@ export default function SearchEvidenceArticle() {
         <RabbitHole id="exa-explorer" title="Explore the 90 matched Exa settings">
           <ExaExplorer />
         </RabbitHole>
+        <section id="scientific-tools" aria-labelledby="tools-title">
+          <p className="research-section-number">05 / Adding scientific tools</p>
+          <h2 id="tools-title">More tools. Still eight passes.</h2>
+          <p>The next experiment kept web search available and added GWAS Catalog, ClinVar, ClinGen, Open Targets, PDB, Ensembl, GenBank and Hail resources. The models were explicitly told to consult relevant scientific tools, inspect the returned evidence and explain its application in their public analysis.</p>
+          <p>This time I selected only the highest API settings: Sol Max, Astra Max, Muse Max, gpt-oss High and Nemotron with a 16,384-token thinking budget. That was a budget constraint. Each ran the same ten tasks once, for 50 new settings.</p>
+          <p>The web-plus-tools condition passed <strong>eight of 50</strong>, compared with <strong>nine of 50</strong> in the saved Luna-backed web runs. The comparison that also matches the Exa backend covers Muse Max and Nemotron: <strong>two of 20</strong> with scientific tools, versus <strong>three of 20</strong> with web alone. The full 50-pair comparison also changes search backend, so I keep these two comparisons separate.</p>
+        </section>
+      </div>
+      <ScientificToolsFigure />
+      <div className="note-prose research-prose">
+        <p>There was plenty of activity. Thirty-two of the 50 settings used search or fetch; 38 requested a named scientific tool. But the delivered scientific context was almost entirely methods documentation: 41 documentation responses were staged and <strong>zero complete biological records</strong> were staged. The one Open Targets lookup was blocked.</p>
+        <p>That changes what I take from the result. Offering ClinVar or PDB is different from retrieving a useful variant or structure record, and both are different from applying it. This experiment mostly tested documentation consultation alongside web search. It did not establish what these models could do with successfully delivered biological records.</p>
+        <RabbitHole id="scientific-tool-details" title="Tool use, incomplete executions and all 50 settings">
+          <p>The scientific tools received 42 requests across 38 settings. Thirty-four settings successfully read at least one staged documentation file in Python. Source text from 35 files subsequently appeared in model inputs across 32 settings, including 24 entire staged documentation objects. The trace audit established two bounded generic-QC code correspondences. It did not establish broad downstream evidence adoption.</p>
+          <p>Five gpt-oss settings ended in tool-generation failures. They remain failed executions, rather than scientific misses. One Nemotron final also contained required numeric nulls. The saved scientific graders and results are unchanged; the explorer separates answer completeness from the recorded outcome. A future run needs a validated interface before we can judge its science.</p>
+          <p>The original study launched after four of five profiles passed the full known-question check. Nemotron’s extraction and output-contract miss was retained and explicitly accepted then. The prospective repair now requires all five profiles to pass; it has only been validated offline and was not used for these results.</p>
+          <ContextExplorer />
+        </RabbitHole>
+        <section id="tokens-and-costs" aria-labelledby="cost-title">
+          <p className="research-section-number">06 / Tokens and costs</p>
+          <h2 id="cost-title">What did the extra effort buy?</h2>
+          <p>Reasoning settings are also resource choices. I want to see the task result beside the tokens generated and the estimated cost—not just a larger “thinking” label. The plot below follows the API profiles through their reasoning settings in the original ten-task sweep.</p>
+        </section>
+      </div>
+      <CostReasoningFigure />
+      <div className="note-prose research-prose">
+        <p>The new 50-setting tool experiment had a known recorded estimate of <strong>$86.02</strong>: $85.65 in solver token estimates and $0.364 in Exa fees. Five failed gpt-oss requests retain a separate $0.388 unknown bound. Local Nemotron hardware and electricity are unpriced. These are estimates and retained uncertainty, rather than invoices.</p>
+        <RabbitHole id="token-breakdown" title="Input, output and reported reasoning tokens">
+          <p>Output tokens are not automatically reasoning tokens. The distribution below shows provider-reported token counters for the 50 new settings. Reasoning-token values appear only where the provider reported that field; missing values stay missing. Reported counters can also omit usage from failed requests, so a low total may describe an interrupted run.</p>
+          <ContextTokenFigure />
+        </RabbitHole>
         <section id="what-next" aria-labelledby="next-title">
-          <p className="research-section-number">05 / What’s next</p>
-          <h2 id="next-title">New tools as context.</h2>
-          <p>Next, I want to test specialized tools as context—GWAS Catalog, ClinVar, Open Targets, PDB and Ensembl—and see whether the evidence they return changes how models approach these tasks.</p>
-          <p>I’ll test those tools individually, then in combination, to understand which ones help and where.</p>
-          <p><strong>Stay tuned…</strong></p>
+          <p className="research-section-number">07 / What’s next</p>
+          <h2 id="next-title">Make the context useful.</h2>
+          <p>The next step is to make sure a relevant scientific record can be requested, delivered, read and used reliably. I also want to separate the tool bundle into smaller tests, so we can see which resources change an analysis and which just add more context.</p>
+          <p>The parsing and delivery repairs are being validated separately. Those checks are preparation for another experiment; they are not additional scientific results. <strong>Stay tuned…</strong></p>
         </section>
         <RabbitHole id="related-benchmarks" title="GeneBench-Pro, LABBench2 and LifeSciBench">
           <p><a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">GeneBench-Pro</a> supplies this study’s tasks. Its simulated data and known targets let us inspect concrete analytical decisions and check numerical endpoints. The full benchmark has 129 questions; this study uses ten released cases.</p>
@@ -129,6 +162,8 @@ export default function SearchEvidenceArticle() {
           <p>The Exa comparison reuses 90 baseline settings and adds 90 new observations. Task prompts, model/effort settings, data, graders and per-case solver limits were preserved. Serving-context allowances, guard versions, timing and concurrency differed. A single observation per setting and these historical differences limit attribution and do not estimate run-to-run reliability.</p>
           <p>Search used a shared interface backed by a Luna helper and, in a separate arm, Exa. Exa supplied bounded highlights; fetch remained a guarded direct publisher reader. Only methods and official documentation were permitted. Benchmark papers, solutions, graders and prior responses were excluded from retrieval.</p>
           <p>The Exa owners are 34 initial settings, two continuations and 54 later settings. The last 56 used a repaired guard with a common 42-query methods menu; the final 54 also used up to five Muse workers. All Nemotron settings belong to the earlier stratum. Limits retained 20 web calls within 120 aggregate tools, 120 model responses, 40,000 output tokens per request, 256,000 per run and 60 awake minutes.</p>
+          <p>The scientific-tool follow-up adds 50 observations to the earlier 520 original/web observations and 90 Exa observations: 660 observations in the main comparison, excluding separate diagnostics and other earlier follow-ups. It reuses the saved controls. Scientific tools and web share a combined 20 context calls inside the same 120 aggregate tools. The highest-profile selection reflects budget limits, not an equal-compute comparison. Historical prompts, guards, context allowances, timing, scheduling and delivery differ, and the instruction and tool bundle were added together.</p>
+          <p><a href="/research/scientific-context-publication-20261030.json" download>Download the scientific-tool comparison, token counts and cost data (JSON)</a>. This public projection contains aggregate field counts and usage metadata, without answer values, grading targets, raw transcripts or private reasoning. All 50 settings ended once. Nothing was rerun or regraded for this update.</p>
           <p><a href="/research/search-evidence-study.json" download>Download the complete versioned study data (JSON)</a>. It preserves the baseline, the earlier Luna-backed comparisons and Exa as separate conditions. This article presents the baseline reasoning sweep and the Exa follow-up; the archived arms have not been replaced or removed. The data exclude answer values, raw transcripts, credentials and private reasoning.</p>
           <p>The main source has SHA-256 <code className="research-hash">df499f6f288848cd03635b28577e882098c3c82281ba9ac576d4d793e07b503f</code>; the follow-up source has SHA-256 <code className="research-hash">c3f3dad2b4b876db1ee4fca9242baae7ab016e8fd35ea494efad8246462c451b</code>. All optional runs ended, collection was sealed and the monitor was retired. No new observations were created for this article.</p>
           <ul>
