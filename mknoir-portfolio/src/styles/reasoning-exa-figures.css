@@ -1,0 +1,33 @@
+.re-bars .se-bar-row { grid-template-columns: var(--se-label-width) minmax(0,1fr) 48px; }
+.re-bars .se-axis { margin-right:60px; }
+.re-bars .se-bar-value { white-space:nowrap; }
+.re-bars .se-bar-value small { font-size:10px; font-weight:400; color:var(--muted-foreground); }
+.re-effort-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px 36px; }
+.re-effort-panel { min-width:0; }
+.re-effort-panel h4, .re-native-section>h4 { margin:0 0 8px; font-family:inherit; font-size:14px; font-weight:600; letter-spacing:0; }
+.re-effort-panel .re-panel-label { margin:0 0 17px; font-size:11px; color:var(--muted-foreground); }
+.re-effort-panel .se-bars { --se-label-width:64px; }
+.re-effort-panel .se-bar-track { height:11px; }
+.re-effort-panel .se-bar-row { min-height:30px; }
+.re-effort-panel .se-bar-value { font-size:13px; }
+.re-native-section { margin-top:32px; padding-top:26px; border-top:1px solid var(--border); }
+.re-native-section>h4 { margin-bottom:22px; font-size:12px; color:var(--muted-foreground); }
+#figure-baseline-tasks .se-bars { --se-label-width:185px; }
+#figure-baseline-tasks .se-bar-row { min-height:42px; }
+.re-tool-counts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.re-tool-counts section { border-top:1px solid var(--border); padding-top:18px; min-width:0; }
+.re-tool-counts strong { display:block; font-size:38px; font-weight:400; letter-spacing:-.04em; line-height:1.2; color:var(--primary); font-variant-numeric:tabular-nums; }
+.re-tool-counts h4 { margin:12px 0 4px; font-family:inherit; font-size:13px; font-weight:600; letter-spacing:0; }
+.re-tool-counts p { font-size:11px; color:var(--muted-foreground); }
+.re-baseline-table table { min-width:780px; }
+.re-explorer .re-bars .se-bar-row { min-height:30px; }
+.re-explorer .se-explorer-groups { margin-top:22px; }
+@media(max-width:600px) {
+  .re-effort-grid { grid-template-columns:1fr; gap:28px; }
+  .re-bars .se-bar-row { grid-template-columns:var(--se-label-width) minmax(0,1fr) 43px; }
+  .re-bars .se-axis { margin-right:52px; }
+  #figure-baseline-tasks .se-bars { --se-label-width:120px; }
+  #figure-baseline-tasks .se-bar-row { min-height:48px; }
+  .re-tool-counts { grid-template-columns:1fr 1fr; gap:22px 18px; }
+  .re-tool-counts strong { font-size:34px; }
+}
