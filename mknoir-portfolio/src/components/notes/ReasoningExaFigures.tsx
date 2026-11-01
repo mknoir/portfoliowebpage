@@ -6,7 +6,7 @@ import { searchEvidenceData as study } from '@/lib/search-evidence-data'
 type DisplayCondition = 'original' | 'exa'
 type BarRow = { label: string; value: number; condition: DisplayCondition }
 const conditions: { id: DisplayCondition; label: string }[] = [
-  { id: 'original', label: 'Python only' }, { id: 'exa', label: 'With Exa' },
+  { id: 'original', label: 'Python only' }, { id: 'exa', label: 'With web' },
 ]
 const categories: Record<string, string> = {
   pass: 'Pass', scientific_miss: 'Scientific miss', tool_format: 'Tool / format failure',
@@ -70,7 +70,7 @@ export function ReasoningEffortFigure() {
 }
 
 export function BaselineTaskFigure() {
-  return <Figure id="figure-baseline-tasks" number="02" title="Where the baseline passed" caption={<>Python-only observations across all 26 profiles. The five families share these ten tasks; profiles are different configurations rather than independent biological problems.</>}>
+  return <Figure id="figure-baseline-tasks" number="02" title="Task-level performance in the baseline" caption={<>Python-only observations across all 26 profiles. The five families share these ten tasks; profiles are different configurations rather than independent biological problems.</>}>
     <p className="se-chart-unit">Whole-task passes out of 26 profiles · Python only</p>
     <Bars rows={study.full260.taskGroups.map(t => ({ label: t.label, value: t.originalPasses, condition: 'original' }))} maximum={26} denominator={26} unit="Python-only task passes across 26 profiles" />
     <ExactTable label="Python-only passes by task" headers={['Task', 'Passes', 'Profiles']} rows={study.full260.taskGroups.map(t => [t.label, t.originalPasses, t.settings])} />
@@ -79,7 +79,7 @@ export function BaselineTaskFigure() {
 
 export function ExaOutcomeFigure() {
   const transition = study.transitions.original_vs_exa
-  return <Figure id="figure-exa-outcomes" number="03" title="The same 90 settings, with Exa search available" caption={<>Matched Muse/Nemotron subset: 60 Muse and 30 Nemotron settings. Both conditions use the same profile/task identities. These 90 baseline observations are a subset of the earlier 260, not an additional baseline cohort.</>}>
+  return <Figure id="figure-exa-outcomes" number="03" title="Task performance with optional web search" caption={<>Matched Muse/Nemotron subset: 60 Muse and 30 Nemotron settings. Search used Exa. Both conditions use the same profile/task identities. These 90 baseline observations are a subset of the earlier 260, not an additional baseline cohort.</>}>
     <p className="se-chart-unit">Whole-task passes out of 90 settings per condition</p><Legend />
     <Bars rows={conditions.map(c => ({ label: c.label, value: study.conditions.find(x => x.id === c.id)!.passes, condition: c.id }))} maximum={20} denominator={90} unit="Matched whole-task passes, Python only and Exa" />
     <div className="se-transition-note"><span><strong>{transition.gain}</strong> gained a pass</span><span><strong>{transition.loss}</strong> lost a pass</span><span><strong>{transition.retained_pass}</strong> passed both</span><span><strong>{transition.retained_nonpass}</strong> passed neither</span></div>
@@ -97,7 +97,7 @@ export function ExaToolUseFigure() {
     { label: 'Delivered highlights', value: d.delivered_search_excerpt_records, unit: 'bounded excerpt records' },
     { label: 'Fetch requests', value: d.model_issued_fetch_requests, unit: 'model-issued requests' },
   ]
-  return <Figure id="figure-exa-tool-use" number="04" title="How much did the models use Exa?" caption={<>Search replies already included source highlights. A delivered excerpt records source exposure; applying it in an analysis requires trace evidence. These are separate units, not stages of a conversion funnel.</>}>
+  return <Figure id="figure-exa-tool-use" number="04" title="Search requests and evidence delivery" caption={<>Search replies included source highlights. A delivered excerpt records source exposure; applying it in an analysis requires trace evidence. These counts measure distinct events.</>}>
     <div className="re-tool-counts">{metrics.map(m => <section key={m.label} aria-label={m.label + ': ' + m.value + ' ' + m.unit}><strong>{m.value}</strong><h4>{m.label}</h4><p>{m.unit}</p></section>)}</div>
     <ExactTable label="Exa call and evidence inventory" headers={['Measure', 'Count', 'Unit']} rows={[
       ['Settings requesting search',d.cases_with_model_issued_search_requests,'of 90 settings'],['Issued search requests',d.model_issued_search_requests,'model requests'],['Physical searches',d.verified_physical_client_search_requests,'HTTP requests'],['Verified search fee receipts',d.verified_search_fee_receipts,'receipts'],['Delivered highlights',d.delivered_search_excerpt_records,'excerpt records'],['Fetch requests',d.model_issued_fetch_requests,'model requests'],['Fetches returning text',d.verified_direct_fetch_text_calls,'bounded text returns'],['Search UNAVAILABLE',d.search_UNAVAILABLE,'responses'],['Fetch UNAVAILABLE',d.fetch_UNAVAILABLE,'responses'],['Pre-backend blocked requests',d.search_policy_blocked_or_prebackend,'requests'],
@@ -109,7 +109,7 @@ export function ExaFieldFigure() {
   const d = study.fieldComparisons.originalExa
   return <Figure id="figure-exa-fields" number="05" title="Accuracy on the same graded fields" caption={<>The intersection contains {d.fields} identical fields graded in both conditions, from {d.settings} settings. Ungraded fields are excluded, while evaluated invalid numeric records remain nonpasses.</>}>
     <p className="se-chart-unit">Correct fields out of {d.fields} · {d.settings} matched settings</p><Legend />
-    <Bars rows={[{label:'Python only',value:d.original,condition:'original'},{label:'With Exa',value:d.exa,condition:'exa'}]} maximum={60} denominator={d.fields} unit="Correct shared fields, Python only and Exa" />
+    <Bars rows={[{label:'Python only',value:d.original,condition:'original'},{label:'With web',value:d.exa,condition:'exa'}]} maximum={60} denominator={d.fields} unit="Correct shared fields, Python only and web" />
     <p className="se-small-note">{d.gains} field gains · {d.losses} field losses</p>
   </Figure>
 }
