@@ -34,7 +34,19 @@ function RabbitHole({ id, title, children }: { id: string; title: string; childr
 const chapters = [
   ['reasoning-effort', 'Reasoning effort'], ['task-performance', 'Task performance'],
   ['web-search', 'Web search'], ['analysis-behavior', 'Evidence use'],
-  ['scientific-tools', 'Scientific tools'], ['tokens-and-costs', 'Tokens and costs'], ['what-next', 'Further work'],
+  ['scientific-tools', 'Scientific tools'], ['tokens-and-costs', 'Tokens and costs'],
+  ['groq-repair', 'gpt-oss repair follow-up'], ['what-next', 'Further work'],
+] as const
+
+const repairFieldChecks = [
+  { task: 'Structural inversion', settings: 4, passed: 1, required: 16 },
+  { task: 'cis-MVMR', settings: 1, passed: 0, required: 2 },
+  { task: 'Hi-C loop strength', settings: 1, passed: 0, required: 3 },
+  { task: 'Multiparent QTL', settings: 1, passed: 0, required: 2 },
+  { task: 'Ambient-state eQTL', settings: 1, passed: 0, required: 1 },
+  { task: 'CRISPRi/CasRx', settings: 2, passed: 2, required: 6 },
+  { task: 'Molecular tumor board', settings: 1, passed: 1, required: 4 },
+  { task: 'Carrier residual risk', settings: 2, passed: 0, required: 10 },
 ] as const
 
 export default function SearchEvidenceArticle() {
@@ -47,7 +59,7 @@ export default function SearchEvidenceArticle() {
       <header className="note-heading research-heading">
         <p className="eyebrow">Thoughts / 03 · Experimental results</p>
         <h1 id="note-title">{note.title}</h1>
-        <div className="note-meta"><span>By Mickey Makhija</span><time dateTime={note.publishedAt}>{note.displayDate}</time><span>Updated <time dateTime={note.updatedAt}>October 31, 2026</time></span><span>{note.readingTime}</span></div>
+        <div className="note-meta"><span>By Mickey Makhija</span><time dateTime={note.publishedAt}>{note.displayDate}</time><span>Updated <time dateTime={note.updatedAt}>November 11, 2026</time></span><span>{note.readingTime}</span></div>
       </header>
       <nav className="research-toc" aria-label="In this article">{chapters.map(([id, label], i) => <a key={id} href={`#${id}`}><span>{String(i + 1).padStart(2, '0')}</span>{label}</a>)}</nav>
       <div className="note-prose research-prose">
@@ -132,7 +144,7 @@ export default function SearchEvidenceArticle() {
         <RabbitHole id="scientific-tool-details" title="Tool use, incomplete executions and all 50 settings">
           <p>The scientific tools received 42 requests across 38 settings. Thirty-four settings successfully read at least one staged documentation file in Python. Source text from 35 files subsequently appeared in model inputs across 32 settings, including 24 entire staged documentation objects. The trace audit established two bounded generic-QC code correspondences. It did not establish broad downstream evidence adoption.</p>
           <p>Five gpt-oss settings ended in tool-generation failures, and one Nemotron final contained required numeric nulls. A secondary type-and-finite-value audit identified 44 complete answers and six incomplete executions. The five tool-generation failures are not scientific misses. The saved scientific graders and results remain unchanged; the explorer reports completeness separately from the recorded outcome.</p>
-          <p>Before launch, four of five profiles passed the full known-question check. Nemotron’s extraction and output-contract miss was retained and explicitly accepted. Subsequent interface-repair validation is separate from this dataset and has not altered any reported result.</p>
+          <p>Before launch, four of five profiles passed the full known-question check. Nemotron’s extraction and output-contract miss was retained and explicitly accepted. The <a href="#groq-repair">November gpt-oss repair follow-up</a> reports new grades separately from these historical outcomes.</p>
           <ContextExplorer />
         </RabbitHole>
         <section id="tokens-and-costs" aria-labelledby="cost-title">
@@ -148,11 +160,26 @@ export default function SearchEvidenceArticle() {
           <p>The distribution below uses provider-reported token counters for the 50 new settings. Input totals include repeated conversation history. Output tokens are not automatically reasoning tokens: separate reasoning counters were reported for 40 settings and remain missing for Nemotron. Usage from failed requests can be absent, so low totals may reflect interrupted execution.</p>
           <ContextTokenFigure />
         </RabbitHole>
+        <section id="groq-repair" aria-labelledby="groq-repair-title">
+          <p className="research-section-number">07 / gpt-oss repair follow-up</p>
+          <h2 id="groq-repair-title">The gpt-oss repair yielded 34 valid grades and zero whole-task passes.</h2>
+          <p>All 34 historical settings selected for this follow-up ended in tool or format failures. They were gpt-oss-120b runs on Groq, with 18 Python-only settings, 11 with helper-backed web search and five with web search and scientific tools. The follow-up used the same tasks, data, model settings and graders under a revised interface and execution setup. All 34 follow-up submissions could be scored. Each missed at least one required endpoint, so the whole-task pass count stayed at zero.</p>
+          <p>The final 13 settings all submitted answers that passed the format checks. They passed <strong>4 of 44 required field checks</strong>. The four correct fields were a structural inversion support call, two CRISPRi/CasRx target decisions and a tumor-board therapy class. All 36 quantitative checks failed. A whole-task pass required every endpoint to pass, so none of these 13 settings earned one.</p>
+          <p>These were selected reruns of unresolved settings. The results add valid grades for that group and leave the historical comparison tables and pass totals as recorded. The saved grades identify which endpoints were missed. They do not isolate why the estimates were wrong or the effect of any single interface change.</p>
+        </section>
+        <RabbitHole id="groq-repair-fields" title="Field accuracy in the final 13 gpt-oss repair settings">
+          <div className="se-table-scroll" tabIndex={0} role="region" aria-label="Field accuracy by task for the final 13 gpt-oss repair settings">
+            <table>
+              <caption>Required field checks from the saved original grades</caption>
+              <thead><tr><th scope="col">Task</th><th scope="col">Settings</th><th scope="col">Passed fields</th><th scope="col">Required fields</th></tr></thead>
+              <tbody>{repairFieldChecks.map(({ task, settings, passed, required }) => <tr key={task}><th scope="row">{task}</th><td>{settings}</td><td>{passed}</td><td>{required}</td></tr>)}</tbody>
+            </table>
+          </div>
+        </RabbitHole>
         <section id="what-next" aria-labelledby="next-title">
-          <p className="research-section-number">07 / Further work</p>
+          <p className="research-section-number">08 / Further work</p>
           <h2 id="next-title">Validate delivery and execution before further tool comparisons.</h2>
           <p>Further experiments should verify that task-relevant biological records can be requested, delivered and read, then evaluate their use in the analysis. Separate tool groups would help distinguish the contribution of individual resources from the combined bundle and its instructions.</p>
-          <p>Interface and delivery repairs are being assessed independently of the sealed results reported here. A subsequent experiment should validate these changes before comparing scientific outcomes. Stay tuned.</p>
         </section>
         <RabbitHole id="related-benchmarks" title="GeneBench-Pro, LABBench2 and LifeSciBench">
           <p><a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">GeneBench-Pro</a> supplies this study’s tasks. Its simulated data and known targets let us inspect concrete analytical decisions and check numerical endpoints. The full benchmark has 129 questions; this study uses ten released cases.</p>
@@ -169,7 +196,7 @@ export default function SearchEvidenceArticle() {
           <p>The scientific-tool follow-up adds 50 observations to the earlier 520 original/web observations and 90 Exa observations: 660 observations in the main comparison, excluding separate diagnostics and other earlier follow-ups. It reuses the saved controls. Scientific tools and web share a combined 20 context calls inside the same 120 aggregate tools. The highest-profile selection reflects budget limits, not an equal-compute comparison. Historical prompts, guards, context allowances, timing, scheduling and delivery differ, and the instruction and tool bundle were added together.</p>
           <p><a href="/research/scientific-context-publication-20261030.json" download>Download the scientific-tool comparison, token counts and cost data (JSON)</a>. This public projection contains aggregate field counts and usage metadata, without answer values, grading targets, raw transcripts or private reasoning. All 50 settings ended once. Nothing was rerun or regraded for this update.</p>
           <p><a href="/research/search-evidence-study.json" download>Download the complete versioned study data (JSON)</a>. It preserves the original baseline and both historical search backends as separate conditions, including arms summarized only in the supplementary data. The data exclude answer values, raw transcripts, credentials and private reasoning.</p>
-          <p>The main source has SHA-256 <code className="research-hash">df499f6f288848cd03635b28577e882098c3c82281ba9ac576d4d793e07b503f</code>; the follow-up source has SHA-256 <code className="research-hash">c3f3dad2b4b876db1ee4fca9242baae7ab016e8fd35ea494efad8246462c451b</code>. All optional runs ended, collection was sealed and the monitor was retired. No new observations were created for this article.</p>
+          <p>The main source has SHA-256 <code className="research-hash">df499f6f288848cd03635b28577e882098c3c82281ba9ac576d4d793e07b503f</code>; the October scientific-tool source has SHA-256 <code className="research-hash">c3f3dad2b4b876db1ee4fca9242baae7ab016e8fd35ea494efad8246462c451b</code>. All optional runs ended, collection was sealed and the monitor was retired. The November gpt-oss follow-up is reported separately above.</p>
           <ul>
             <li>Li, Shringarpure, Wong and Ho. <a href="https://www.biorxiv.org/content/10.64898/2026.06.29.735386v4">GeneBench-Pro: Evaluating Multistage Statistical Reasoning in Genomics, Quantitative Biology, and Translational Biomedicine</a>. <a href="https://huggingface.co/datasets/openai/genebench-pro-public-package">Public task package</a>.</li>
             <li>Laurent and colleagues. <a href="https://arxiv.org/abs/2604.09554v2">LABBench2: An Improved Benchmark for AI Systems Performing Biology Research</a>.</li>
