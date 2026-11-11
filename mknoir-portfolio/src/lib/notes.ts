@@ -22,7 +22,7 @@ export const SEARCH_EVIDENCE_NOTE = {
   description: 'An evaluation of reasoning effort, web search and scientific tools on ten public GeneBench-Pro tasks, reporting task outcomes, evidence use, tokens and estimated costs.',
   publishedAt: '2026-10-29',
   displayDate: 'October 29, 2026',
-  updatedAt: '2026-10-31',
+  updatedAt: '2026-11-11',
   readingTime: '10 min read + supplementary analyses',
 } as const
 
